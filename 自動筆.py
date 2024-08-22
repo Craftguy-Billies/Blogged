@@ -12,7 +12,7 @@ DEBUG = False
 #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
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
-  api_key = "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"
+  api_key = "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"
 )
 
 def crawl_top_10_results(query, nor=10):
@@ -384,6 +384,7 @@ def ai_rewriter(bullet_points, header, lang, model):
     generate me paragraphs. be detailed. you can elaborate to generate longer paragraphs, but make sure your elaboration is not by guessing or exaggerating.
     do not include promotions, and make sure the tone of rewriting is professional. make sure your returned paragraphs are coherent and fluent, instead of point form like paragraphs.
     return me in a HTML form. text must be labelled with html tags.
+    you can add <h3> or <table> and <ul> <ol> if needed. but do not overuse.
     return me in {lang}. no premable and explanation.
     """
 
@@ -414,6 +415,8 @@ def get_title_from_url(url):
         return title
     except requests.exceptions.RequestException as e:
         return None
+    except Exception as e:
+        return None
 
 def autoblogger(query, model, size, lang):
     outline = headerizer(structurer(crawl_top_10_results(query), query, model), query, model, lang, size)
@@ -439,8 +442,12 @@ def autoblogger(query, model, size, lang):
             results = crawl_top_10_results(thequery, nor=4)
             for result in results:
                 downloaded = trafilatura.fetch_url(result['url'])
+                if downloaded is None:
+                    continue
                 website_text = trafilatura.extract(downloaded)
-                title = get_title_from_url(result['url'])
+                if website_text is None:
+                    continue
+                title = get_title_from_url(result['url']) or "Failed to crawl title, but you continue process without title."
                 bulletpt = pf_rewriter(website_text, header, lang, title, model)
                 bullet_points = combine_multiline_strings(bullet_points, bulletpt)
         final = ai_rewriter(bullet_points, header, lang, model)
