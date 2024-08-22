@@ -1,0 +1,22 @@
+name: Clone Repositories
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  clone_repos:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repo_name: [blog2, blog3, blog4, blog5, blog6, blog7, blog8, blog9, blog10]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Clone and rename repository
+        run: |
+          git clone https://github.com/Craftguy-Billies/blog1.git ${{ matrix.repo_name }}
