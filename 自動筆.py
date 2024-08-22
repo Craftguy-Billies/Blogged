@@ -462,7 +462,7 @@ def autoblogger(query, model, size, lang):
 
 def main():
     queries = ["大埔好去處 餐廳"]
-    model = "meta/llama-3.1-405b-instruct"
+    model = "meta/llama-3.1-70b-instruct"
     size = 8
     lang = "traditional chinese"
     for query in queries:
