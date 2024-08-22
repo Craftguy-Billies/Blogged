@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        repo_name: [blog4, blog5, blog6, blog7]
+        repo_name: [blog2, blog3]
 
     steps:
       - name: Checkout code
