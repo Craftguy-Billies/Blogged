@@ -25,10 +25,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Assuming you have a requirements.txt file
 
       # Runs your Python script
       - name: Run AI 自動筆 script
-        run: python try.py
+        run: python 自動筆.py
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         id: auto-commit-action
