@@ -19,4 +19,4 @@ jobs:
 
       - name: Clone and rename repository
         run: |
-          git clone https://github.com/Craftguy-Billies/blog1.git ${{ matrix.repo_name }}
+          git clone https://$GITHUB_ACTOR:${{ secrets.TOKEN }}@github.com/Craftguy-Billies/blog1.git ${{ matrix.repo_name }}
