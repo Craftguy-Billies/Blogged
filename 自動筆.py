@@ -454,7 +454,7 @@ def autoblogger(query, model, size, lang):
         file.write(final_article)
 
 def main():
-    queries = ["深圳旅遊攻略 南山"]
+    queries = ["大埔好去處 餐廳"]
     model = "meta/llama-3.1-405b-instruct"
     size = 8
     lang = "traditional chinese"
