@@ -553,13 +553,8 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-<<<<<<< HEAD
     queries = ["中國黑龍江旅遊景點"]
     model = "meta/llama-3.1-405b-instruct"
-=======
-    queries = ["大埔好去處 餐廳"]
-    model = "meta/llama-3.1-70b-instruct"
->>>>>>> 176208ef475b7d2e92d738e7526f689d03bc39f9
     size = 8
     lang = "traditional chinese"
     outline_editor = False
