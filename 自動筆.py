@@ -9,7 +9,6 @@ import random
 
 DEBUG = False
 
-#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
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
   api_key = "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"
@@ -207,6 +206,7 @@ def topic_refiner(topics, query, model, lang, size, max_retries=3, delay=2):
 
             now i want to write a blog article about this topic. expected blog size: large
             from the topics of top ranked articles, PICK best h2 headers with consistent level of specificity, and rewrite me these h2 headers.
+            EVERY HEADER SHOULD BE DISTINCT ASPECT! NO DUPLICATION!
             do not give duplicated headers. headers must be DISTINCT and cannot have DUPLICATED ASPECTS. do not give totally unrelated headers.
             the h2 headers given should be distinct, non-repetitive, and focused. no generic or catch-all phrases. specific is MUST. no need elaboration in headers if not mentioned in original header. DO NOT form headers by clustering other's multiple headers. i need PICK and REWRITE.
             my inner content will be slightly different from reference article, so make sure headers are reformed.
@@ -256,6 +256,7 @@ def topic_selector(headers, query, model, lang, size, max_retries=3, delay=2):
             for example, '深圳必訪景點' and '深圳龍華區甜品店' is having significantly different level of specificity. in this case, remove the bigger coverage one, i.e. '深圳必訪景點'
             delete these vague or inappropriate headers ONLY. no need to modify acceptable headers.
             expected header count: {size}, filter the best headers i needed only.
+            EVERY HEADER SHOULD BE DISTINCT ASPECT! 
             output in {lang}
             return me a python list of h2 headers.
             NO premable and explanation. I only want the list without other words.
@@ -354,6 +355,7 @@ def pf_rewriter(article, header, lang, title, model):
     {article}
 
     i want to write paragraphs under the header {header}
+    first, by seeing the title and content of article, understand the header is a noun or just a general concept. DO NOT misunderstand a general genre as a specific noun, as everything written will be wrong afterwards.
     generate me point forms for related information ONLY. do not give me related aspects.
     if the information i provided is referring to another service or information instead of the information looking for, return no results is better than wrong information.
     make sure you do not misidentify details. this is a MUST. make sure you did a summary check and ensure the bullet points are 100% correct without misidentifying events or information subject.
@@ -380,11 +382,16 @@ def ai_rewriter(bullet_points, header, lang, model):
     full_article = ""
     prompt = f"""
     {bullet_points}
+    you are a helpful writing assistant, expertize in writing fluently and in a blogging tone.
     i want to write paragraphs under the h2 header {header}
+    by seeing the bullet points, make sure you understand the header is a noun or just a general concept. DO NOT misunderstand a general genre as a specific noun, as everything written will be wrong afterwards.
+    you must only give me ONE <h2> in this reply.
     generate me paragraphs. be detailed. you can elaborate to generate longer paragraphs, but make sure your elaboration is not by guessing or exaggerating.
     do not include promotions, and make sure the tone of rewriting is professional. make sure your returned paragraphs are coherent and fluent, instead of point form like paragraphs.
+    your rewriting need to be humanized and fluent. prioritize fluency over informative.
+    your replies must base on the web search information. do not create information.
     return me in a HTML form. text must be labelled with html tags.
-    you can add <h3> or <table> and <ul> <ol> if needed. but do not overuse.
+    you can add <h3> if needed. but do not overuse.
     return me in {lang}. no premable and explanation.
     """
 
@@ -418,16 +425,101 @@ def get_title_from_url(url):
     except Exception as e:
         return None
 
-def autoblogger(query, model, size, lang):
+def metadataer(outline, query, lang, model):
+    prompt = f"""
+    i am writing article with this keyword: {query}
+    now i need two HTML tags, <meta name="description" content=""> and <meta name="keywords" content="">
+    i need you to help me fill in the content part, using NLP techniques, SEO optimized naturally with the below main keyword and headers:
+    main keyword: {query}
+    all h2 headers: {outline}
+    i only want you to return me the two HTML meta tags, properly formatted as HTML structure, and return me without premable and explanations.
+    output the description content and keywords content in {lang}.
+    AGAIN: NO premable and explanations.
+    """
+
+    completion = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt.strip()}],
+        temperature=0.2,
+        top_p=0.7,
+        max_tokens=8192,
+        stream=True
+    )
+
+    metadata = ""
+    for chunk in completion:
+        if chunk.choices[0].delta.content is not None:
+            metadata += chunk.choices[0].delta.content
+    
+    return metadata
+
+def introer(outline, title, lang, model, max_retries=3, delay=2):
+    prompt = f"""
+    i want to write a blog article with title: {title}
+    the headers i have written is as below:
+    {outline}
+    i want you to craft me an introductory paragraph that can captivate readers to continue reading. It can be a bit clickbait style.
+    starting with a question is preferred.
+    return me the introductory paragraph with <p> tags around.
+    return me in {lang}. no premable and explanation.
+    """
+
+    completion = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt.strip()}],
+        temperature=0.2,
+        top_p=0.7,
+        max_tokens=8192,
+        stream=True
+    )
+
+    full_article = ""
+    for chunk in completion:
+        if chunk.choices[0].delta.content is not None:
+            full_article += chunk.choices[0].delta.content
+
+    return full_article
+
+def outline_editing(outline):
+    print("Generated Outline:")
+    print(outline)
+    
+    user_input = input("Do you want to modify the outline? (y/n): ").strip().lower()
+    
+    if user_input == 'y':
+        while True:
+            try:
+                print("Please input the modified outline as a Python list (e.g., ['Header1', 'Header2', 'Header3']):")
+                modified_outline = eval(input("Modified outline: ").strip())
+                
+                if isinstance(modified_outline, list):
+                    return modified_outline
+                else:
+                    print("Invalid format! Outline should be a list. Please try again.")
+                    
+            except Exception as e:
+                print(f"Error: {e}. Please input a valid Python list format.")
+    else:
+        return outline
+
+def autoblogger(query, model, size, lang, outline_editor):
     outline = headerizer(structurer(crawl_top_10_results(query), query, model), query, model, lang, size)
+    if outline_editor:
+      outline = outline_editing(outline)
     final_article = ""
     title = titler(outline, query, model)
+    metadata = metadataer(outline, query, lang, model)
+    intro = introer(outline, title, lang, model)
     h1 = "<h1>" + str(title) + "</h1>"
-    title_tag = "   <title>" + str(title) + "</title>"
+    title_tag = "<title>" + str(title) + "</title>"
     final_article += "<html>\n<head>\n"
     final_article += title_tag
+    final_article += "\n"
+    final_article += metadata
     final_article += "\n</head>\n\n<body>\n"
     final_article += h1
+    final_article += "\n"
+    final_article += intro
     toc = "\n\n<div>\n<h2>文章目錄</h2>\n<ul>\n"
     for item in outline:
         toc += f"  <li>{item}</li>\n"
@@ -461,12 +553,13 @@ def autoblogger(query, model, size, lang):
         file.write(final_article)
 
 def main():
-    queries = ["大埔好去處 餐廳"]
+    queries = ["中國黑龍江旅遊景點"]
     model = "meta/llama-3.1-405b-instruct"
     size = 8
     lang = "traditional chinese"
+    outline_editor = False
     for query in queries:
-        autoblogger(query, model, size, lang)
+        autoblogger(query, model, size, lang, outline_editor)
 
 if __name__ == "__main__":
     if not DEBUG:
