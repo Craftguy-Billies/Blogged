@@ -8,9 +8,8 @@ import random
 from groq import Groq
 
 DEBUG = False
-
-client = Groq()
 os.environ['GROQ_API_KEY'] = os.getenv('GROQ_API_KEY')
+client = Groq()
 
 def crawl_top_10_results(query, nor=10):
     encoded_query = requests.utils.quote(query)
