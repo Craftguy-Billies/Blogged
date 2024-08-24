@@ -2,3 +2,4 @@ trafilatura
 openai
 requests
 beautifulsoup4
+groq
