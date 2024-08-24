@@ -5,6 +5,7 @@ import ast
 import json
 import time
 import random
+import os
 from groq import Groq
 
 DEBUG = False
@@ -551,11 +552,11 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["乒乓球拍 推薦 香港"]
+    queries = ["香港台灣文化差異"]
     model = "llama-3.1-70b-versatile"
-    size = 8
+    size = 6
     lang = "traditional chinese"
-    outline_editor = True
+    outline_editor = False
     for query in queries:
         autoblogger(query, model, size, lang, outline_editor)
 
