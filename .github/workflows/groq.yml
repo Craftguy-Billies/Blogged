@@ -30,9 +30,9 @@ jobs:
           pip install -r requirements.txt  # Assuming you have a requirements.txt file
 
       # Runs your Python script
-      - name: Run AI 自動筆 script
+      - name: Run AI 自動筆 - Groq script
         env:
-          GROQ_SECRET: ${{ secrets.GROQ_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: python groqqer.py
 
       - uses: stefanzweifel/git-auto-commit-action@v5
