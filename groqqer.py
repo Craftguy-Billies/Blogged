@@ -552,11 +552,11 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["香港台灣文化差異"]
+    queries = ["西貢好去處"]
     model = "llama-3.1-70b-versatile"
-    size = 6
+    size = 4
     lang = "traditional chinese"
-    outline_editor = False
+    outline_editor = True
     for query in queries:
         autoblogger(query, model, size, lang, outline_editor)
 
