@@ -556,7 +556,7 @@ def main():
     model = "llama-3.1-70b-versatile"
     size = 4
     lang = "traditional chinese"
-    outline_editor = True
+    outline_editor = False
     for query in queries:
         autoblogger(query, model, size, lang, outline_editor)
 
