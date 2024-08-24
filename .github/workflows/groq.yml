@@ -39,3 +39,4 @@ jobs:
         id: auto-commit-action
         with:
             commit_message: Changed files
+            push_options: '--force'
