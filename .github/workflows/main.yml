@@ -37,3 +37,5 @@ jobs:
         id: auto-commit-action
         with:
             commit_message: Changed files
+            branch: ${{ github.ref }}
+            force: true
