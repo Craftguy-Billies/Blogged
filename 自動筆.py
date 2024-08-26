@@ -11,7 +11,7 @@ DEBUG = False
 
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
-  api_key = "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"
+  api_key = "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"
 )
 
 def crawl_top_10_results(query, nor=10):
@@ -38,10 +38,10 @@ def crawl_top_10_results(query, nor=10):
         elif g.find('div', class_='VwiC3b'):
             snippet = g.find('div', class_='VwiC3b').text
         elif g.find('div', class_='s3v9rd'):
-            snippet = g.find('div', class_='s3v9rd').text    
+            snippet = g.find('div', class_='s3v9rd').text
         result['snippet'] = snippet
         results.append(result)
-    
+
     return results
 
 def extract_list_content(input_string):
@@ -68,7 +68,7 @@ def extract_json_content(input_string):
     else:
         return {}
 
-def titler(outline, query, model, max_retries=3, delay=2):
+def titler(outline, query, model, lang, max_retries=3, delay=2):
     attempt = 0
     while attempt < max_retries:
         try:
@@ -83,6 +83,7 @@ def titler(outline, query, model, max_retries=3, delay=2):
             if you add numbers like '7大', make sure it matches the content of headers. (some headers may cover more than one information)
             you should SEO optimize the title with the keyword {query} naturally.
             return me a single JSON object with single key 'title' without premable and explanations.
+            output in {lang}
             AGAIN: NO premable and explanation needed.
             """
 
@@ -91,7 +92,7 @@ def titler(outline, query, model, max_retries=3, delay=2):
                 messages=[{"role": "user", "content": prompt.strip()}],
                 temperature=0.2,
                 top_p=0.7,
-                max_tokens=8192,
+                max_tokens=8000,
                 stream=True
             )
 
@@ -99,7 +100,7 @@ def titler(outline, query, model, max_retries=3, delay=2):
             for chunk in completion:
                 if chunk.choices[0].delta.content is not None:
                     article_title += chunk.choices[0].delta.content
-            
+
             article_title = extract_json_content(article_title)["title"]
             if article_title:
                   return article_title
@@ -133,7 +134,7 @@ def structurer(result_list, query, model, max_retries=3, delay=2):
                 messages=[{"role": "user", "content": prompt.strip()}],
                 temperature=0.2,
                 top_p=0.7,
-                max_tokens=8192,
+                max_tokens=8000,
                 stream=True
             )
 
@@ -141,7 +142,7 @@ def structurer(result_list, query, model, max_retries=3, delay=2):
             for chunk in completion:
                 if chunk.choices[0].delta.content is not None:
                     filtered_headers += chunk.choices[0].delta.content
-            
+
             filtered_headers = extract_list_content(filtered_headers)
             if filtered_headers:
                   return filtered_headers
@@ -174,7 +175,7 @@ def topic_definer(website_text, query, model, lang, max_retries=3, delay=2):
                 messages=[{"role": "user", "content": prompt.strip()}],
                 temperature=0.2,
                 top_p=0.7,
-                max_tokens=8192,
+                max_tokens=8000,
                 stream=True
             )
 
@@ -221,7 +222,7 @@ def topic_refiner(topics, query, model, lang, size, max_retries=3, delay=2):
                 messages=[{"role": "user", "content": prompt.strip()}],
                 temperature=0.2,
                 top_p=0.7,
-                max_tokens=8192,
+                max_tokens=8000,
                 stream=True
             )
 
@@ -229,7 +230,7 @@ def topic_refiner(topics, query, model, lang, size, max_retries=3, delay=2):
             for chunk in completion:
                 if chunk.choices[0].delta.content is not None:
                     filtered_headers += chunk.choices[0].delta.content
-            
+
             filtered_headers = extract_list_content(filtered_headers)
             filtered_headers = topic_selector(filtered_headers, query, model, lang, size)
             if filtered_headers:
@@ -253,10 +254,10 @@ def topic_selector(headers, query, model, lang, size, max_retries=3, delay=2):
             {headers}
             but there might be duplicated aspects, or headers with unclear intent.
             there might be vague headers with different level of specificity as well.
-            for example, '深圳必訪景點' and '深圳龍華區甜品店' is having significantly different level of specificity. in this case, remove the bigger coverage one, i.e. '深圳必訪景點'
+            for example, 'shenzhen must go places' and 'shenzhen longhua district dessert shops' is having significantly different level of specificity. in this case, remove the bigger coverage one, i.e. 'shenzhen must go places'
             delete these vague or inappropriate headers ONLY. no need to modify acceptable headers.
             expected header count: {size}, filter the best headers i needed only.
-            EVERY HEADER SHOULD BE DISTINCT ASPECT! 
+            EVERY HEADER SHOULD BE DISTINCT ASPECT!
             output in {lang}
             return me a python list of h2 headers.
             NO premable and explanation. I only want the list without other words.
@@ -267,7 +268,7 @@ def topic_selector(headers, query, model, lang, size, max_retries=3, delay=2):
                 messages=[{"role": "user", "content": prompt.strip()}],
                 temperature=0.2,
                 top_p=0.7,
-                max_tokens=8192,
+                max_tokens=8000,
                 stream=True
             )
 
@@ -294,7 +295,7 @@ def headerizer(result_list, query, model, lang, size):
         url_list.append(result["url"])
 
     all_topics = []
-    
+
     for url in url_list:
         downloaded = trafilatura.fetch_url(url)
         website_text = trafilatura.extract(downloaded)
@@ -314,7 +315,7 @@ def querier(header, query, model, lang, max_retries=3, delay=2):
             i need to do information research before writing
             for this specific header in the article {header}, i want you to craft me a web search query that can obtain most accurate information results to write the paragraphs under this header.
             You MUST ensure the search query is accurate information, to prevent search results points to other services or keywords.
-            craft the search query in {lang}
+            craft the search query in {lang}. you should craft me at least two queries for the header.
             return me a python list object with each list item a JSON object with a single key query without any premable and explanations. you can return more than one JSON object search query in the list.
             NO premable and explanation. Dont give me more than one list.
             """
@@ -324,7 +325,7 @@ def querier(header, query, model, lang, max_retries=3, delay=2):
                 messages=[{"role": "user", "content": prompt.strip()}],
                 temperature=0.2,
                 top_p=0.7,
-                max_tokens=8192,
+                max_tokens=8000,
                 stream=True
             )
 
@@ -336,7 +337,7 @@ def querier(header, query, model, lang, max_retries=3, delay=2):
             thequery = extract_list_content(thequery)
             if thequery:
                   return thequery
-        
+
         except Exception as e:
             attempt += 1
             if attempt < max_retries:
@@ -368,7 +369,7 @@ def pf_rewriter(article, header, lang, title, model):
         messages=[{"role": "user", "content": prompt.strip()}],
         temperature=0.2,
         top_p=0.7,
-        max_tokens=8192,
+        max_tokens=8000,
         stream=True
     )
 
@@ -385,13 +386,15 @@ def ai_rewriter(bullet_points, header, lang, model):
     you are a helpful writing assistant, expertize in writing fluently and in a blogging tone.
     i want to write paragraphs under the h2 header {header}
     by seeing the bullet points, make sure you understand the header is a noun or just a general concept. DO NOT misunderstand a general genre as a specific noun, as everything written will be wrong afterwards.
+    DO NOT GIVE INCONSISTANT INFORMATIONS! Comprehend the content and give me a consistent answer if there are two version of answers.
     you must only give me ONE <h2> in this reply.
     generate me paragraphs. be detailed. you can elaborate to generate longer paragraphs, but make sure your elaboration is not by guessing or exaggerating.
     do not include promotions, and make sure the tone of rewriting is professional. make sure your returned paragraphs are coherent and fluent, instead of point form like paragraphs.
     your rewriting need to be humanized and fluent. prioritize fluency over informative.
     your replies must base on the web search information. do not create information.
+    DO NOT INCLUDE INTRODUCTION AND CONCLUSION, OR RELATED ASPECTS.
     return me in a HTML form. text must be labelled with html tags.
-    you can add <h3> if needed. but do not overuse.
+    you can add <h3> and <strong> if needed. but do not overuse.
     return me in {lang}. no premable and explanation.
     """
 
@@ -400,7 +403,7 @@ def ai_rewriter(bullet_points, header, lang, model):
         messages=[{"role": "user", "content": prompt.strip()}],
         temperature=0.2,
         top_p=0.7,
-        max_tokens=8192,
+        max_tokens=8000,
         stream=True
     )
 
@@ -442,7 +445,7 @@ def metadataer(outline, query, lang, model):
         messages=[{"role": "user", "content": prompt.strip()}],
         temperature=0.2,
         top_p=0.7,
-        max_tokens=8192,
+        max_tokens=8000,
         stream=True
     )
 
@@ -450,7 +453,7 @@ def metadataer(outline, query, lang, model):
     for chunk in completion:
         if chunk.choices[0].delta.content is not None:
             metadata += chunk.choices[0].delta.content
-    
+
     return metadata
 
 def introer(outline, title, lang, model, max_retries=3, delay=2):
@@ -469,7 +472,7 @@ def introer(outline, title, lang, model, max_retries=3, delay=2):
         messages=[{"role": "user", "content": prompt.strip()}],
         temperature=0.2,
         top_p=0.7,
-        max_tokens=8192,
+        max_tokens=8000,
         stream=True
     )
 
@@ -483,31 +486,43 @@ def introer(outline, title, lang, model, max_retries=3, delay=2):
 def outline_editing(outline):
     print("Generated Outline:")
     print(outline)
-    
+
     user_input = input("Do you want to modify the outline? (y/n): ").strip().lower()
-    
+
     if user_input == 'y':
         while True:
             try:
                 print("Please input the modified outline as a Python list (e.g., ['Header1', 'Header2', 'Header3']):")
                 modified_outline = eval(input("Modified outline: ").strip())
-                
+
                 if isinstance(modified_outline, list):
                     return modified_outline
                 else:
                     print("Invalid format! Outline should be a list. Please try again.")
-                    
+
             except Exception as e:
                 print(f"Error: {e}. Please input a valid Python list format.")
     else:
         return outline
+
+def wrap_lines(multiline_string):
+    lines = multiline_string.splitlines()
+    wrapped_lines = []
+    for line in lines:
+        trimmed_line = line.strip()
+        if not trimmed_line or trimmed_line.startswith('<'):
+            wrapped_lines.append(line)
+        else:
+            wrapped_line = f"<p>{trimmed_line}</p>"
+            wrapped_lines.append(wrapped_line)
+    return "\n".join(wrapped_lines)
 
 def autoblogger(query, model, size, lang, outline_editor):
     outline = headerizer(structurer(crawl_top_10_results(query), query, model), query, model, lang, size)
     if outline_editor:
       outline = outline_editing(outline)
     final_article = ""
-    title = titler(outline, query, model)
+    title = titler(outline, query, model, lang)
     metadata = metadataer(outline, query, lang, model)
     intro = introer(outline, title, lang, model)
     h1 = "<h1>" + str(title) + "</h1>"
@@ -516,14 +531,15 @@ def autoblogger(query, model, size, lang, outline_editor):
     final_article += title_tag
     final_article += "\n"
     final_article += metadata
+    final_article += '\n<link rel="stylesheet" href="../blog.css">'
     final_article += "\n</head>\n\n<body>\n"
     final_article += h1
-    final_article += "\n"
+    final_article += '\n<div class = "description">'
     final_article += intro
-    toc = "\n\n<div>\n<h2>文章目錄</h2>\n<ul>\n"
+    toc = '''\n</div>\n\n<section class="middle-img">\n <img class ="middle-img-edit" src="">\n</section>\n\n<div class="content-page">\n<h2>文章目錄</h2>\n<ul>\n'''
     for item in outline:
         toc += f"  <li>{item}</li>\n"
-    toc += "</ul>\n</div>\n\n"
+    toc += '</ul>\n</div>\n\n<div class"main">\n'
     final_article += toc
     for header in outline:
         results = []
@@ -531,7 +547,7 @@ def autoblogger(query, model, size, lang, outline_editor):
         eachquery = querier(header, query, model, lang)
         for aquery in eachquery:
             thequery = aquery["query"]
-            results = crawl_top_10_results(thequery, nor=4)
+            results = crawl_top_10_results(thequery, nor=3)
             for result in results:
                 downloaded = trafilatura.fetch_url(result['url'])
                 if downloaded is None:
@@ -547,16 +563,16 @@ def autoblogger(query, model, size, lang, outline_editor):
         final_article += final
         final_article += "\n\n"
 
-    final_article += "</body>\n</html>"
-
-    with open(f"{query}.html", "a") as file:
+    final_article += "</div>\n</body>\n</html>"
+    final_article = wrap_lines(final_article)
+    with open(f"{query}.html", "a", encoding = "utf-8") as file:
         file.write(final_article)
 
 def main():
-    queries = ["中國黑龍江旅遊景點"]
+    queries = ["tour eiffel arc de triomphe", "tour eiffel a lyon", "tour eiffel paris 2024 souvenir"]
     model = "meta/llama-3.1-405b-instruct"
     size = 8
-    lang = "traditional chinese"
+    lang = "french"
     outline_editor = False
     for query in queries:
         autoblogger(query, model, size, lang, outline_editor)
