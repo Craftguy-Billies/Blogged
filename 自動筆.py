@@ -105,12 +105,12 @@ def banner(title, model, outline = None):
     px = pixabay.core("45631523-f41b44ca77fa2a2753db5e2d2")
     space = px.query(response, orientation = 'horizontal')
 
-    image_dir = '../images/'
+    image_dir = './images/'
     if not os.path.exists(image_dir):
         os.makedirs(image_dir)
   
     if len(space) > 0:
-        image = f'../images/{response}.jpg'
+        image = f'./images/{response}.jpg'
         space[0].download(image, "largeImage")
     return image
 
@@ -624,7 +624,7 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["大阪旅遊景點"]
+    queries = ["南山旅遊景點"]
     model = "meta/llama-3.1-405b-instruct"
     size = 6
     lang = "traditional chinese"
