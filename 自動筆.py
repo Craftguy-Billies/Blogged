@@ -83,7 +83,7 @@ def titler(outline, query, model, lang, max_retries=3, delay=2):
             if you add numbers like '7大', make sure it matches the content of headers. (some headers may cover more than one information)
             you should SEO optimize the title with the keyword {query} naturally.
             return me a single JSON object with single key 'title' without premable and explanations.
-            output in {lang}
+            output in pure {lang}. no other language in the output title.
             AGAIN: NO premable and explanation needed.
             """
 
@@ -569,10 +569,10 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["прекрасные места в россии"]
+    queries = ["東京で行くべき最高の場所"]
     model = "meta/llama-3.1-405b-instruct"
     size = 10
-    lang = "russian"
+    lang = "japanese"
     outline_editor = False
     for query in queries:
         autoblogger(query, model, size, lang, outline_editor)
