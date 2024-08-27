@@ -622,7 +622,7 @@ def main():
     model = "meta/llama-3.1-405b-instruct"
     size = 6
     lang = "traditional chinese"
-    outline_editor = false
+    outline_editor = False
     for query in queries:
         autoblogger(query, model, size, lang, outline_editor)
 
