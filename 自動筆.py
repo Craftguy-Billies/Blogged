@@ -11,7 +11,7 @@ DEBUG = False
 
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
-  api_key = "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"
+  api_key = "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"
 )
 
 def crawl_top_10_results(query, nor=10):
@@ -569,10 +569,10 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["tour eiffel arc de triomphe", "tour eiffel a lyon", "tour eiffel paris 2024 souvenir"]
+    queries = ["прекрасные места в россии"]
     model = "meta/llama-3.1-405b-instruct"
-    size = 8
-    lang = "french"
+    size = 10
+    lang = "russian"
     outline_editor = False
     for query in queries:
         autoblogger(query, model, size, lang, outline_editor)
