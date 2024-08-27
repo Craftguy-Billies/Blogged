@@ -167,6 +167,7 @@ def topic_definer(website_text, query, model, lang, max_retries=3, delay=2):
             identify the topics that they wrote, and reform them into h2 headers.
             output in {lang}
             return me a python list of h2 headers.
+            the python list MUST be quoted with double quotes.
             NO premable and explanation. I only want the list without other words.
             """
 
@@ -214,6 +215,7 @@ def topic_refiner(topics, query, model, lang, size, max_retries=3, delay=2):
             quality should be prioritized, less headers are better than vague and overly broad headers. no generic or catch-all phrases.
             headers should be in {lang}
             return me a python list of headers only.
+            the python list MUST be quoted with double quotes.
             NO premable and explanation needed.
             """
 
@@ -260,6 +262,7 @@ def topic_selector(headers, query, model, lang, size, max_retries=3, delay=2):
             EVERY HEADER SHOULD BE DISTINCT ASPECT!
             output in {lang}
             return me a python list of h2 headers.
+            the python list MUST be quoted with double quotes.
             NO premable and explanation. I only want the list without other words.
             """
 
@@ -569,9 +572,9 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["東京で行くべき最高の場所"]
+    queries = ["東京 お出かけスポット 穴場"]
     model = "meta/llama-3.1-405b-instruct"
-    size = 10
+    size = 5
     lang = "japanese"
     outline_editor = False
     for query in queries:
