@@ -33,6 +33,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # Assuming you have a requirements.txt file
 
+      - name: Create image directory
+        run: mkdir -p ../images
+
       # Runs your Python script
       - name: Run AI 自動筆 script
         run: python 自動筆.py
