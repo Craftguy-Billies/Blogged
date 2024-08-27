@@ -2,6 +2,7 @@ import trafilatura
 from openai import OpenAI
 import requests
 from bs4 import BeautifulSoup
+import pixabay.core
 import ast
 import json
 import time
@@ -11,7 +12,7 @@ DEBUG = False
 
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
-  api_key = "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"
+  api_key = "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"
 )
 
 def crawl_top_10_results(query, nor=10):
@@ -68,6 +69,45 @@ def extract_json_content(input_string):
     else:
         return {}
 
+def banner(title, model, outline = None):
+    data = ""
+    if outline:
+      data += "and the headers of the article:\n"
+      data += str(outline)
+    prompt = f"""
+    i now have this blog title:
+    {title}
+
+    {data}
+
+    now i want to download a banner image for this blog post. give me ONE search queries ONLY, in python list format.
+    you should make the queries more general and searchable.
+    output queries in english. output in a single dimensional python list format.
+    No premable and explanations.
+    """
+
+    completion = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt.strip()}],
+        temperature=0.2,
+        top_p=0.7,
+        max_tokens=8192,
+        stream=True
+    )
+
+    response = ""
+    for chunk in completion:
+        if chunk.choices[0].delta.content is not None:
+            response += chunk.choices[0].delta.content
+
+    response = extract_list_content(response)[0]
+    px = pixabay.core("45631523-f41b44ca77fa2a2753db5e2d2")
+    space = px.query(response, orientation = 'horizontal')
+    if len(space) > 0:
+        image = f'{response}.jpg'
+        space[0].download(fr"../images/{image}", "largeImage")
+    return image
+
 def titler(outline, query, model, lang, max_retries=3, delay=2):
     attempt = 0
     while attempt < max_retries:
@@ -83,7 +123,7 @@ def titler(outline, query, model, lang, max_retries=3, delay=2):
             if you add numbers like '7大', make sure it matches the content of headers. (some headers may cover more than one information)
             you should SEO optimize the title with the keyword {query} naturally.
             return me a single JSON object with single key 'title' without premable and explanations.
-            output in pure {lang}. no other language in the output title.
+            output in {lang}
             AGAIN: NO premable and explanation needed.
             """
 
@@ -526,6 +566,8 @@ def autoblogger(query, model, size, lang, outline_editor):
       outline = outline_editing(outline)
     final_article = ""
     title = titler(outline, query, model, lang)
+    ban = banner(title, model)
+    image = banner(title, model, outline)
     metadata = metadataer(outline, query, lang, model)
     intro = introer(outline, title, lang, model)
     h1 = "<h1>" + str(title) + "</h1>"
@@ -535,11 +577,15 @@ def autoblogger(query, model, size, lang, outline_editor):
     final_article += "\n"
     final_article += metadata
     final_article += '\n<link rel="stylesheet" href="../blog.css">'
-    final_article += "\n</head>\n\n<body>\n"
+    final_article += '\n</head>\n\n<body>\n<img class="banner" src="../images/'
+    final_article += ban
+    final_article += '">\n<div class="blog-type">Blog</div>'
     final_article += h1
     final_article += '\n<div class = "description">'
     final_article += intro
-    toc = '''\n</div>\n\n<section class="middle-img">\n <img class ="middle-img-edit" src="">\n</section>\n\n<div class="content-page">\n<h2>文章目錄</h2>\n<ul>\n'''
+    toc = '\n</div>\n\n<section class="middle-img">\n<figure>\n<img class = "middle-img-edit" src="../images/'
+    toc += image
+    toc += '">\n<figcaption>Image Source: Pixabay</figcaption></figure>\n</section>\n\n<div class="content-page">\n<h2>文章目錄</h2>\n<ul>\n'
     for item in outline:
         toc += f"  <li>{item}</li>\n"
     toc += '</ul>\n</div>\n\n<div class"main">\n'
@@ -572,11 +618,11 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["東京 お出かけスポット 穴場"]
+    queries = ["大阪旅遊景點"]
     model = "meta/llama-3.1-405b-instruct"
-    size = 5
-    lang = "japanese"
-    outline_editor = False
+    size = 6
+    lang = "traditional chinese"
+    outline_editor = false
     for query in queries:
         autoblogger(query, model, size, lang, outline_editor)
 
