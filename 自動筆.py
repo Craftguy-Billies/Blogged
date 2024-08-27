@@ -104,8 +104,8 @@ def banner(title, model, outline = None):
     px = pixabay.core("45631523-f41b44ca77fa2a2753db5e2d2")
     space = px.query(response, orientation = 'horizontal')
     if len(space) > 0:
-        image = f'{response}.jpg'
-        space[0].download(fr"../images/{image}", "largeImage")
+        image = f'../images/{response}.jpg'
+        space[0].download(image, "largeImage")
     return image
 
 def titler(outline, query, model, lang, max_retries=3, delay=2):
