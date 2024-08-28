@@ -638,9 +638,9 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["劉德華的電影"]
+    queries = ["芙寧娜抽取攻略"]
     model = "meta/llama-3.1-405b-instruct"
-    size = 5
+    size = 4
     lang = "traditional chinese"
     outline_editor = False
     for query in queries:
