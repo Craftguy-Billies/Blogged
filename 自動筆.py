@@ -72,12 +72,15 @@ def extract_json_content(input_string):
 
 def banner(title, model, outline = None, previous = None):
     data = ""
+    again = ""
     if outline:
       data += "and the headers of the article:\n"
       data += str(outline)
       data += "\n\n"
       data += "make sure your returned query is in a different aspect, generate different results as the previous query:"
       data += previous
+      again += "AGAIN: your returned query should be significantly different aspect from the previous query:"
+      again += previous
     prompt = f"""
     i now have this blog title:
     {title}
@@ -87,6 +90,9 @@ def banner(title, model, outline = None, previous = None):
     now i want to download a banner image for this blog post. give me ONE search queries ONLY, in python list format.
     you should make the queries more general and searchable.
     but make sure your query is to the point, not unrelated to the blog title.
+
+    {again}
+    
     output queries in english. output in a single dimensional python list format.
     No premable and explanations.
     """
@@ -632,7 +638,7 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["最新耳機推薦"]
+    queries = ["香港連鎖餐廳食店推薦"]
     model = "meta/llama-3.1-405b-instruct"
     size = 5
     lang = "traditional chinese"
