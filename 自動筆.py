@@ -88,7 +88,7 @@ def banner(title, model, outline = None, previous = None):
     {data}
 
     now i want to download an image for this blog post. give me ONE search queries ONLY, in python list format.
-    you should make the queries more general and searchable.
+    you should make the queries more searchable, no long tail keywords.
     but make sure your query is to the point, not unrelated to the blog title.
 
     {again}
