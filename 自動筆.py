@@ -87,7 +87,7 @@ def banner(title, model, outline = None, previous = None):
 
     {data}
 
-    now i want to download a banner image for this blog post. give me ONE search queries ONLY, in python list format.
+    now i want to download an image for this blog post. give me ONE search queries ONLY, in python list format.
     you should make the queries more general and searchable.
     but make sure your query is to the point, not unrelated to the blog title.
 
@@ -638,7 +638,7 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["香港連鎖餐廳食店推薦"]
+    queries = ["香港茶餐廳推薦"]
     model = "meta/llama-3.1-405b-instruct"
     size = 5
     lang = "traditional chinese"
