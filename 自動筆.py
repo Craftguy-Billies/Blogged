@@ -70,11 +70,14 @@ def extract_json_content(input_string):
     else:
         return {}
 
-def banner(title, model, outline = None):
+def banner(title, model, outline = None, previous = None):
     data = ""
     if outline:
       data += "and the headers of the article:\n"
       data += str(outline)
+      data += "\n\n"
+      data += "make sure your returned query is in a different aspect, generate different results as the previous query:"
+      data += previous
     prompt = f"""
     i now have this blog title:
     {title}
@@ -575,7 +578,7 @@ def autoblogger(query, model, size, lang, outline_editor):
     final_article = ""
     title = titler(outline, query, model, lang)
     ban = banner(title, model)
-    image = banner(title, model, outline)
+    image = banner(title, model, outline, ban)
     metadata = metadataer(outline, query, lang, model)
     intro = introer(outline, title, lang, model)
     h1 = "<h1>" + str(title) + "</h1>"
@@ -626,7 +629,7 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["香港中西區好去處"]
+    queries = ["香港新界好去處"]
     model = "meta/llama-3.1-405b-instruct"
     size = 5
     lang = "traditional chinese"
