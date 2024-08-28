@@ -625,11 +625,14 @@ def autoblogger(query, model, size, lang, outline_editor):
 
     final_article += "</div>\n</body>\n</html>"
     final_article = wrap_lines(final_article)
-    with open(f"{query}.html", "a", encoding = "utf-8") as file:
+    dir_path = query
+    os.makedirs(dir_path, exist_ok=True)
+    file_path = os.path.join(dir_path, "index.html")
+    with open(file_path, "a", encoding="utf-8") as file:
         file.write(final_article)
 
 def main():
-    queries = ["香港新界好去處"]
+    queries = ["最新耳機推薦"]
     model = "meta/llama-3.1-405b-instruct"
     size = 5
     lang = "traditional chinese"
