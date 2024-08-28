@@ -638,10 +638,10 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["芙寧娜抽取攻略"]
+    queries = ["cuisine française spécialités"]
     model = "meta/llama-3.1-405b-instruct"
-    size = 4
-    lang = "traditional chinese"
+    size = 6
+    lang = "french"
     outline_editor = False
     for query in queries:
         autoblogger(query, model, size, lang, outline_editor)
