@@ -137,7 +137,7 @@ def titler(outline, query, model, lang, max_retries=3, delay=2):
 
             i want a title that is clickbait enough, can convey the information I want to discuss about, in moderate length and humanized tone.
             it must be informational intent. words like "盤點", "攻略", "方法" are favored.
-            if you add numbers like '7大', make sure it matches the content of headers. (some headers may cover more than one information)
+            if you add numbers like '7大', make sure it matches the number of headers.
             you should SEO optimize the title with the keyword {query} naturally.
             return me a single JSON object with single key 'title' without premable and explanations.
             output in {lang}
@@ -638,9 +638,9 @@ def autoblogger(query, model, size, lang, outline_editor):
         file.write(final_article)
 
 def main():
-    queries = ["愛的藝術 分析"]
+    queries = ["為什麼會長水瘤", "為什麼降息債券會漲", "為什麼洗完頭還有頭皮屑", "為什麼在非常安靜時耳朵會聽到一種持續而高頻的聲音"]
     model = "meta/llama-3.1-405b-instruct"
-    size = 6
+    size = 5
     lang = "traditional chinese"
     outline_editor = False
     for query in queries:
