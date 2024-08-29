@@ -603,7 +603,9 @@ def add_rss_item(template_path, link, blog):
     item = Element('item')
     item_title = SubElement(item, 'title')
     item_title.text = title
+    item_link = SubElement(item, 'link')
     item_link.text = link
+    item_description = SubElement(item, 'description')
     item_description.text = description
   
     root_url = "https://avoir.me"
