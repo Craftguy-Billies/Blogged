@@ -676,6 +676,7 @@ def autoblogger(query, model, size, lang, outline_editor):
         final_article += final
         final_article += "\n\n"
 
+    final_article = wrap_lines(final_article)
     final_article += r"""
         <div class="recommended" id="rss_content">
         <div class="recommend">
@@ -754,7 +755,6 @@ def autoblogger(query, model, size, lang, outline_editor):
     </script>
     """
     final_article += "\n</div>\n</body>\n</html>"
-    final_article = wrap_lines(final_article)
     dir_path = query
     os.makedirs(dir_path, exist_ok=True)
     file_path = os.path.join(dir_path, "index.html")
