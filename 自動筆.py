@@ -685,9 +685,9 @@ def autoblogger(query, model, size, lang, outline_editor):
     add_rss_item("rss.xml", encoded_url, final_article)
 
 def main():
-    queries = ["爲什麼會打雷"]
+    queries = ["旺角推薦餐廳"]
     model = "meta/llama-3.1-405b-instruct"
-    size = 4
+    size = 5
     lang = "traditional chinese"
     outline_editor = False
     for query in queries:
