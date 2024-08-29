@@ -676,7 +676,84 @@ def autoblogger(query, model, size, lang, outline_editor):
         final_article += final
         final_article += "\n\n"
 
-    final_article += "</div>\n</body>\n</html>"
+    final_article += r"""
+        <div class="recommended" id="rss_content">
+        <div class="recommend">
+            延伸閱讀
+        </div>
+        <div class="line"></div>
+    </div>
+    <script>
+    function loadRSSFeed(url) {
+        // Get the src of the first <img> tag in the current article
+        const currentImgSrc = document.querySelector('img.banner')?.src || "";
+    
+        fetch(url)
+            .then(response => response.text())
+            .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+            .then(data => {
+                const items = Array.from(data.querySelectorAll("item")).reverse();
+                let html = "";
+    
+                items.forEach(el => {
+                    // Safely access each element
+                    const title = el.querySelector("title")?.textContent || "No title available";
+                    const link = el.querySelector("link")?.textContent || "#";
+                    const description = el.querySelector("description")?.textContent || "No description available";
+                    const pubdate = el.querySelector("pubDate")?.textContent || "";
+                    const enclosure = el.querySelector("enclosure")?.getAttribute("url") || "";
+    
+                    // Skip this item if the current article's first img src matches the link
+                    if (currentImgSrc === link) {
+                        return; // Skip this post
+                    }
+    
+                    // Check if pubdate exists and format it if available
+                    let formattedDate = "";
+                    if (pubdate) {
+                        formattedDate = new Date(pubdate).toLocaleString('en-GB', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: false
+                        });
+                    }
+    
+                    html += `
+                        <div class="recommend-row">
+                            <div class="recommend-blog-title-page">
+                                <div class="recommend-blog-title">
+                                    <a href="${link}" target="_blank">${title}</a>
+                                </div>
+                                <div class="recommend-blog-description">
+                                    ${description}
+                                </div>
+                            </div>
+                            ${formattedDate ? `<p>${formattedDate}</p>` : ""}
+                            ${enclosure ? `<img class="recommend-blog-img-edit" src="${enclosure}" alt="${title}"/>` : ""}
+                        </div>
+                    `;
+                });
+    
+                document.getElementById('rss_content').innerHTML += html;
+            })
+            .catch(error => {
+                console.error('Error fetching or parsing RSS feed:', error);
+                document.getElementById('rss_content').innerHTML = '<p>Sorry, there was an error loading the RSS feed.</p>';
+            });
+    }
+    
+    // Load the RSS feed when the page loads
+    window.onload = function() {
+        const rssUrl = 'https://avoir.me/rss.xml';
+        loadRSSFeed(rssUrl);
+    }
+    </script>
+    """
+    final_article += "\n</div>\n</body>\n</html>"
     final_article = wrap_lines(final_article)
     dir_path = query
     os.makedirs(dir_path, exist_ok=True)
@@ -688,7 +765,7 @@ def autoblogger(query, model, size, lang, outline_editor):
     add_rss_item("rss.xml", encoded_url, final_article)
 
 def main():
-    queries = ["法國建築物風格"]
+    queries = ["法國文化特色"]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     lang = "traditional chinese"
