@@ -607,6 +607,9 @@ def add_rss_item(template_path, link, blog):
     item_link.text = link
     item_description = SubElement(item, 'description')
     item_description.text = description
+
+    item_pub_date = SubElement(item, 'pubDate')
+    item_pub_date.text = datetime.now().strftime('%a, %d %b %Y %H:%M:%S %z')
   
     root_url = "https://avoir.me"
     if enclosure_url.startswith(".."):
@@ -685,9 +688,9 @@ def autoblogger(query, model, size, lang, outline_editor):
     add_rss_item("rss.xml", encoded_url, final_article)
 
 def main():
-    queries = ["旺角推薦餐廳"]
+    queries = ["法國建築物風格"]
     model = "meta/llama-3.1-405b-instruct"
-    size = 5
+    size = 4
     lang = "traditional chinese"
     outline_editor = False
     for query in queries:
