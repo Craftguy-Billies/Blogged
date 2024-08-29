@@ -603,9 +603,12 @@ def add_rss_item(template_path, link, blog):
     item = Element('item')
     item_title = SubElement(item, 'title')
     item_title.text = title
-    item_link.text = 'aaa.com'
+    item_link.text = link
     item_description.text = description
-
+  
+    root_url = "https://avoir.me"
+    if enclosure_url.startswith(".."):
+        enclosure_url = os.path.join(root_url, os.path.normpath(enclosure_url)[3:])
     if enclosure_url:
         item_enclosure = SubElement(item, 'enclosure', url=enclosure_url, type="image/jpeg")
 
