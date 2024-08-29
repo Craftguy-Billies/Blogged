@@ -733,7 +733,6 @@ def autoblogger(query, model, size, lang, outline_editor):
                                     ${description}
                                 </div>
                             </div>
-                            // add ${formattedDate ? `<p>${formattedDate}</p>` : ""} after done publishing date design
                             ${enclosure ? `<img class="recommend-blog-img-edit" src="${enclosure}" alt="${title}"/>` : ""}
                         </div>
                     `;
