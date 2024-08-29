@@ -57,4 +57,10 @@ jobs:
            password: ${{ secrets.FTP_PASSWORD }}
            local-dir: ./ 
            server-dir: /htdocs/
-           exclude: .git* **/.git* **/.github* 
+           exclude: |
+             .git*
+             **/.git*
+             **/.github*
+             自動筆.py
+             "groq api keys"
+             groqqer.py
