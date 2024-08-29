@@ -683,9 +683,9 @@ def autoblogger(query, model, size, lang, outline_editor):
     add_rss_item("rss.xml", encoded_url, final_article)
 
 def main():
-    queries = ["為什麼會長水瘤", "為什麼降息債券會漲", "為什麼洗完頭還有頭皮屑", "為什麼在非常安靜時耳朵會聽到一種持續而高頻的聲音"]
+    queries = ["爲什麼會流鼻血"]
     model = "meta/llama-3.1-405b-instruct"
-    size = 5
+    size = 4
     lang = "traditional chinese"
     outline_editor = False
     for query in queries:
