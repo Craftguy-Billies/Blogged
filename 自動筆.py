@@ -8,6 +8,10 @@ import json
 import time
 import random
 import os
+from xml.dom import minidom
+from xml.etree.ElementTree import Element, SubElement, tostring, parse, fromstring
+from datetime import datetime
+import urllib.parse
 
 DEBUG = False
 
@@ -570,12 +574,46 @@ def wrap_lines(multiline_string):
     wrapped_lines = []
     for line in lines:
         trimmed_line = line.strip()
-        if not trimmed_line or trimmed_line.startswith('<'):
+        if not trimmed_line or (trimmed_line.startswith('<') and not trimmed_line.startswith('<strong>')):
             wrapped_lines.append(line)
         else:
             wrapped_line = f"<p>{trimmed_line}</p>"
             wrapped_lines.append(wrapped_line)
     return "\n".join(wrapped_lines)
+
+def prettify_element(elem):
+    """Return a pretty-printed XML string for the Element."""
+    rough_string = tostring(elem, 'utf-8')
+    reparsed = minidom.parseString(rough_string)
+    return reparsed.toprettyxml(indent="  ")
+
+def add_rss_item(template_path, link, blog):
+    tree = parse(template_path)
+    root = tree.getroot()
+    channel = root.find('channel')
+    last_build_date = channel.find('lastBuildDate')
+    last_build_date.text = datetime.now().strftime('%a, %d %b %Y %H:%M:%S %z')
+  
+    soup = BeautifulSoup(blog, 'html.parser')
+    title = soup.title.string
+    enclosure_url = soup.find('img', class_='banner')['src']
+    description = soup.find('div', class_='description').find('p').text
+
+    # Create a new item
+    item = Element('item')
+    item_title = SubElement(item, 'title')
+    item_title.text = title
+    item_link.text = 'aaa.com'
+    item_description.text = description
+
+    if enclosure_url:
+        item_enclosure = SubElement(item, 'enclosure', url=enclosure_url, type="image/jpeg")
+
+    # Prettify the item
+    pretty_item_str = prettify_element(item)
+    pretty_item = fromstring(pretty_item_str.encode('utf-8'))
+    channel.append(pretty_item)
+    tree.write(template_path, encoding='utf-8', xml_declaration=True)
 
 def autoblogger(query, model, size, lang, outline_editor):
     outline = headerizer(structurer(crawl_top_10_results(query), query, model), query, model, lang, size)
@@ -583,6 +621,7 @@ def autoblogger(query, model, size, lang, outline_editor):
       outline = outline_editing(outline)
     final_article = ""
     title = titler(outline, query, model, lang)
+    file_url = f"https://avoir.me/{title}/index.html"
     ban = banner(title, model)
     image = banner(title, model, outline, ban)
     metadata = metadataer(outline, query, lang, model)
@@ -636,6 +675,9 @@ def autoblogger(query, model, size, lang, outline_editor):
     file_path = os.path.join(dir_path, "index.html")
     with open(file_path, "a", encoding="utf-8") as file:
         file.write(final_article)
+
+    encoded_url = urllib.parse.quote(file_url, safe=':/')
+    add_rss_item("rss.xml", encoded_url, final_article)
 
 def main():
     queries = ["為什麼會長水瘤", "為什麼降息債券會漲", "為什麼洗完頭還有頭皮屑", "為什麼在非常安靜時耳朵會聽到一種持續而高頻的聲音"]
