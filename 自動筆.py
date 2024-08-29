@@ -678,6 +678,7 @@ def autoblogger(query, model, size, lang, outline_editor):
 
     final_article = wrap_lines(final_article)
     final_article += r"""
+        <br>
         <div class="recommended" id="rss_content">
         <div class="recommend">
             延伸閱讀
@@ -742,7 +743,7 @@ def autoblogger(query, model, size, lang, outline_editor):
             })
             .catch(error => {
                 console.error('Error fetching or parsing RSS feed:', error);
-                document.getElementById('rss_content').innerHTML = '<p>Sorry, there was an error loading the RSS feed.</p>';
+                document.getElementById('rss_content').innerHTML = '';
             });
     }
     
@@ -762,9 +763,10 @@ def autoblogger(query, model, size, lang, outline_editor):
 
     encoded_url = urllib.parse.quote(file_url, safe=':/')
     add_rss_item("rss.xml", encoded_url, final_article)
+    add_rss_item("food_rss.xml", encoded_url, final_article)
 
 def main():
-    queries = ["法國文化特色"]
+    queries = ["法國美食有什麼"]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     lang = "traditional chinese"
