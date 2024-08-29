@@ -626,7 +626,7 @@ def autoblogger(query, model, size, lang, outline_editor):
       outline = outline_editing(outline)
     final_article = ""
     title = titler(outline, query, model, lang)
-    file_url = f"https://avoir.me/{title}/index.html"
+    file_url = f"https://avoir.me/{query}/index.html"
     ban = banner(title, model)
     image = banner(title, model, outline, ban)
     metadata = metadataer(outline, query, lang, model)
@@ -685,7 +685,7 @@ def autoblogger(query, model, size, lang, outline_editor):
     add_rss_item("rss.xml", encoded_url, final_article)
 
 def main():
-    queries = ["爲什麼會流鼻血"]
+    queries = ["爲什麼會打雷"]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     lang = "traditional chinese"
