@@ -968,8 +968,8 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["香港堅尼地城美食", "香港欣澳好去處"]
-    categories = [['美食', '香港'], ['旅遊', '香港']]
+    queries = ["為什麼電影底片比較便宜", "為什麼相機沒有廣角", "為什麼相簿的照片會突然不見"]
+    categories = [['科技', '照片科技'], ['科技', '照片科技'], ['科技', '照片科技']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     lang = "traditional chinese"
