@@ -642,7 +642,7 @@ def add_blog_post(final_article, link, category):
         path = os.path.join(path, cat)
         if not os.path.exists(path):
             os.makedirs(path)
-            initialize_rss(path)
+            initialize_rss(path, cat)
     
     # Add the blog post to the category in the structure
     if 'posts' not in current_level:
@@ -684,12 +684,108 @@ def add_blog_post(final_article, link, category):
         update_rss(specific_rss_path, post)
 
 
-def initialize_rss(path):
+def initialize_rss(path, cat):
     """Initialize an RSS feed in a given directory."""
     rss_file = os.path.join(path, "rss.xml")
     channel = Element('channel')
     tree = ElementTree(channel)
     tree.write(rss_file, encoding='utf-8', xml_declaration=True)
+
+    # category page content
+    content = r"""<!DOCTYPE html>
+                  <html lang="zh">
+                  <head>
+                      <meta charset="UTF-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                      <title>"""
+    content += cat
+    content += r"""</title>
+                      <link rel="stylesheet" href="https://avoir.me/blog.css">
+                      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                  </head>
+                  <body>
+                  <div class="recommended" id="rss_content">
+                          <div class="recommend">"""
+    content += cat
+    content += r"""       </div>
+                          <div class="line"></div>
+                      </div>
+                      <script>
+                      function loadRSSFeed(url) {
+                          // Get the src of the first <img> tag in the current article
+                          const currentImgSrc = document.querySelector('img.banner')?.src || "";
+                      
+                          fetch(url)
+                              .then(response => response.text())
+                              .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+                              .then(data => {
+                                  const items = Array.from(data.querySelectorAll("item")).reverse();
+                                  let html = "";
+                      
+                                  items.forEach(el => {
+                                      // Safely access each element
+                                      const title = el.querySelector("title")?.textContent || "No title available";
+                                      const link = el.querySelector("link")?.textContent || "#";
+                                      const description = el.querySelector("description")?.textContent || "No description available";
+                                      const pubdate = el.querySelector("pubDate")?.textContent || "";
+                                      const enclosure = el.querySelector("enclosure")?.getAttribute("url") || "";
+                      
+                                      // Skip this item if the current article's first img src matches the link
+                                      if (currentImgSrc === link) {
+                                          return; // Skip this post
+                                      }
+                      
+                                      // Check if pubdate exists and format it if available
+                                      let formattedDate = "";
+                                      if (pubdate) {
+                                          formattedDate = new Date(pubdate).toLocaleString('en-GB', {
+                                              day: '2-digit',
+                                              month: 'short',
+                                              year: 'numeric',
+                                              hour: '2-digit',
+                                              minute: '2-digit',
+                                              second: '2-digit',
+                                              hour12: false
+                                          });
+                                      }
+                      
+                                      html += `
+                                          <div class="recommend-row">
+                                              <div class="recommend-blog-title-page">
+                                                  <div class="recommend-blog-title">
+                                                      <a href="${link}" target="_blank">${title}</a>
+                                                  </div>
+                                                  <div class="recommend-blog-description">
+                                                      ${description}
+                                                  </div>
+                                              </div>
+                                              ${enclosure ? `<img class="recommend-blog-img-edit" src="${enclosure}" alt="${title}"/>` : ""}
+                                          </div>
+                                      `;
+                                  });
+                      
+                                  document.getElementById('rss_content').innerHTML += html;
+                              })
+                              .catch(error => {
+                                  console.error('Error fetching or parsing RSS feed:', error);
+                                  document.getElementById('rss_content').innerHTML = '';
+                              });
+                      }
+                      
+                      // Load the RSS feed when the page loads
+                      window.onload = function() {
+                          const rssUrl = 'rss.xml';
+                          loadRSSFeed(rssUrl);
+                      }
+                      </script>
+                  </body>
+                  </html>
+                  """
+
+    # Create HTML file
+    html_file = os.path.join(path, "index.html")
+    with open(html_file, 'w', encoding='utf-8') as f:
+        f.write(content)
 
 
 def prettify(element, level=0):
@@ -872,8 +968,8 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["自我超越是什麼"]
-    category = ['心理學', '佛蘭克']
+    queries = ["香港銅鑼灣好去處"]
+    category = ['旅遊', '香港']
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     lang = "traditional chinese"
