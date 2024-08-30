@@ -623,7 +623,113 @@ def add_rss_item(template_path, link, blog):
     channel.append(pretty_item)
     tree.write(template_path, encoding='utf-8', xml_declaration=True)
 
-def autoblogger(query, model, size, lang, outline_editor):
+def add_blog_post(final_article, link, category):
+    structure_file = "structure.json"
+    # Load the existing structure
+    if os.path.exists(structure_file):
+        with open(structure_file, 'r') as file:
+            structure = json.load(file)
+    else:
+        structure = {}
+
+    # Navigate through categories and subcategories
+    current_level = structure
+    path = "category"
+    for cat in category:
+        if cat not in current_level:
+            current_level[cat] = {}
+        current_level = current_level[cat]
+        path = os.path.join(path, cat)
+        if not os.path.exists(path):
+            os.makedirs(path)
+            initialize_rss(path)
+    
+    # Add the blog post to the category in the structure
+    if 'posts' not in current_level:
+        current_level['posts'] = []
+
+    soup = BeautifulSoup(final_article, 'html.parser')
+    title = soup.title.string
+    enclosure_url = soup.find('img', class_='banner')['src']
+    description = soup.find('div', class_='description').find('p').text
+
+    root_url = "https://avoir.me"
+    if enclosure_url.startswith(".."):
+        enclosure_url = os.path.join(root_url, os.path.normpath(enclosure_url)[3:])
+
+    pubdate = datetime.now().strftime('%a, %d %b %Y %H:%M:%S %z')
+    
+    post = {
+        'title': title,
+        'link': link,
+        'description': description,
+        'enclosure': enclosure_url,
+        'pubdate': pubdate
+    }
+    current_level['posts'].append(post)
+
+    # Save the updated structure
+    with open(structure_file, 'w') as file:
+        json.dump(structure, file, indent=4)
+
+    # Update RSS files for each level in the category hierarchy
+    # Update for the main category
+    main_category_path = os.path.join("category", category[0])
+    main_rss_path = os.path.join(main_category_path, "rss.xml")
+    update_rss(main_rss_path, post)
+
+    # Update for the specific subcategory
+    specific_rss_path = os.path.join(path, "rss.xml")
+    if main_rss_path != specific_rss_path:  # Avoid double writing if it's the same path
+        update_rss(specific_rss_path, post)
+
+
+def initialize_rss(path):
+    """Initialize an RSS feed in a given directory."""
+    rss_file = os.path.join(path, "rss.xml")
+    channel = Element('channel')
+    tree = ElementTree(channel)
+    tree.write(rss_file, encoding='utf-8', xml_declaration=True)
+
+
+def prettify(element, level=0):
+    """Return a pretty-printed XML string for the Element."""
+    indent = "\n" + level * "  "
+    if len(element):
+        if not element.text or not element.text.strip():
+            element.text = indent + "  "
+        if not element.tail or not element.tail.strip():
+            element.tail = indent
+        for elem in element:
+            prettify(elem, level + 1)
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = indent
+    else:
+        if level and (not element.tail or not element.tail.strip()):
+            element.tail = indent
+
+def update_rss(rss_path, post):
+    """Update the RSS file with a new blog post, prettifying the XML."""
+    if os.path.exists(rss_path):
+        tree = ET.ElementTree(file=rss_path)
+        channel = tree.getroot()
+    else:
+        channel = ET.Element('channel')
+        tree = ET.ElementTree(channel)
+
+    item = ET.SubElement(channel, 'item')
+    ET.SubElement(item, 'title').text = post['title']
+    ET.SubElement(item, 'link').text = post['link']
+    ET.SubElement(item, 'description').text = post['description']
+    ET.SubElement(item, 'enclosure', url=post['enclosure'], type="image/jpeg")
+    ET.SubElement(item, 'pubDate').text = post['pubdate']
+
+    # Prettify the entire XML tree
+    prettify(channel)
+
+    tree.write(rss_path, encoding='utf-8', xml_declaration=True)
+
+def autoblogger(query, model, size, lang, category, outline_editor):
     outline = headerizer(structurer(crawl_top_10_results(query), query, model), query, model, lang, size)
     if outline_editor:
       outline = outline_editing(outline)
@@ -763,16 +869,17 @@ def autoblogger(query, model, size, lang, outline_editor):
 
     encoded_url = urllib.parse.quote(file_url, safe=':/')
     add_rss_item("rss.xml", encoded_url, final_article)
-    add_rss_item("food_rss.xml", encoded_url, final_article)
+    add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["法國美食有什麼"]
+    queries = ["自我超越是什麼"]
+    category = ['心理學', '佛蘭克']
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     lang = "traditional chinese"
     outline_editor = False
     for query in queries:
-        autoblogger(query, model, size, lang, outline_editor)
+        autoblogger(query, model, size, lang, category, outline_editor)
 
 if __name__ == "__main__":
     if not DEBUG:
