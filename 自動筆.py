@@ -711,18 +711,18 @@ def prettify(element, level=0):
 def update_rss(rss_path, post):
     """Update the RSS file with a new blog post, prettifying the XML."""
     if os.path.exists(rss_path):
-        tree = ET.ElementTree(file=rss_path)
+        tree = ElementTree(file=rss_path)
         channel = tree.getroot()
     else:
-        channel = ET.Element('channel')
-        tree = ET.ElementTree(channel)
+        channel = Element('channel')
+        tree = ElementTree(channel)
 
-    item = ET.SubElement(channel, 'item')
-    ET.SubElement(item, 'title').text = post['title']
-    ET.SubElement(item, 'link').text = post['link']
-    ET.SubElement(item, 'description').text = post['description']
-    ET.SubElement(item, 'enclosure', url=post['enclosure'], type="image/jpeg")
-    ET.SubElement(item, 'pubDate').text = post['pubdate']
+    item = SubElement(channel, 'item')
+    SubElement(item, 'title').text = post['title']
+    SubElement(item, 'link').text = post['link']
+    SubElement(item, 'description').text = post['description']
+    SubElement(item, 'enclosure', url=post['enclosure'], type="image/jpeg")
+    SubElement(item, 'pubDate').text = post['pubdate']
 
     # Prettify the entire XML tree
     prettify(channel)
