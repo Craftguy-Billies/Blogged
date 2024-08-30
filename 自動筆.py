@@ -9,7 +9,7 @@ import time
 import random
 import os
 from xml.dom import minidom
-from xml.etree.ElementTree import Element, SubElement, tostring, parse, fromstring
+from xml.etree.ElementTree import Element, SubElement, tostring, parse, fromstring, ElementTree
 from datetime import datetime
 import urllib.parse
 
