@@ -968,13 +968,13 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["香港銅鑼灣好去處"]
-    category = ['旅遊', '香港']
+    queries = ["香港堅尼地城美食", "香港欣澳好去處"]
+    categories = [['美食', '香港'], ['旅遊', '香港']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     lang = "traditional chinese"
     outline_editor = False
-    for query in queries:
+    for query, category in zip(queries, categories):
         autoblogger(query, model, size, lang, category, outline_editor)
 
 if __name__ == "__main__":
