@@ -412,6 +412,9 @@ def querier(header, query, model, lang, max_retries=3, delay=2):
 
 def pf_rewriter(article, header, lang, title, model):
     full_article = ""
+    datum = article.splitlines()
+    firstlines = datum[:130]
+    article = '\n'.join(firstlines)
     prompt = f"""
     title of the crawled article:
     {title}
