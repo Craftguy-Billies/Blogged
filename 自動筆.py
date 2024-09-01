@@ -971,10 +971,10 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["阿德勒心理學貢獻感", "阿德勒心理學社會意識"]
-    categories = [['心理學', '阿德勒心理學'], ['心理學', '阿德勒心理學']]
+    queries = ["法國人只需十件衣"]
+    categories = [['法國', '文化']]
     model = "meta/llama-3.1-405b-instruct"
-    size = 5
+    size = 4
     lang = "traditional chinese"
     outline_editor = False
     for query, category in zip(queries, categories):
