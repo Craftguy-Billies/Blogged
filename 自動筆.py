@@ -13,6 +13,7 @@ from xml.etree.ElementTree import Element, SubElement, tostring, parse, fromstri
 from datetime import datetime
 import urllib.parse
 
+
 DEBUG = False
 
 client = OpenAI(
