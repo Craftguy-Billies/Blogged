@@ -975,7 +975,7 @@ def main():
     queries = ["阿德勒心理學講義"]
     categories = [['心理學', '阿德勒心理學']]
     model = "meta/llama-3.1-405b-instruct"
-    size = 5
+    size = 3
     lang = "traditional chinese"
     outline_editor = False
     for query, category in zip(queries, categories):
