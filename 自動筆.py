@@ -850,7 +850,7 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     final_article += '\n</head>\n\n<body>\n<img class="banner" src="../images/'
     final_article += ban
     final_article += '">\n<div class="direct">\n  <a href="https://avoir.me/">Home</a>\n'
-    cat_url = "/"
+    cat_url = "/category/"
     for cat in category:
       cat_url += cat + '/'
       final_article += '  <i class="fa-solid fa-angle-right"></i> <a href="https://avoir.me' + cat_url + '">' + cat + '</a>'
@@ -990,7 +990,7 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["自我的追尋分析"]
+    queries = ["自我的追尋佛羅姆分析"]
     categories = [['心理學', '佛羅姆']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
