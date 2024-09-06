@@ -849,7 +849,18 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     final_article += '\n<link rel="stylesheet" href="../blog.css">'
     final_article += '\n</head>\n\n<body>\n<img class="banner" src="../images/'
     final_article += ban
-    final_article += '">\n<div class="blog-type">Blog</div>'
+    final_article += '">\n<div class="direct">\n  <a href="https://avoir.me/">Home</a>\n'
+    cat_url = "/"
+    for cat in category:
+      cat_url += cat
+      cat_url += '/'
+      final_article += r'  <i class="fa-solid fa-angle-right"></i> <a href="https://avoir.me"
+      final_article += cat_url
+      final_article += '">'
+      final_article += cat
+      final_article += '</a>'
+    final_article += "\n</div>\n"
+    final_article += '<div class="blog-type">Blog</div>'
     final_article += h1
     final_article += '\n<div class = "description">'
     final_article += intro
@@ -895,27 +906,36 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     function loadRSSFeed(url) {
         // Get the src of the first <img> tag in the current article
         const currentImgSrc = document.querySelector('img.banner')?.src || "";
-    
+
+        // Get the title of the current article
+        const currentTitle = document.querySelector('h1')?.textContent || "";
+
         fetch(url)
             .then(response => response.text())
             .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
             .then(data => {
                 const items = Array.from(data.querySelectorAll("item")).reverse();
                 let html = "";
-    
-                items.forEach(el => {
+                let count = 0;
+
+                for (let i = 0; i < items.length; i++) {
+                    if (count >= 6) break; // Stop after displaying 6 items
+
+                    const el = items[i];
+
                     // Safely access each element
                     const title = el.querySelector("title")?.textContent || "No title available";
                     const link = el.querySelector("link")?.textContent || "#";
                     const description = el.querySelector("description")?.textContent || "No description available";
                     const pubdate = el.querySelector("pubDate")?.textContent || "";
                     const enclosure = el.querySelector("enclosure")?.getAttribute("url") || "";
-    
+
                     // Skip this item if the current article's first img src matches the link
-                    if (currentImgSrc === link) {
-                        return; // Skip this post
+                    // or if the current article's title matches the title in the RSS feed
+                    if (currentImgSrc === link || currentTitle === title) {
+                        continue; // Skip this post
                     }
-    
+
                     // Check if pubdate exists and format it if available
                     let formattedDate = "";
                     if (pubdate) {
@@ -929,7 +949,8 @@ def autoblogger(query, model, size, lang, category, outline_editor):
                             hour12: false
                         });
                     }
-    
+
+                    // Add to the HTML and increase the count
                     html += `
                         <div class="recommend-row">
                             <div class="recommend-blog-title-page">
@@ -943,22 +964,24 @@ def autoblogger(query, model, size, lang, category, outline_editor):
                             ${enclosure ? `<img class="recommend-blog-img-edit" src="${enclosure}" alt="${title}"/>` : ""}
                         </div>
                     `;
-                });
-    
+
+                    count++;
+                }
+
                 document.getElementById('rss_content').innerHTML += html;
             })
             .catch(error => {
                 console.error('Error fetching or parsing RSS feed:', error);
                 document.getElementById('rss_content').innerHTML = '';
             });
-    }
-    
-    // Load the RSS feed when the page loads
-    window.onload = function() {
-        const rssUrl = 'https://avoir.me/rss.xml';
-        loadRSSFeed(rssUrl);
-    }
-    </script>
+        }
+
+        // Load the RSS feed when the page loads
+        window.onload = function() {
+            const rssUrl = 'https://avoir.me/rss.xml';
+            loadRSSFeed(rssUrl);
+        }
+        </script>
     """
     final_article += "\n</div>\n</body>\n</html>"
     dir_path = query
@@ -972,10 +995,10 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["阿德勒心理學講義"]
+    queries = ["阿德勒心理學課題分離"]
     categories = [['心理學', '阿德勒心理學']]
     model = "meta/llama-3.1-405b-instruct"
-    size = 3
+    size = 4
     lang = "traditional chinese"
     outline_editor = False
     for query, category in zip(queries, categories):
