@@ -228,8 +228,8 @@ def topic_definer(website_text, query, model, lang, max_retries=3, delay=2):
 
             identify the topics that they wrote, and reform them into h2 headers.
             output in {lang}
-            return me a python list of h2 headers.
-            the python list MUST be quoted with double quotes.
+            return me a python list of h2 headers. if there is no content, return an empty list
+            each python list object MUST be quoted with double quotes.
             NO premable and explanation. I only want the list without other words.
             """
 
@@ -973,7 +973,9 @@ def autoblogger(query, model, size, lang, category, outline_editor):
 
         // Load the RSS feed when the page loads
         window.onload = function() {
-            const rssUrl = 'https://avoir.me/rss.xml';
+            const rssUrl = 'https://avoir.me/category/"""
+    final_article += category[0]
+    final_article += r"""/rss.xml';
             loadRSSFeed(rssUrl);
         }
         </script>
@@ -990,8 +992,8 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["自我的追尋佛羅姆分析"]
-    categories = [['心理學', '佛羅姆']]
+    queries = ["photoshop 磁性套索工具"]
+    categories = [['科技', '照片科技']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     lang = "traditional chinese"
