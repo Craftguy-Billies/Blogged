@@ -1,0 +1,35 @@
+name: AI 自動筆 FTP Deployment
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:  # This allows you to manually trigger the workflow
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      # Setup FTP deployment
+      - name: Setup FTP deployment
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        env:
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        with:
+          server: ftpupload.net
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          server-dir: /htdocs/
+          exclude: |
+            .git*
+            **/.git*
+            **/.github*
+            自動筆.py
+            "groq api keys"
+            groqqer.py
