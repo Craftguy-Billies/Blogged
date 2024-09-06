@@ -853,7 +853,7 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     cat_url = "/"
     for cat in category:
       cat_url += cat + '/'
-      final_article += '  <i class="fa-solid fa-angle-right"></i> <a href="https://avoir.me" + cat_url + '">' + cat + '</a>'
+      final_article += '  <i class="fa-solid fa-angle-right"></i> <a href="https://avoir.me"' + cat_url + '">' + cat + '</a>'
     final_article += "\n</div>\n"
     final_article += '<div class="blog-type">Blog</div>'
     final_article += h1
