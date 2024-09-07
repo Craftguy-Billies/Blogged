@@ -4,4 +4,4 @@ requests
 beautifulsoup4
 groq
 pixabay
-PIL
+pillow
