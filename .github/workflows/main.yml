@@ -39,6 +39,9 @@ jobs:
       - name: Run AI 自動筆 script
         run: python 自動筆.py
 
+      - name: Run Img Compressor script
+        run: python compress.py
+
       - uses: stefanzweifel/git-auto-commit-action@v5
         id: auto-commit-action
         with:
