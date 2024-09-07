@@ -847,6 +847,10 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     final_article += "\n"
     final_article += metadata
     final_article += '\n<link rel="stylesheet" href="../blog.css">'
+    final_article += '''<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" as="style" onload="this.rel='stylesheet'">
+                        <noscript>
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+                        </noscript>'''
     final_article += '\n</head>\n\n<body>\n<img class="banner" src="../images/'
     final_article += ban
     final_article += '">\n<div class="direct">\n  <a href="https://avoir.me/">Home</a>\n'
