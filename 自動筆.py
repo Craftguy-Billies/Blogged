@@ -12,6 +12,7 @@ from xml.dom import minidom
 from xml.etree.ElementTree import Element, SubElement, tostring, parse, fromstring, ElementTree
 from datetime import datetime
 import urllib.parse
+import pytz
 
 
 DEBUG = False
@@ -863,7 +864,14 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     final_article += h1
     final_article += '\n<div class = "description">'
     final_article += intro
-    toc = '\n</div>\n\n<section class="middle-img">\n<figure>\n<img class = "middle-img-edit" src="../images/'
+    final_article += '\n</div>\n'
+    hong_kong_tz = pytz.timezone('Asia/Hong_Kong')
+    current_time = datetime.now(hong_kong_tz)
+    formatted_date = current_time.strftime('%d %b %Y')
+    author_name = "Avoir"
+    publish_date_html = f'<div class="publish-date">By {author_name} - {formatted_date}</div>'
+    final_article += publish_date_html
+    toc = '\n\n<section class="middle-img">\n<figure>\n<img class = "middle-img-edit" src="../images/'
     toc += image
     toc += '">\n<figcaption>Image Source: Pixabay</figcaption></figure>\n</section>\n\n<div class="content-page">\n<h2>文章目錄</h2>\n<ul>\n'
     for item in outline:
