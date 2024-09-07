@@ -1004,10 +1004,10 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["photoshop 磁性套索工具"]
-    categories = [['科技', '照片科技']]
+    queries = ["香港街頭小食"]
+    categories = [['美食', '香港美食']]
     model = "meta/llama-3.1-405b-instruct"
-    size = 4
+    size = 6
     lang = "traditional chinese"
     outline_editor = False
     for query, category in zip(queries, categories):
