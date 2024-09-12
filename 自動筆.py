@@ -14,6 +14,7 @@ from datetime import datetime
 import urllib.parse
 import pytz
 
+hk_timezone = pytz.timezone('Asia/Hong_Kong')
 
 DEBUG = False
 
@@ -616,7 +617,7 @@ def add_rss_item(template_path, link, blog):
     item_pub_date = SubElement(item, 'pubDate')
     item_pub_date.text = datetime.now().strftime('%a, %d %b %Y %H:%M:%S %z')
   
-    root_url = "https://avoir.me"
+    root_url = "https://www.avoir.me"
     if enclosure_url.startswith(".."):
         enclosure_url = os.path.join(root_url, os.path.normpath(enclosure_url)[3:])
     if enclosure_url:
@@ -662,7 +663,7 @@ def add_blog_post(final_article, link, category):
     if enclosure_url.startswith(".."):
         enclosure_url = os.path.join(root_url, os.path.normpath(enclosure_url)[3:])
 
-    pubdate = datetime.now().strftime('%a, %d %b %Y %H:%M:%S %z')
+    pubdate = datetime.now(hk_timezone).strftime('%a, %d %b %Y %H:%M:%S %z')
     
     post = {
         'title': title,
@@ -739,7 +740,17 @@ def initialize_rss(path, cat):
                           <li class = "menu-button" onclick = showsidebar()><a href="#"><i class="fa-solid fa-bars"></i></a></li>
                       </ul>
                   </nav>
-                  <div class="recommended" id="recommended">"""
+                  <div class="recommended" id="recommended">
+                      <div class="direct">"""
+    categories = path.split('/')[1:]
+    current_path = "category/"
+    base_url = "https://www.avoir.me/"
+    content += '<a href="https://www.avoir.me/">Home</a>'
+    for cate in categories:
+      current_path += cate + '/'  # Append category to the current path
+      content += ' <i class="fa-solid fa-angle-right"></i> <a href="' + base_url + current_path + '">' + cate + '</a>'
+    content += r"""</div>
+                    <div class="recommend">"""
     content += cat
     content += r"""       </div>
                           <div class="line"></div>
