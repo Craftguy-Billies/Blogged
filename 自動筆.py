@@ -1418,8 +1418,8 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["香港大型購物商場"]
-    categories = [['購物', '香港']]
+    queries = ["深圳大型購物商場"]
+    categories = [['購物', '深圳']]
     model = "meta/llama-3.1-405b-instruct"
     size = 6
     lang = "traditional chinese"
