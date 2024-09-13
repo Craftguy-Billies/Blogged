@@ -1049,7 +1049,7 @@ def initialize_rss(path, cat):
                     async function loadRSS() {
                         try {
                             // Fetch the rss.xml file and await the response
-                            const response = await fetch('rss.xml');
+                            const response = await fetch('https://www.avoir.me/rss.xml');
                     
                             // Check if the response is OK (status 200-299)
                             if (!response.ok) {
