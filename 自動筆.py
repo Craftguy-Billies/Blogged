@@ -1137,12 +1137,7 @@ def initialize_rss(path, cat):
                             .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
                             .then(data => {
                                 const items = Array.from(data.querySelectorAll("item")).reverse();
-                                let html = `
-                                    <div class="recommended">
-                                        <div class="direct"><a href="https://www.avoir.me">Home</a> <i class="fa-solid fa-angle-right"></i> <a href="">Blog</a></div>
-                                        <div class="recommend">主題</div>
-                                        <div class="line"></div>
-                                `;
+                                let html = "";
                     
                                 items.forEach(el => {
                                     // Safely access each element
@@ -1418,8 +1413,8 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["深圳大型購物商場"]
-    categories = [['購物', '深圳']]
+    queries = ["法國大型購物商場"]
+    categories = [['購物', '法國']]
     model = "meta/llama-3.1-405b-instruct"
     size = 6
     lang = "traditional chinese"
