@@ -706,15 +706,6 @@ def initialize_rss(path, cat):
                       <link rel="stylesheet" href="https://www.avoir.me/related_post.css">
                       <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">
                       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-                      <style>
-                          * {
-                              box-sizing: border-box;
-                              margin: 0;
-                              padding: 0;
-                              font-family: 'Noto Sans TC', sans-serif;
-                              scroll-behavior: smooth;
-                          }
-                      </style>
                       <title>"""
     content += cat
     content += r"""</title>
@@ -874,11 +865,11 @@ def autoblogger(query, model, size, lang, category, outline_editor):
                           </nav>'''
     final_article += '\n<img class="banner" src="../images/'
     final_article += ban
-    final_article += '">\n<div class="direct">\n  <a href="https://avoir.me/">Home</a>\n'
+    final_article += '">\n<div class="direct">\n  <a href="https://www.avoir.me/">Home</a>\n'
     cat_url = "/category/"
     for cat in category:
       cat_url += cat + '/'
-      final_article += '  <i class="fa-solid fa-angle-right"></i> <a href="https://avoir.me' + cat_url + '">' + cat + '</a>'
+      final_article += '  <i class="fa-solid fa-angle-right"></i> <a href="https://www.avoir.me' + cat_url + '">' + cat + '</a>'
     final_article += "\n</div>\n"
     final_article += '<div class="blog-type">Blog</div>'
     final_article += h1
@@ -960,10 +951,10 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["美國大型購物商場"]
-    categories = [['購物', '美國']]
+    queries = ["將軍澳大型購物商場"]
+    categories = [['購物', '香港']]
     model = "meta/llama-3.1-405b-instruct"
-    size = 6
+    size = 4
     lang = "traditional chinese"
     outline_editor = False
     for query, category in zip(queries, categories):
