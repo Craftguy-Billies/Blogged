@@ -598,7 +598,7 @@ def add_rss_item(template_path, link, blog):
     root = tree.getroot()
     channel = root.find('channel')
     last_build_date = channel.find('lastBuildDate')
-    last_build_date.text = datetime.now().strftime('%a, %d %b %Y %H:%M:%S %z')
+    last_build_date.text = datetime.now(hk_timezone).strftime('%a, %d %b %Y %H:%M:%S %z')
   
     soup = BeautifulSoup(blog, 'html.parser')
     title = soup.title.string
@@ -615,7 +615,7 @@ def add_rss_item(template_path, link, blog):
     item_description.text = description
 
     item_pub_date = SubElement(item, 'pubDate')
-    item_pub_date.text = datetime.now().strftime('%a, %d %b %Y %H:%M:%S %z')
+    item_pub_date.text = datetime.now(hk_timezone).strftime('%a, %d %b %Y %H:%M:%S %z')
   
     root_url = "https://www.avoir.me"
     if enclosure_url.startswith(".."):
@@ -659,7 +659,7 @@ def add_blog_post(final_article, link, category):
     enclosure_url = soup.find('img', class_='banner')['src']
     description = soup.find('div', class_='description').find('p').text
 
-    root_url = "https://avoir.me"
+    root_url = "https://www.avoir.me"
     if enclosure_url.startswith(".."):
         enclosure_url = os.path.join(root_url, os.path.normpath(enclosure_url)[3:])
 
@@ -837,12 +837,42 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     final_article += title_tag
     final_article += "\n"
     final_article += metadata
-    final_article += '\n<link rel="stylesheet" href="../blog.css">'
-    final_article += '''<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" as="style" onload="this.rel='stylesheet'">
-                        <noscript>
-                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-                        </noscript>'''
-    final_article += '\n</head>\n\n<body>\n<img class="banner" src="../images/'
+    final_article += '\n'
+    final_article += r'''<link rel="stylesheet" href="https://www.avoir.me/post.css">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                        <style>
+                                * {
+                                    box-sizing: border-box;
+                                    margin: 0;
+                                    padding: 0;
+                                    font-family: 'Noto Sans TC', sans-serif;
+                                    scroll-behavior: smooth;
+                                }
+                            </style>'''
+    final_article += '\n</head>\n\n<body>\n'
+    final_article += r'''<nav>
+                              <ul class = "sidebar" id = "content">
+                                  <li class = "xmark" onclick = hidesidebar()><a><i class="fa-solid fa-xmark"></i></a></li>
+                                  <div id="contain">
+                                      
+                                  </div>
+                              </ul>
+                              <ul id = "ts">
+                                  <li class = "Avoir-logo"><a href="https://www.avoir.me/">Avoir</a></li>
+                                  <li class = "hideOnMobile dropdown">
+                                      <a href="#">最新推薦</a>
+                                      <div class="dropdownmenu">
+                                          <div class="first-box2">
+                      
+                                          </div>
+                                      </div>
+                                  </li>
+                                  <li class = "menu-button" onclick = showsidebar()><a><i class="fa-solid fa-bars"></i></a></li>
+                              </ul>
+                          </nav>'''
+    final_article += '\n<img class="banner" src="../images/'
     final_article += ban
     final_article += '">\n<div class="direct">\n  <a href="https://avoir.me/">Home</a>\n'
     cat_url = "/category/"
@@ -892,95 +922,31 @@ def autoblogger(query, model, size, lang, category, outline_editor):
 
     final_article = wrap_lines(final_article)
     final_article += r"""
-        <br>
-        <div class="recommended" id="rss_content">
-        <div class="recommend">
-            延伸閱讀
-        </div>
-        <div class="line"></div>
-    </div>
-    <script>
-    function loadRSSFeed(url) {
-        // Get the src of the first <img> tag in the current article
-        const currentImgSrc = document.querySelector('img.banner')?.src || "";
-
-        // Get the title of the current article
-        const currentTitle = document.querySelector('h1')?.textContent || "";
-
-        fetch(url)
-            .then(response => response.text())
-            .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-            .then(data => {
-                const items = Array.from(data.querySelectorAll("item")).reverse();
-                let html = "";
-                let count = 0;
-
-                for (let i = 0; i < items.length; i++) {
-                    if (count >= 6) break; // Stop after displaying 6 items
-
-                    const el = items[i];
-
-                    // Safely access each element
-                    const title = el.querySelector("title")?.textContent || "No title available";
-                    const link = el.querySelector("link")?.textContent || "#";
-                    const description = el.querySelector("description")?.textContent || "No description available";
-                    const pubdate = el.querySelector("pubDate")?.textContent || "";
-                    const enclosure = el.querySelector("enclosure")?.getAttribute("url") || "";
-
-                    // Skip this item if the current article's first img src matches the link
-                    // or if the current article's title matches the title in the RSS feed
-                    if (currentImgSrc === link || currentTitle === title) {
-                        continue; // Skip this post
-                    }
-
-                    // Check if pubdate exists and format it if available
-                    let formattedDate = "";
-                    if (pubdate) {
-                        formattedDate = new Date(pubdate).toLocaleString('en-GB', {
-                            day: '2-digit',
-                            month: 'short',
-                            year: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            second: '2-digit',
-                            hour12: false
-                        });
-                    }
-
-                    // Add to the HTML and increase the count
-                    html += `
-                        <div class="recommend-row">
-                            <div class="recommend-blog-title-page">
-                                <div class="recommend-blog-title">
-                                    <a href="${link}" target="_blank">${title}</a>
-                                </div>
-                                <div class="recommend-blog-description">
-                                    ${description}
-                                </div>
-                            </div>
-                            ${enclosure ? `<img class="recommend-blog-img-edit" src="${enclosure}" alt="${title}"/>` : ""}
+                      <br>
+                      <div class="recommended" id="recommended">
+                        <div class="recommend">
+                            延伸閱讀
                         </div>
-                    `;
-
-                    count++;
-                }
-
-                document.getElementById('rss_content').innerHTML += html;
-            })
-            .catch(error => {
-                console.error('Error fetching or parsing RSS feed:', error);
-                document.getElementById('rss_content').innerHTML = '';
-            });
-        }
-
-        // Load the RSS feed when the page loads
-        window.onload = function() {
-            const rssUrl = 'https://avoir.me/category/"""
-    final_article += category[0]
-    final_article += r"""/rss.xml';
-            loadRSSFeed(rssUrl);
-        }
-        </script>
+                        <div class="line"></div>
+                      </div>
+                      <footer>
+                          <div class="footerContainer">
+                              <div class="socialIcons">
+                                  <a href=""><i class="fa-solid fa-envelope"></i></a>
+                                  <a href=""><i class="fa-brands fa-instagram"></i></a>
+                                  <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+                              </div>
+                              <div class="footer-nav">
+                                  <ul id="footerCategories">
+                                      <li><a href="https://www.avoir.me">主頁</a></li>
+                                  </ul>
+                              </div>
+                          </div>
+                          <div class="footer-bottom">
+                              <p>Copyright &copy; 2024 by <span class="highlight">Avoir.me</span> All Rights Reserved.</p>
+                          </div>
+                      </footer>
+                  <script src="https://www.avoir.me/post.js"></script>
     """
     final_article += "\n</div>\n</body>\n</html>"
     dir_path = query
@@ -994,8 +960,8 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["英國大型購物商場"]
-    categories = [['購物', '英國']]
+    queries = ["美國大型購物商場"]
+    categories = [['購物', '美國']]
     model = "meta/llama-3.1-405b-instruct"
     size = 6
     lang = "traditional chinese"
