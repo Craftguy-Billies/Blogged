@@ -772,7 +772,7 @@ def initialize_rss(path, cat):
                             <p>Copyright &copy; 2024 by <span class="highlight">Avoir.me</span> All Rights Reserved.</p>
                         </div>
                     </footer>
-                  <script src="https://www.avoir.me/related_post.js></script>
+                  <script src="https://www.avoir.me/related_post.js"></script>
                   </body>
                   </html>
                   """
