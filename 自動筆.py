@@ -778,6 +778,8 @@ def initialize_rss(path, cat):
     html_file = os.path.join(path, "index.html")
     with open(html_file, 'w', encoding='utf-8') as f:
         f.write(content)
+    priority = "0.75"
+    append_to_sitemap(path, priority)
 
 
 def prettify(element, level=0):
@@ -816,6 +818,24 @@ def update_rss(rss_path, post):
     prettify(channel)
 
     tree.write(rss_path, encoding='utf-8', xml_declaration=True)
+
+def append_to_sitemap(loc, priority):
+    file_path = 'sitemap.xml'
+    tree = parse(file_path)
+    root = tree.getroot()
+    new_url = Element("url")
+    loc_element = SubElement(new_url, "loc")
+    loc_element.text = loc
+    hk_timezone = pytz.timezone('Asia/Hong_Kong')
+    current_time = datetime.now(hk_timezone)
+    lastmod_element = SubElement(new_url, "lastmod")
+    lastmod_element.text = current_time.strftime('%Y-%m-%dT%H:%M:%S%z')
+    changefreq_element = SubElement(new_url, "changefreq")
+    changefreq_element.text = "weekly"
+    priority_element = SubElement(new_url, "priority")
+    priority_element.text = priority
+    root.append(new_url)
+    tree.write(file_path, encoding='UTF-8', xml_declaration=True)
 
 def autoblogger(query, model, size, lang, category, sample_size, outline_editor):
     outline = headerizer(structurer(crawl_top_10_results(query), query, model), query, model, lang, size)
@@ -955,12 +975,18 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     encoded_url = urllib.parse.quote(file_url, safe=':/')
     add_rss_item("rss.xml", encoded_url, final_article)
     add_blog_post(final_article, encoded_url, category)
+    loc = "https://www.avoir.me/"
+    loc += query
+    loc += "/"
+    priority = "0.8"
+    append_to_sitemap(loc, priority)
+	
 
 def main():
-    queries = ["香港美食打邊爐"]
+    queries = ["香港美食車仔麵"]
     categories = [['美食', '香港']]
     model = "meta/llama-3.1-405b-instruct"
-    size = 4
+    size = 3
     sample_size = 4
     lang = "traditional chinese"
     outline_editor = False
