@@ -706,6 +706,7 @@ def initialize_rss(path, cat):
                       <link rel="stylesheet" href="https://www.avoir.me/related_post.css">
                       <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">
                       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                      <style> * {box-sizing: border-box;margin: 0;padding: 0;font-family: 'Noto Sans TC', sans-serif;scroll-behavior: smooth;}</style>
                       <title>"""
     content += cat
     content += r"""</title>
@@ -943,8 +944,8 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["土耳其大型購物商場"]
-    categories = [['購物', '土耳其']]
+    queries = ["馬尼拉大型購物商場"]
+    categories = [['購物', '馬尼拉']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     lang = "traditional chinese"
