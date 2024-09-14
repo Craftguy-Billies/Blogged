@@ -31,4 +31,10 @@
     <ns0:priority>0.80</ns0:priority>
   </ns0:url>
 
-<ns0:url><ns0:loc>https://www.avoir.me/香港美食推介評分最高/</ns0:loc><ns0:lastmod>2024-09-14T22:35:30+0800</ns0:lastmod><ns0:priority>0.80</ns0:priority></ns0:url></ns0:urlset>
+<ns0:url>
+  <ns0:loc>https://www.avoir.me/香港美食推介評分最高/</ns0:loc>
+  <ns0:lastmod>2024-09-14T22:35:30+0800</ns0:lastmod>
+  <ns0:priority>0.80</ns0:priority>
+</ns0:url>
+
+</ns0:urlset>
