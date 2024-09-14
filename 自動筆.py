@@ -730,7 +730,7 @@ def initialize_rss(path, cat):
                       <ul id = "ts">
                           <li class = "Avoir-logo"><a href="https://www.avoir.me/">Avoir</a></li>
                           <li class = "hideOnMobile dropdown">
-                              <a href="#">最新推薦</a>
+                              <a href="https://www.avoir.me/related_post.html">最新推薦</a>
                               <div class="dropdownmenu">
                                   <div class="first-box2">
               
@@ -919,7 +919,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
                               <ul id = "ts">
                                   <li class = "Avoir-logo"><a href="https://www.avoir.me/">Avoir</a></li>
                                   <li class = "hideOnMobile dropdown">
-                                      <a href="#">最新推薦</a>
+                                      <a href="https://www.avoir.me/related_post.html">最新推薦</a>
                                       <div class="dropdownmenu">
                                           <div class="first-box2">
                       
