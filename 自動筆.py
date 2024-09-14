@@ -697,6 +697,9 @@ def initialize_rss(path, cat):
     tree = ElementTree(channel)
     tree.write(rss_file, encoding='utf-8', xml_declaration=True)
 
+    priority = "0.75"
+    append_to_sitemap(path, priority)
+
     # category page content
     content = r"""<!DOCTYPE html>
                   <html lang="zh">
@@ -778,8 +781,6 @@ def initialize_rss(path, cat):
     html_file = os.path.join(path, "index.html")
     with open(html_file, 'w', encoding='utf-8') as f:
         f.write(content)
-    priority = "0.75"
-    append_to_sitemap(path, priority)
 
 
 def prettify(element, level=0):
@@ -820,21 +821,42 @@ def update_rss(rss_path, post):
     tree.write(rss_path, encoding='utf-8', xml_declaration=True)
 
 def append_to_sitemap(loc, priority):
+    # File path to the sitemap.xml
     file_path = 'sitemap.xml'
+
+    # Parse the existing sitemap.xml file
     tree = parse(file_path)
     root = tree.getroot()
-    new_url = Element("url")
-    loc_element = SubElement(new_url, "loc")
+
+    # Declare the sitemap namespace
+    sitemap_ns = "http://www.sitemaps.org/schemas/sitemap/0.9"
+    nsmap = {"ns0": sitemap_ns}
+
+    # Create a new <url> element in the sitemap namespace
+    new_url = Element(f"{{{sitemap_ns}}}url")
+
+    # Add <loc> element
+    loc_element = SubElement(new_url, f"{{{sitemap_ns}}}loc")
     loc_element.text = loc
+
+    # Add <lastmod> element with the current time in Hong Kong timezone
     hk_timezone = pytz.timezone('Asia/Hong_Kong')
     current_time = datetime.now(hk_timezone)
-    lastmod_element = SubElement(new_url, "lastmod")
+    lastmod_element = SubElement(new_url, f"{{{sitemap_ns}}}lastmod")
     lastmod_element.text = current_time.strftime('%Y-%m-%dT%H:%M:%S%z')
-    changefreq_element = SubElement(new_url, "changefreq")
+
+    # Add <changefreq> element
+    changefreq_element = SubElement(new_url, f"{{{sitemap_ns}}}changefreq")
     changefreq_element.text = "weekly"
-    priority_element = SubElement(new_url, "priority")
+
+    # Add <priority> element
+    priority_element = SubElement(new_url, f"{{{sitemap_ns}}}priority")
     priority_element.text = priority
+
+    # Append the new <url> element to the root <urlset> element
     root.append(new_url)
+
+    # Write the updated XML tree back to the file
     tree.write(file_path, encoding='UTF-8', xml_declaration=True)
 
 def autoblogger(query, model, size, lang, category, sample_size, outline_editor):
@@ -978,12 +1000,12 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     loc = "https://www.avoir.me/"
     loc += query
     loc += "/"
-    priority = "0.8"
+    priority = "0.80"
     append_to_sitemap(loc, priority)
 	
 
 def main():
-    queries = ["香港美食車仔麵"]
+    queries = ["香港美食推介評分最高"]
     categories = [['美食', '香港']]
     model = "meta/llama-3.1-405b-instruct"
     size = 3
