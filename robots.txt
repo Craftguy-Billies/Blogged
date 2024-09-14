@@ -1,0 +1,17 @@
+User-agent: *
+Disallow: /images/
+Disallow: /sz/
+Disallow: /深圳南山區美食/
+Disallow: /葡萄牙美食/
+Disallow: /香港堅尼地城美食/
+Disallow: /香港街頭小食/
+Disallow: /香港連鎖餐廳推薦/
+
+Disallow: /.ftp-deploy-sync-state.json
+Disallow: /blog.html
+Disallow: /footer.html
+Disallow: /index2.html
+Disallow: /index3.html
+Disallow: /navbar.html
+Disallow: /post.html
+Disallow: /previous related_post.html
