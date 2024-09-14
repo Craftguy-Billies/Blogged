@@ -845,6 +845,10 @@ def append_to_sitemap(loc, priority):
     lastmod_element = SubElement(new_url, f"{{{sitemap_ns}}}lastmod")
     lastmod_element.text = current_time.strftime('%Y-%m-%dT%H:%M:%S%z')
 
+    # Add <changefreq> element
+    changefreq_element = SubElement(new_url, f"{{{sitemap_ns}}}changefreq")
+    changefreq_element.text = "weekly"
+
     # Add <priority> element
     priority_element = SubElement(new_url, f"{{{sitemap_ns}}}priority")
     priority_element.text = priority
@@ -852,7 +856,27 @@ def append_to_sitemap(loc, priority):
     # Append the new <url> element to the root <urlset> element
     root.append(new_url)
 
-    # Write the updated XML tree back to the file
+    # Internal prettify function with a different name
+    def prettify_xml_tree(element, level=0):
+        """Prettifies the XML tree in place by adding indentation and newlines."""
+        indent = "\n" + level * "  "
+        if len(element):  # If the element has children
+            if not element.text or not element.text.strip():
+                element.text = indent + "  "
+            for elem in element:
+                prettify_xml_tree(elem, level + 1)
+            if not elem.tail or not elem.tail.strip():
+                elem.tail = indent
+        else:
+            if not element.text or not element.text.strip():
+                element.text = ""
+            if level and (not element.tail or not element.tail.strip()):
+                element.tail = indent
+
+    prettify_xml_tree(root)  # Call the renamed prettify function
+
+    # Write the updated and prettified XML back to the file
+    tree = ElementTree(root)
     tree.write(file_path, encoding='UTF-8', xml_declaration=True)
 
 def autoblogger(query, model, size, lang, category, sample_size, outline_editor):
@@ -1001,7 +1025,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	
 
 def main():
-    queries = ["香港美食推介評分最高"]
+    queries = ["香港美食推介深水埗"]
     categories = [['美食', '香港']]
     model = "meta/llama-3.1-405b-instruct"
     size = 3
