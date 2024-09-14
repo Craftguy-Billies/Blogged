@@ -706,6 +706,8 @@ def initialize_rss(path, cat):
                       <link rel="stylesheet" href="https://www.avoir.me/related_post.css">
                       <meta name="theme-color" content="#757575">
                       <meta name="referrer" content="origin">
+                      <meta property="og:locale" content="zh_TW" />
+                      <meta property="og:site_name" content="Avoir" />
                       <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">
                       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
                       <style> * {box-sizing: border-box;margin: 0;padding: 0;font-family: 'Noto Sans TC', sans-serif;scroll-behavior: smooth;}</style>
@@ -814,7 +816,7 @@ def update_rss(rss_path, post):
 
     tree.write(rss_path, encoding='utf-8', xml_declaration=True)
 
-def autoblogger(query, model, size, lang, category, outline_editor):
+def autoblogger(query, model, size, lang, category, sample_size, outline_editor):
     outline = headerizer(structurer(crawl_top_10_results(query), query, model), query, model, lang, size)
     if outline_editor:
       outline = outline_editing(outline)
@@ -837,6 +839,9 @@ def autoblogger(query, model, size, lang, category, outline_editor):
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanstc.css">
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                        <meta property="og:locale" content="zh_TW" />
+                        <meta property="og:site_name" content="Avoir" />
+	                      <meta property="og:type" content="article" />
                         <meta name="referrer" content="origin">
                         <style> * {box-sizing: border-box;margin: 0;padding: 0;font-family: 'Noto Sans TC', sans-serif;scroll-behavior: smooth;}</style>'''
     final_article += '\n</head>\n\n<body>\n'
@@ -892,7 +897,7 @@ def autoblogger(query, model, size, lang, category, outline_editor):
         eachquery = querier(header, query, model, lang)
         for aquery in eachquery:
             thequery = aquery["query"]
-            results = crawl_top_10_results(thequery, nor=3)
+            results = crawl_top_10_results(thequery, nor=sample_size)
             for result in results:
                 downloaded = trafilatura.fetch_url(result['url'])
                 if downloaded is None:
@@ -948,14 +953,15 @@ def autoblogger(query, model, size, lang, category, outline_editor):
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["葡萄牙大型購物商場"]
-    categories = [['購物', '葡萄牙']]
+    queries = ["西班牙大型購物商場"]
+    categories = [['購物', '西班牙']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
+    sample_size = 4
     lang = "traditional chinese"
     outline_editor = False
     for query, category in zip(queries, categories):
-        autoblogger(query, model, size, lang, category, outline_editor)
+        autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 
 if __name__ == "__main__":
     if not DEBUG:
