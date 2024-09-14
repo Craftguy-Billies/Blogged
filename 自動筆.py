@@ -957,8 +957,8 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["孟加拉美食"]
-    categories = [['美食', '孟加拉']]
+    queries = ["香港美食打邊爐"]
+    categories = [['美食', '香港']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     sample_size = 4
