@@ -754,9 +754,9 @@ def initialize_rss(path, cat):
                       <footer>
                         <div class="footerContainer">
                             <div class="socialIcons">
-                                <a href=""><i class="fa-solid fa-envelope"></i></a>
-                                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                                <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+                                <a href="mailto:billy@avoir.me"><i class="fa-solid fa-envelope"></i></a>
+			        <a href="https://www.instagram.com/avoir.hk/"><i class="fa-brands fa-instagram"></i></a>
+			        <a href="https://x.com/avoir_me"><i class="fa-brands fa-x-twitter"></i></a>
                             </div>
                             <div class="footer-nav">
                                 <ul id="footerCategories">
@@ -873,7 +873,9 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
       cat_url += cat + '/'
       final_article += '  <i class="fa-solid fa-angle-right"></i> <a href="https://www.avoir.me' + cat_url + '">' + cat + '</a>'
     final_article += "\n</div>\n"
-    final_article += '<div class="blog-type">Blog</div>'
+    final_article += '<div class="blog-type">'
+    final_article += category[0]
+    final_article += '</div>'
     final_article += h1
     final_article += '\n<div class = "description">'
     final_article += intro
@@ -925,9 +927,9 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
                       <footer>
                           <div class="footerContainer">
                               <div class="socialIcons">
-                                  <a href=""><i class="fa-solid fa-envelope"></i></a>
-                                  <a href=""><i class="fa-brands fa-instagram"></i></a>
-                                  <a href=""><i class="fa-brands fa-x-twitter"></i></a>
+                                  <a href="mailto:billy@avoir.me"><i class="fa-solid fa-envelope"></i></a>
+                                  <a href="https://www.instagram.com/avoir.hk/"><i class="fa-brands fa-instagram"></i></a>
+                                  <a href="https://x.com/avoir_me"><i class="fa-brands fa-x-twitter"></i></a>
                               </div>
                               <div class="footer-nav">
                                   <ul id="footerCategories">
@@ -953,8 +955,8 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     add_blog_post(final_article, encoded_url, category)
 
 def main():
-    queries = ["西班牙大型購物商場"]
-    categories = [['購物', '西班牙']]
+    queries = ["葡萄牙美食"]
+    categories = [['美食', '葡萄牙']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     sample_size = 4
