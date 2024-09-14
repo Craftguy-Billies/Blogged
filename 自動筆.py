@@ -845,10 +845,6 @@ def append_to_sitemap(loc, priority):
     lastmod_element = SubElement(new_url, f"{{{sitemap_ns}}}lastmod")
     lastmod_element.text = current_time.strftime('%Y-%m-%dT%H:%M:%S%z')
 
-    # Add <changefreq> element
-    changefreq_element = SubElement(new_url, f"{{{sitemap_ns}}}changefreq")
-    changefreq_element.text = "weekly"
-
     # Add <priority> element
     priority_element = SubElement(new_url, f"{{{sitemap_ns}}}priority")
     priority_element.text = priority
