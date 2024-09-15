@@ -72,4 +72,16 @@
     <ns0:changefreq>weekly</ns0:changefreq>
     <ns0:priority>0.80</ns0:priority>
   </ns0:url>
+<ns0:url>
+    <ns0:loc>category/購物/台灣</ns0:loc>
+    <ns0:lastmod>2024-09-15T16:54:07+0800</ns0:lastmod>
+    <ns0:changefreq>weekly</ns0:changefreq>
+    <ns0:priority>0.75</ns0:priority>
+  </ns0:url>
+<ns0:url>
+    <ns0:loc>https://www.avoir.me/台灣購物退稅多少/</ns0:loc>
+    <ns0:lastmod>2024-09-15T16:54:07+0800</ns0:lastmod>
+    <ns0:changefreq>weekly</ns0:changefreq>
+    <ns0:priority>0.80</ns0:priority>
+  </ns0:url>
 </ns0:urlset>
