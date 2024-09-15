@@ -722,7 +722,7 @@ def initialize_rss(path, cat):
     schema_data = {
         "@type": "WebPage",
 	"name": cat,
-	"url": path,
+	"url": "https://www.avoir.me/" + path,
 	"description": cat
     }
 
@@ -945,9 +945,9 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     }
 
     # Convert the dictionary to a JSON string
-    schema_json = json.dumps(schema_data, indent=4)
+    schema_json = json.dumps(schema_data)
 
-    final_article += f"<script type='application/ld+json'>\n{schema_json}\n</script>"
+    final_article += f"<script type='application/ld+json'>{schema_json}</script>"
     final_article += '\n</head>\n\n<body>\n'
     final_article += r'''<nav>
                               <ul class = "sidebar" id = "content">
