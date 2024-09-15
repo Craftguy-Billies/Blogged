@@ -14,6 +14,28 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'  # Specify the Python version you need
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Assuming you have a requirements.txt file
+
+      # Runs your Python script
+      - name: Run Img Compressor script
+        run: python compress.py
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        id: auto-commit-action
+        with:
+            commit_message: Changed files
+            branch: ${{ github.ref }}
+            force: true
+
       # Setup FTP deployment
       - name: Setup FTP deployment
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
