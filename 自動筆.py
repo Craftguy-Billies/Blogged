@@ -858,6 +858,7 @@ def append_to_sitemap(loc, priority):
     current_time = datetime.now(hk_timezone)
     lastmod_element = SubElement(new_url, f"{{{sitemap_ns}}}lastmod")
     lastmod_element.text = current_time.strftime('%Y-%m-%dT%H:%M:%S%z')
+    lastmod_element.text = lastmod_element.text[:-2] + ':' + lastmod_element.text[-2:]
 
     # Add <changefreq> element
     changefreq_element = SubElement(new_url, f"{{{sitemap_ns}}}changefreq")
