@@ -729,7 +729,7 @@ def initialize_rss(path, cat):
     # Convert the dictionary to a JSON string
     schema_json = json.dumps(schema_data, indent=4)
 
-    final_article += f"<script type='application/ld+json'>\n{schema_json}\n</script>"
+    content += f"<script type='application/ld+json'>\n{schema_json}\n</script>"
     content += r"""
                     </head>
                     <body>
