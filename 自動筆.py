@@ -698,7 +698,7 @@ def initialize_rss(path, cat):
     tree.write(rss_file, encoding='utf-8', xml_declaration=True)
 
     priority = "0.75"
-    the_url = "https://www.avoir.me/" + path
+    the_url = "https://www.avoir.me/" + path + "/"
     append_to_sitemap(the_url, priority)
 
     # category page content
