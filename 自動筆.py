@@ -776,6 +776,7 @@ def initialize_rss(path, cat):
                             <div class="socialIcons">
                                 <a href="mailto:billy@avoir.me"><i class="fa-solid fa-envelope"></i></a>
 			        <a href="https://www.instagram.com/avoir.hk/"><i class="fa-brands fa-instagram"></i></a>
+	   			<a href="https://www.facebook.com/avoir.me"><i class="fa-brands fa-facebook"></i></a>
 			        <a href="https://x.com/avoir_me"><i class="fa-brands fa-x-twitter"></i></a>
                             </div>
                             <div class="footer-nav">
@@ -1039,6 +1040,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
                               <div class="socialIcons">
                                   <a href="mailto:billy@avoir.me"><i class="fa-solid fa-envelope"></i></a>
                                   <a href="https://www.instagram.com/avoir.hk/"><i class="fa-brands fa-instagram"></i></a>
+				  <a href="https://www.facebook.com/avoir.me"><i class="fa-brands fa-facebook"></i></a>
                                   <a href="https://x.com/avoir_me"><i class="fa-brands fa-x-twitter"></i></a>
                               </div>
                               <div class="footer-nav">
