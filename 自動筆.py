@@ -1068,7 +1068,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     loc = "https://www.avoir.me/"
     loc += query
     loc += "/"
-    priority = "0.80"
+    priority = "0.90"
     append_to_sitemap(loc, priority)
 	
 
