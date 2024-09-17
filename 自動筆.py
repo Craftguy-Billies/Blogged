@@ -1073,8 +1073,8 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	
 
 def main():
-    queries = ["台灣購物退稅多少"]
-    categories = [['購物', '台灣']]
+    queries = ["台灣購物網站國外信用卡", "台灣購物網站寄澳門", "台灣購物網站寄香港"]
+    categories = [['購物', '台灣'], ['購物', '台灣'], ['購物', '台灣']]
     model = "meta/llama-3.1-405b-instruct"
     size = 3
     sample_size = 4
