@@ -923,7 +923,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     outline = headerizer(structurer(crawl_top_10_results(query), query, model), query, model, lang, size)
     if outline_editor:
       outline = outline_editing(outline)
-    final_article = ""
+    final_article = "<!DOCTYPE html>"
     title = titler(outline, query, model, lang)
     file_url = f"https://avoir.me/{query}/index.html"
     ban = banner(title, model)
