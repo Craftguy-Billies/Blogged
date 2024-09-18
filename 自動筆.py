@@ -943,7 +943,9 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     # Variables for the meta content
     og_url = "https://www.avoir.me/" + query + "/"
     og_title = query
-    og_description = intro
+    souper = BeautifulSoup(intro, 'html.parser')
+    le_intro = souper.find_all('p')
+    og_description = le_intro
     og_image = "https://www.avoir.me/images/" + ban
 
     # Dynamically construct the meta tags
