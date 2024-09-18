@@ -232,6 +232,7 @@ def topic_definer(website_text, query, model, lang, max_retries=3, delay=2):
             identify the topics that they wrote, and reform them into h2 headers.
             output in {lang}
             return me a python list of h2 headers. if there is no content, return an empty list
+	    make sure your returned results are topics they focused, not AI created.
             each python list object MUST be quoted with double quotes.
             NO premable and explanation. I only want the list without other words.
             """
@@ -275,8 +276,9 @@ def topic_refiner(topics, query, model, lang, size, max_retries=3, delay=2):
             from the topics of top ranked articles, PICK best h2 headers with consistent level of specificity, and rewrite me these h2 headers.
             EVERY HEADER SHOULD BE DISTINCT ASPECT! NO DUPLICATION!
             do not give duplicated headers. headers must be DISTINCT and cannot have DUPLICATED ASPECTS. do not give totally unrelated headers.
-            the h2 headers given should be distinct, non-repetitive, and focused. no generic or catch-all phrases. specific is MUST. no need elaboration in headers if not mentioned in original header. DO NOT form headers by clustering other's multiple headers. i need PICK and REWRITE.
+            the h2 headers given should be distinct, non-repetitive, and focused. no generic or catch-all phrases. no need elaboration in headers if not mentioned in original header. DO NOT form headers by clustering other's multiple headers. i need PICK and REWRITE.
             my inner content will be slightly different from reference article, so make sure headers are reformed.
+	    make sure the each headers are informational intent.
             quality should be prioritized, less headers are better than vague and overly broad headers. no generic or catch-all phrases.
             headers should be in {lang}
             return me a python list of headers only.
