@@ -723,11 +723,28 @@ def initialize_rss(path, cat):
 
     # Dynamic data for the schema
     schema_data = {
-        "@type": "WebPage",
-	"name": cat,
-	"url": "https://www.avoir.me/" + path,
-	"description": cat
+        "@context": "https://schema.org",
+        "@graph": [
+	    {
+	        "@type": "WebPage",
+	        "name": cat,
+	        "url": "https://www.avoir.me/" + path,
+	        "description": cat
+	    },
+	    {
+	        "@type": "Organization",
+	        "name": "Avoir",
+	        "url": "https://www.avoir.me",
+	        "sameAs": [
+		    "https://www.facebook.com/avoir.me",
+		    "https://www.instagram.com/avoir.hk/",
+		    "https://x.com/avoir_me"
+	        ]
+	    }
+        ]
     }
+
+
 
     # Convert the dictionary to a JSON string
     schema_json = json.dumps(schema_data, indent=4)
@@ -938,17 +955,34 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	
     # Dynamic data for the schema
     schema_data = {
-	"@type": "Article",
-        "headline": title,
-	"datePublished": get_current_hk_time(),
-	"author": {
-	    "@type": "Person",
-	    "name": "Avoir"
-	},
-	"publisher": {
-	    "@type": "Organization",
-	    "name": "Avoir",
-	}
+        "@context": "https://schema.org",
+        "@graph": [
+	    {
+	      "@type": "Article",
+	      "headline": title,
+	      "description": intro,
+	      "datePublished": get_current_hk_time(),
+	      "author": {
+	          "@type": "Person",
+	          "name": "Avoir"
+	      },
+	      "publisher": {
+	          "@type": "Organization",
+	          "name": "Avoir",
+	          "url": "https://www.avoir.me"
+	      }
+            },
+	    {
+	      "@type": "Organization",
+	      "name": "Avoir",
+	      "url": "https://www.avoir.me",
+	      "sameAs": [
+	          "https://www.facebook.com/avoir.me",
+		  "https://www.instagram.com/avoir.hk/",
+		  "https://x.com/avoir_me"
+	      ]
+	    }
+	]
     }
 
     # Convert the dictionary to a JSON string
