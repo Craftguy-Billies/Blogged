@@ -132,7 +132,7 @@ def banner(title, model, outline = None, previous = None):
         space[0].download(image, "largeImage")
     return dir
 
-def titler(outline, query, model, lang, max_retries=3, delay=2):
+def titler(outline, query, model, lang, h2count, max_retries=3, delay=2):
     attempt = 0
     while attempt < max_retries:
         try:
@@ -144,6 +144,7 @@ def titler(outline, query, model, lang, max_retries=3, delay=2):
 
             i want a title that is clickbait enough, can convey the information I want to discuss about, in moderate length and humanized tone.
             it must be informational intent. words like "盤點", "攻略", "方法" are favored.
+	    if you add numbers like '7大', make sure it matches the content of headers.
             you should SEO optimize the title with the keyword {query} naturally.
             return me a single JSON object with single key 'title' without premable and explanations.
             output in {lang}
@@ -165,6 +166,7 @@ def titler(outline, query, model, lang, max_retries=3, delay=2):
                     article_title += chunk.choices[0].delta.content
 
             article_title = extract_json_content(article_title)["title"]
+	    article_title = article_title.replace("7", str(h2count))
             if article_title:
                   return article_title
 
@@ -924,7 +926,8 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     if outline_editor:
       outline = outline_editing(outline)
     final_article = "<!DOCTYPE html>"
-    title = titler(outline, query, model, lang)
+    h2count = len(outline)
+    title = titler(outline, query, model, lang, h2count)
     file_url = f"https://avoir.me/{query}/index.html"
     ban = banner(title, model)
     image = banner(title, model, outline, ban)
