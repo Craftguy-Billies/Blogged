@@ -122,6 +122,21 @@ def banner(title, model, outline = None, previous = None):
     px = pixabay.core("45631523-f41b44ca77fa2a2753db5e2d2")
     space = px.query(response, orientation = 'horizontal')
 
+    with open('id.txt', 'r') as file:
+        pic_ids = [line.strip() for line in file.readlines()]
+
+    j = 0
+    while True:
+        pic_id = space[j].getId()
+
+        if pic_id not in pic_ids:
+	    break
+    
+        j += 1  # If pic_id is not unique, increment j and try the next one
+
+    with open('id.txt', 'a') as file:  # Open file in append mode
+        file.write(f'{pic_id}\n')  # Write the new pic_id on a new line
+
     image_dir = './images/'
     if not os.path.exists(image_dir):
         os.makedirs(image_dir)
@@ -1150,7 +1165,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	
 
 def main():
-    queries = ["十大網路購物電商平台排名名單"]
+    queries = ["淘寶信用卡付款手續費"]
     categories = [['購物', '網上購物']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
