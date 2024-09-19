@@ -1168,7 +1168,7 @@ def main():
     queries = ["淘寶信用卡付款手續費"]
     categories = [['購物', '網上購物']]
     model = "meta/llama-3.1-405b-instruct"
-    size = 4
+    size = 3
     sample_size = 4
     lang = "traditional chinese"
     outline_editor = False
