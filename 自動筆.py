@@ -132,10 +132,10 @@ def banner(title, model, outline = None, previous = None):
         if pic_id not in pic_ids:
             break
     
-         j += 1  # If pic_id is not unique, increment j and try the next one
+         j += 1
 
-    with open('id.txt', 'a') as file:  # Open file in append mode
-        file.write(f'{pic_id}\n')  # Write the new pic_id on a new line
+    with open('id.txt', 'a') as file:
+        file.write(f'{pic_id}\n')
 
     image_dir = './images/'
     if not os.path.exists(image_dir):
