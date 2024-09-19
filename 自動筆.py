@@ -739,11 +739,17 @@ def initialize_rss(path, cat):
 	        "@type": "Organization",
 	        "name": "Avoir",
 	        "url": "https://www.avoir.me",
+		"logo": "https://www.avoir.me/icons/favicon.png",
 	        "sameAs": [
 		    "https://www.facebook.com/avoir.me",
 		    "https://www.instagram.com/avoir.hk/",
 		    "https://x.com/avoir_me"
 	        ]
+	    },
+	    {
+	      "@type": "WebSite",
+	      "name": "Avoir",
+	      "url": "https://www.avoir.me"
 	    }
         ]
     }
@@ -1007,11 +1013,17 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	      "@type": "Organization",
 	      "name": "Avoir",
 	      "url": "https://www.avoir.me",
+	      "logo": "https://www.avoir.me/icons/favicon.png",
 	      "sameAs": [
 	          "https://www.facebook.com/avoir.me",
 		  "https://www.instagram.com/avoir.hk/",
 		  "https://x.com/avoir_me"
 	      ]
+	    },
+	    {
+	      "@type": "WebSite",
+	      "name": "Avoir",
+	      "url": "https://www.avoir.me"
 	    }
 	]
     }
