@@ -81,13 +81,14 @@ def banner(title, model, outline = None, previous = None):
     data = ""
     again = ""
     if outline:
-      data += "and the headers of the article:\n"
-      data += str(outline)
-      data += "\n\n"
-      data += "make sure your returned query is in a different aspect, generate different results as the previous query:"
-      data += previous
-      again += "AGAIN: your returned query should be significantly different aspect from the previous query:"
-      again += previous
+        data += "and the headers of the article:\n"
+        data += str(outline)
+        data += "\n\n"
+        data += "make sure your returned query is in a different aspect, generate different results as the previous query:"
+        data += previous
+
+        again += "AGAIN: your returned query should be significantly different aspect from the previous query:"
+        again += previous
     prompt = f"""
     i now have this blog title:
     {title}
