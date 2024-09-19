@@ -25,27 +25,9 @@
   </ns0:url>
 
   <ns0:url>
-    <ns0:loc>https://www.avoir.me/category/美食/香港/</ns0:loc>
+    <ns0:loc>https://www.avoir.me/category/美食/香港美食/</ns0:loc>
     <ns0:lastmod>2024-09-14T18:01:40+08:00</ns0:lastmod>
     <ns0:priority>0.75</ns0:priority>
-  </ns0:url>
-
-  <ns0:url>
-    <ns0:loc>https://www.avoir.me/香港美食打邊爐/</ns0:loc>
-    <ns0:lastmod>2024-09-14T21:00:30+08:00</ns0:lastmod>
-    <ns0:priority>0.90</ns0:priority>
-  </ns0:url>
-
-  <ns0:url>
-    <ns0:loc>https://www.avoir.me/香港美食車仔麵/</ns0:loc>
-    <ns0:lastmod>2024-09-14T22:07:45+08:00</ns0:lastmod>
-    <ns0:priority>0.90</ns0:priority>
-  </ns0:url>
-
-<ns0:url>
-    <ns0:loc>https://www.avoir.me/香港美食推介評分最高/</ns0:loc>
-    <ns0:lastmod>2024-09-14T22:35:30+08:00</ns0:lastmod>
-    <ns0:priority>0.90</ns0:priority>
   </ns0:url>
 
 <ns0:url>
@@ -61,32 +43,14 @@
     <ns0:priority>0.75</ns0:priority>
   </ns0:url>
 <ns0:url>
-    <ns0:loc>https://www.avoir.me/category/購物/香港/</ns0:loc>
+    <ns0:loc>https://www.avoir.me/category/購物/台灣購物/</ns0:loc>
     <ns0:lastmod>2024-09-15T13:17:18+08:00</ns0:lastmod>
-    <ns0:changefreq>weekly</ns0:changefreq>
-    <ns0:priority>0.75</ns0:priority>
-  </ns0:url>
-<ns0:url>
-    <ns0:loc>https://www.avoir.me/香港購物商場人氣排行榜/</ns0:loc>
-    <ns0:lastmod>2024-09-15T13:17:18+08:00</ns0:lastmod>
-    <ns0:changefreq>weekly</ns0:changefreq>
-    <ns0:priority>0.90</ns0:priority>
-  </ns0:url>
-<ns0:url>
-    <ns0:loc>https://www.avoir.me/category/購物/台灣/</ns0:loc>
-    <ns0:lastmod>2024-09-15T16:54:07+08:00</ns0:lastmod>
     <ns0:changefreq>weekly</ns0:changefreq>
     <ns0:priority>0.75</ns0:priority>
   </ns0:url>
 <ns0:url>
     <ns0:loc>https://www.avoir.me/台灣購物退稅多少/</ns0:loc>
     <ns0:lastmod>2024-09-15T16:54:07+08:00</ns0:lastmod>
-    <ns0:changefreq>weekly</ns0:changefreq>
-    <ns0:priority>0.90</ns0:priority>
-  </ns0:url>
-<ns0:url>
-    <ns0:loc>https://www.avoir.me/台灣購物網站國外信用卡/</ns0:loc>
-    <ns0:lastmod>2024-09-17T15:36:39+08:00</ns0:lastmod>
     <ns0:changefreq>weekly</ns0:changefreq>
     <ns0:priority>0.90</ns0:priority>
   </ns0:url>
@@ -102,12 +66,7 @@
     <ns0:changefreq>weekly</ns0:changefreq>
     <ns0:priority>0.90</ns0:priority>
   </ns0:url>
-<ns0:url>
-    <ns0:loc>https://www.avoir.me/category/購物/網上購物/</ns0:loc>
-    <ns0:lastmod>2024-09-18T18:38:33+08:00</ns0:lastmod>
-    <ns0:changefreq>weekly</ns0:changefreq>
-    <ns0:priority>0.75</ns0:priority>
-  </ns0:url>
+</ns0:urlset>
 <ns0:url>
     <ns0:loc>https://www.avoir.me/淘寶信用卡付款手續費/</ns0:loc>
     <ns0:lastmod>2024-09-19T17:23:45+08:00</ns0:lastmod>
