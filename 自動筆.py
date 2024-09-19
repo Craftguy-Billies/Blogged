@@ -130,7 +130,7 @@ def banner(title, model, outline = None, previous = None):
         pic_id = space[j].getId()
 
         if pic_id not in pic_ids:
-	    break
+			break
     
         j += 1  # If pic_id is not unique, increment j and try the next one
 
