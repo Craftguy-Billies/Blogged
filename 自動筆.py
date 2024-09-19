@@ -127,12 +127,12 @@ def banner(title, model, outline = None, previous = None):
 
     j = 0
     while True:
-        pic_id = space[j].getId()
-
-        if pic_id not in pic_ids:
+		pic_id = space[j].getId()
+		
+		if pic_id not in pic_ids:
 			break
     
-        j += 1  # If pic_id is not unique, increment j and try the next one
+		j += 1  # If pic_id is not unique, increment j and try the next one
 
     with open('id.txt', 'a') as file:  # Open file in append mode
         file.write(f'{pic_id}\n')  # Write the new pic_id on a new line
