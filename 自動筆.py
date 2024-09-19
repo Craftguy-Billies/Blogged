@@ -182,7 +182,7 @@ def titler(outline, query, model, lang, h2count, max_retries=3, delay=2):
                     article_title += chunk.choices[0].delta.content
 
             article_title = extract_json_content(article_title)["title"]
-	    article_title = article_title.replace("7", str(h2count))
+            article_title = article_title.replace("7", str(h2count))
             if article_title:
                   return article_title
 
