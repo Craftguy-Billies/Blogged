@@ -132,7 +132,7 @@ def banner(title, model, outline = None, previous = None):
         if pic_id not in pic_ids:
             break
     
-         j += 1
+        j += 1
 
     with open('id.txt', 'a') as file:
         file.write(f'{pic_id}\n')
