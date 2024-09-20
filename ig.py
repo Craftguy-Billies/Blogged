@@ -292,7 +292,7 @@ for blog in blogs:
     canonical_link_tag = soup.find('link', rel='canonical')
     if canonical_link_tag and 'href' in canonical_link_tag.attrs:
         canonical_url = canonical_link_tag['href']
-	canonical_url = urllib.parse.quote(canonical_url)
+        canonical_url = urllib.parse.quote(canonical_url)
     h1_tag = soup.find('h1')
     if h1_tag:
         h1_content = h1_tag.text.strip()
