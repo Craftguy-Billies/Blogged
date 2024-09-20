@@ -313,3 +313,7 @@ ig += "\n"
 ig += "分類: " + blog_type_content
 ig += "\n"
 ig += "標題: " + h1_content
+ig += "\n\n\n\n\n\n"
+
+with open("results.txt", "a", encoding="utf-8") as file:
+    file.write(ig)
