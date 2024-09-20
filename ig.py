@@ -219,8 +219,10 @@ def converter(hnp):
     in my blog post.
     now i want to convert them into an instagram post format, which simply does humanization and summarization for the paragraph ONLY, and make the header CONCISE and SHORT (less than 10 chinese characters).
     return me plain text format to wrap the concise version of header (just for formatting), and the rewritten paragraph. The paragraph should be around 200-300 chinese characters ONLY.
+    the paragraph should be in point form.
     the rewritten paragraph is NOT PROMOTIONAL but informational. USE THRID PERSON NARRATIVE. use friendly and professional tone. Do not include introductions, conclusions and promotions, but ONLY TO THE POINT.
-    the headers should be wrapped with emojis if possible.
+    the headers should be wrapped with emojis if possible. 
+    the paragraph should be in point form.
     No premable and explanations.
     REMEMBER: No premable and explanations!
     """
