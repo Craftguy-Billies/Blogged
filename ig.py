@@ -165,6 +165,9 @@ blogs = [r"""
 </html>
 """]
 
+with open("results.txt", "w", encoding="utf-8") as file:
+    file.write("")
+
 def extract_body(blog):
     html_content = blog
     soup = BeautifulSoup(html_content, "html.parser")
