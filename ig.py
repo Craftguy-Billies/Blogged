@@ -226,6 +226,7 @@ def converter(hnp):
     the rewritten paragraph is NOT PROMOTIONAL but informational. USE THRID PERSON NARRATIVE. use friendly and professional tone. Do not include introductions, conclusions and promotions, but ONLY TO THE POINT.
     the headers should be wrapped with emojis if possible. 
     the paragraph should be in point form.
+    no bold font is needed.
     No premable and explanations.
     REMEMBER: No premable and explanations!
     """
@@ -301,7 +302,7 @@ for blog in blogs:
     for ehnp in hnp:
         thnp = converter(ehnp)
         fb.append(thnp)
-        fb.append("\n")
+        fb.append("\n\n")
 
 for b in fb:
     ig += b
