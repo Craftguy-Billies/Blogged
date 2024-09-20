@@ -5,6 +5,7 @@ import requests
 import ast
 import os
 import json
+import urllib.parse
 
 model = "meta/llama-3.1-405b-instruct"
 
@@ -291,6 +292,7 @@ for blog in blogs:
     canonical_link_tag = soup.find('link', rel='canonical')
     if canonical_link_tag and 'href' in canonical_link_tag.attrs:
         canonical_url = canonical_link_tag['href']
+	canonical_url = urllib.parse.quote(canonical_url)
     h1_tag = soup.find('h1')
     if h1_tag:
         h1_content = h1_tag.text.strip()
@@ -310,7 +312,7 @@ for b in fb:
 ig += "\n"
 ig += "原文網址: " + canonical_url
 
-ig += "\n"
+ig += "\n\n"
 ig += "Tags: " + t
 ig += "\n\n"
 
