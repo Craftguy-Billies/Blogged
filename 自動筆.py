@@ -163,6 +163,7 @@ def titler(outline, query, model, lang, h2count, max_retries=3, delay=2):
 	    if you add numbers like '7大', make sure it matches the content of headers.
             you should SEO optimize the title with the keyword {query} naturally.
             return me a single JSON object with single key 'title' without premable and explanations.
+	    make the title no longer than 40 characters.
             output in {lang}
             AGAIN: NO premable and explanation needed.
             """
@@ -1166,10 +1167,23 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	
 
 def main():
-    queries = ["淘寶信用卡付款手續費"]
-    categories = [['購物', '網上購物']]
+    queries = ["香港人愛吃台灣的什麼",
+"哪種食物最能代表香港的飲食",
+"最能代表香港的食物",
+"香港自由行吃什麼",
+"香港宵夜去哪吃",
+"香港為什麼是美食天堂",
+"香港飲食文化多元化的原因",
+"茶餐廳是香港本土文化的代表嗎",
+"為什麼茶餐廳是研究香港文化的好地方",
+"香港的飲食文化如何融合中國和西方國家的特色",
+"粵菜跟港式一樣嗎",
+"去香港一定要吃什麼",
+"香港人喜歡吃什麼菜",
+"香港人早餐喜歡吃什麼"]
+    categories = [['美食', '台灣美食'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港']]
     model = "meta/llama-3.1-405b-instruct"
-    size = 3
+    size = 4
     sample_size = 4
     lang = "traditional chinese"
     outline_editor = False
