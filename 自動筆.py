@@ -13,6 +13,7 @@ from xml.etree.ElementTree import Element, SubElement, tostring, parse, fromstri
 from datetime import datetime
 import urllib.parse
 import pytz
+import subprocess
 
 hk_timezone = pytz.timezone('Asia/Hong_Kong')
 
@@ -946,6 +947,11 @@ def get_current_hk_time():
     current_time = datetime.now(tz_hk)
     return current_time.isoformat()
 
+def commit_changes():
+    subprocess.run(["git", "add", "."], check=True)
+    subprocess.run(["git", "commit", "-m", "讀萬卷書不如寫萬篇文"], check=True)
+    subprocess.run(["git", "push"], check=True)
+
 def autoblogger(query, model, size, lang, category, sample_size, outline_editor):
     outline = headerizer(structurer(crawl_top_10_results(query), query, model), query, model, lang, size)
     if outline_editor:
@@ -1164,6 +1170,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     loc += "/"
     priority = "0.90"
     append_to_sitemap(loc, priority)
+    commit_changes()
 	
 
 def main():
