@@ -32,6 +32,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # Assuming you have a requirements.txt file
 
+      # Add this step to configure Git identity
+      - name: Configure Git Identity
+        run: |
+          git config --global user.name "Craftguy-Billies"
+          git config --global user.email "kwantszlong1555@gmail.com"
+
       # Runs your Python script
       - name: Run AI 自動筆 script
         run: python 自動筆.py
