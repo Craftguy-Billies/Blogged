@@ -948,6 +948,8 @@ def get_current_hk_time():
     return current_time.isoformat()
 
 def commit_changes():
+    # Pull the latest changes to avoid conflicts
+    subprocess.run(["git", "pull", "--rebase"], check=True)
     subprocess.run(["git", "add", "."], check=True)
     subprocess.run(["git", "commit", "-m", "讀萬卷書不如寫萬篇文"], check=True)
     subprocess.run(["git", "push"], check=True)
@@ -1007,6 +1009,10 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 		 	<meta name="robots" content="index, follow" />
 		 	<meta name="author" content="Avoir" />
                         <meta name="referrer" content="origin">
+			<meta name="apple-mobile-web-app-capable" content="yes"/>
+                        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+                        <meta name="apple-mobile-web-app-title" content="Avoir"/>
+                        <meta name="apple-touch-fullscreen" content="yes"/>
 			<link rel="icon" type="image/x-icon" href="https://www.avoir.me/icons/favicon.ico">
                         <link rel="shortcut icon" type="image/x-icon" href="https://www.avoir.me/icons/favicon.ico">
                         <style> * {box-sizing: border-box;margin: 0;padding: 0;font-family: 'Noto Sans TC', sans-serif;scroll-behavior: smooth;}</style>'''
