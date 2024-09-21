@@ -950,7 +950,7 @@ def get_current_hk_time():
 def commit_changes():
     # Pull the latest changes to avoid conflicts
     subprocess.run(["git", "pull", "--rebase"], check=True)
-    subprocess.run(["git", "add", "."], check=True)
+    subprocess.run(["git", "add", "--all"], check=True)
     subprocess.run(["git", "commit", "-m", "讀萬卷書不如寫萬篇文"], check=True)
     subprocess.run(["git", "push"], check=True)
 
