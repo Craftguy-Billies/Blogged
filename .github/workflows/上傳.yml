@@ -60,7 +60,7 @@ jobs:
             "groq api keys"
             groqqer.py
             ig.py
-            index.html
+            /index.html
             id.txt
             results.txt
             compress.py
