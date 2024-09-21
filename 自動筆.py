@@ -162,9 +162,9 @@ def titler(outline, query, model, lang, h2count, max_retries=3, delay=2):
             i want a title that is clickbait enough, can convey the information I want to discuss about, in moderate length and humanized tone.
             it must be informational intent. words like "盤點", "攻略", "方法" are favored.
 	    if you add numbers like '7大', make sure it matches the content of headers.
-            you should SEO optimize the title with the keyword {query} naturally.
             return me a single JSON object with single key 'title' without premable and explanations.
-	    make the title no longer than 40 characters.
+	    make the title no longer than 40 characters. but make sure the title include the complete keyword i want to optimize SEO for: {query}.
+            you should SEO optimize the title with the keyword {query} naturally.
             output in {lang}
             AGAIN: NO premable and explanation needed.
             """
@@ -1180,8 +1180,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	
 
 def main():
-    queries = ["香港人愛吃台灣的什麼",
-"哪種食物最能代表香港的飲食",
+    queries = ["哪種食物最能代表香港的飲食",
 "最能代表香港的食物",
 "香港自由行吃什麼",
 "香港宵夜去哪吃",
@@ -1194,7 +1193,7 @@ def main():
 "去香港一定要吃什麼",
 "香港人喜歡吃什麼菜",
 "香港人早餐喜歡吃什麼"]
-    categories = [['美食', '台灣美食'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港']]
+    categories = [['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     sample_size = 4
