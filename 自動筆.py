@@ -949,10 +949,9 @@ def get_current_hk_time():
 
 def commit_changes():
     # Pull the latest changes to avoid conflicts
-    subprocess.run(["git", "pull", "--rebase"], check=True)
     subprocess.run(["git", "add", "--all"], check=True)
     subprocess.run(["git", "commit", "-m", "讀萬卷書不如寫萬篇文"], check=True)
-    subprocess.run(["git", "push"], check=True)
+    subprocess.run(["git", "push", "--force"], check=True)
 
 def autoblogger(query, model, size, lang, category, sample_size, outline_editor):
     outline = headerizer(structurer(crawl_top_10_results(query), query, model), query, model, lang, size)
