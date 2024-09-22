@@ -129,7 +129,7 @@ def banner(title, model, outline = None, previous = None):
 
     j = 0
     while True:
-        pic_id = space[j].getId().strip()
+        pic_id = str(space[j].getId()).strip()
     
         if pic_id.lower() not in [pid.lower() for pid in pic_ids]:
             break
