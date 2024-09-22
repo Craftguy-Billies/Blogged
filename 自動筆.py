@@ -146,7 +146,7 @@ def banner(title, model, outline = None, previous = None):
     if len(space) > 0:
         image = f'./images/{response}.jpg'
         dir = f'{response}.jpg'
-        space[0].download(image, "largeImage")
+        space[j].download(image, "largeImage")
     return dir
 
 def titler(outline, query, model, lang, h2count, max_retries=3, delay=2):
