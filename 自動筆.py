@@ -950,24 +950,31 @@ def get_current_hk_time():
 
 def commit_changes():
     try:
-        # Step 1: Fetch the latest changes from GitHub
+        # Step 1: Set Git config to always merge changes (avoids rebase conflicts)
+        subprocess.run(["git", "config", "pull.rebase", "false"], check=True)
+
+        # Step 2: Fetch the latest changes from GitHub
         subprocess.run(["git", "fetch", "origin"], check=True)
         
-        # Step 2: Add all local changes
+        # Step 3: Add all local changes
         subprocess.run(["git", "add", "--all"], check=True)
         
-        # Step 3: Commit local changes
+        # Step 4: Commit local changes
         subprocess.run(["git", "commit", "-m", "讀萬卷書不如寫萬篇文"], check=True)
         
-        # Step 4: Pull the latest changes from GitHub and resolve conflicts by keeping remote (theirs)
+        # Step 5: Pull the latest changes from GitHub and merge
         subprocess.run(["git", "pull", "--strategy=recursive", "--strategy-option=theirs"], check=True)
 
     except subprocess.CalledProcessError as e:
         print(f"Error occurred during git operation: {e}")
-        # Optionally, you can log or handle the error, but the script will not terminate
+        # Continue even if pull fails due to conflicts
 
-    # Step 5: Push the changes, force if needed
-    subprocess.run(["git", "push", "--force"], check=True)
+    try:
+        # Step 6: Push the changes, force if needed
+        subprocess.run(["git", "push", "--force"], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred during git push: {e}")
+
 
 def autoblogger(query, model, size, lang, category, sample_size, outline_editor):
     outline = headerizer(structurer(crawl_top_10_results(query), query, model), query, model, lang, size)
@@ -1206,7 +1213,7 @@ def main():
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     sample_size = 4
-    lang = "traditional chinese"
+    lang = "traditional chinese, MUST also convert ALL simplified chinese to traditional"
     outline_editor = False
     for query, category in zip(queries, categories):
         autoblogger(query, model, size, lang, category, sample_size, outline_editor)
