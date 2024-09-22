@@ -552,9 +552,10 @@ def introer(outline, title, lang, model, max_retries=3, delay=2):
     i want to write a blog article with title: {title}
     the headers i have written is as below:
     {outline}
-    i want you to craft me an introductory paragraph that can captivate readers to continue reading. It can be a bit clickbait style.
-    starting with a question is preferred.
-    return me the introductory paragraph with <p> tags around.
+    i want you to craft me an introductory paragraph that can captivate readers to continue reading. 
+    Describe on what topics will be discussed in the following paragraphs. Word limit of the paragraph is 100 words.
+    Starting with a question is preferred. Only use an exclamation mark at the last sentence.
+    return me the introductory paragraph with <p> tags wrapped around.
     return me in {lang}. no premable and explanation.
     """
 
@@ -1179,20 +1180,14 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	
 
 def main():
-    queries = ["哪種食物最能代表香港的飲食",
-"最能代表香港的食物",
-"香港自由行吃什麼",
-"香港宵夜去哪吃",
-"香港為什麼是美食天堂",
-"香港飲食文化多元化的原因",
-"茶餐廳是香港本土文化的代表嗎",
+    queries = ["茶餐廳是香港本土文化的代表嗎",
 "為什麼茶餐廳是研究香港文化的好地方",
 "香港的飲食文化如何融合中國和西方國家的特色",
 "粵菜跟港式一樣嗎",
 "去香港一定要吃什麼",
 "香港人喜歡吃什麼菜",
 "香港人早餐喜歡吃什麼"]
-    categories = [['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港']]
+    categories = [['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港'], ['美食', '香港']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     sample_size = 4
