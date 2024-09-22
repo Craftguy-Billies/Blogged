@@ -949,9 +949,24 @@ def get_current_hk_time():
     return current_time.isoformat()
 
 def commit_changes():
-    # Pull the latest changes to avoid conflicts
-    subprocess.run(["git", "add", "--all"], check=True)
-    subprocess.run(["git", "commit", "-m", "讀萬卷書不如寫萬篇文"], check=True)
+    try:
+        # Step 1: Fetch the latest changes from GitHub
+        subprocess.run(["git", "fetch", "origin"], check=True)
+        
+        # Step 2: Add all local changes
+        subprocess.run(["git", "add", "--all"], check=True)
+        
+        # Step 3: Commit local changes
+        subprocess.run(["git", "commit", "-m", "讀萬卷書不如寫萬篇文"], check=True)
+        
+        # Step 4: Pull the latest changes from GitHub and resolve conflicts by keeping remote (theirs)
+        subprocess.run(["git", "pull", "--strategy=recursive", "--strategy-option=theirs"], check=True)
+
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred during git operation: {e}")
+        # Optionally, you can log or handle the error, but the script will not terminate
+
+    # Step 5: Push the changes, force if needed
     subprocess.run(["git", "push", "--force"], check=True)
 
 def autoblogger(query, model, size, lang, category, sample_size, outline_editor):
