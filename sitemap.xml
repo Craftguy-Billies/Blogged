@@ -90,4 +90,16 @@
     <ns0:changefreq>weekly</ns0:changefreq>
     <ns0:priority>0.90</ns0:priority>
   </ns0:url>
+<ns0:url>
+    <ns0:loc>https://www.avoir.me/category/美食/香港/</ns0:loc>
+    <ns0:lastmod>2024-09-22T12:49:36+08:00</ns0:lastmod>
+    <ns0:changefreq>weekly</ns0:changefreq>
+    <ns0:priority>0.75</ns0:priority>
+  </ns0:url>
+<ns0:url>
+    <ns0:loc>https://www.avoir.me/哪種食物最能代表香港的飲食/</ns0:loc>
+    <ns0:lastmod>2024-09-22T12:49:36+08:00</ns0:lastmod>
+    <ns0:changefreq>weekly</ns0:changefreq>
+    <ns0:priority>0.90</ns0:priority>
+  </ns0:url>
 </ns0:urlset>
