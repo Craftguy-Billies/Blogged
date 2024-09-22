@@ -1206,10 +1206,13 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 
 def main():
     queries = ["香港人喜歡吃什麼菜",
-"香港人早餐喜歡吃什麼",]
-    categories = [['美食', '香港美食'], ['美食', '香港美食']]
+"香港人早餐喜歡吃什麼",
+"香港機場買什麼便宜",
+"Chanel哪個國家買最便宜",
+"loewe哪個國家買最便宜"]
+    categories = [['美食', '香港美食'], ['美食', '香港美食'], ['購物', '香港購物'], ['購物', '時尚精品'], ['購物', '時尚精品']]
     model = "meta/llama-3.1-405b-instruct"
-    size = 4
+    size = 3
     sample_size = 4
     lang = "traditional chinese, MUST also convert ALL simplified chinese to traditional"
     outline_editor = False
