@@ -126,4 +126,10 @@
     <ns0:changefreq>weekly</ns0:changefreq>
     <ns0:priority>0.90</ns0:priority>
   </ns0:url>
+<ns0:url>
+    <ns0:loc>https://www.avoir.me/為什麼茶餐廳是研究香港文化的好地方/</ns0:loc>
+    <ns0:lastmod>2024-09-22T18:58:20+08:00</ns0:lastmod>
+    <ns0:changefreq>weekly</ns0:changefreq>
+    <ns0:priority>0.90</ns0:priority>
+  </ns0:url>
 </ns0:urlset>
