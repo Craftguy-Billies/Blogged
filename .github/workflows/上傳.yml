@@ -64,3 +64,4 @@ jobs:
             id.txt
             results.txt
             compress.py
+          continue-on-error: true
