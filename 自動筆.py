@@ -298,8 +298,7 @@ def topic_refiner(topics, query, model, lang, size, max_retries=3, delay=2):
 	    make sure the each headers are informational intent.
             quality should be prioritized, less headers are better than vague and overly broad headers. no generic or catch-all phrases.
             headers should be in {lang}
-	    each header should be in this format: "{query} | <the actual header goes here>"
-            as SEO optimization and better formatting
+	    make sure the headers consist important keywords from the query {query}, like district names or particular nouns.
             return me a python list of headers only.
             the python list MUST be quoted with double quotes.
             NO premable and explanation needed.
@@ -435,7 +434,7 @@ def querier(header, query, model, lang, max_retries=3, delay=2):
             else:
                 raise
 
-def pf_rewriter(article, header, lang, title, url, model):
+def pf_rewriter(query, article, header, lang, title, url, model):
     full_article = ""
     datum = article.splitlines()
     firstlines = datum[:130]
@@ -447,13 +446,14 @@ def pf_rewriter(article, header, lang, title, url, model):
     content of article:
     {article}
 
-    i want to write paragraphs under the header {header}
-    first, by seeing the title and content of article, understand the header is a noun or just a general concept. DO NOT misunderstand a general genre as a specific noun, as everything written will be wrong afterwards.
+    i want to write paragraphs under the header {header}, and the full article's keyword is {query}
+    first, validate is the country or information in the crawled article's URL: {url} matches the header {header} i want to write. discard the whole piece of article if it is unrelated (e.g. taiwan information in hong kong topic article). you can omit the latter steps if it is unrelated.
+    if it is related, by seeing the title and content of article, understand the header is a noun or just a general concept. DO NOT misunderstand a general genre as a specific noun, as everything written will be wrong afterwards.
     generate me point forms for related information ONLY. do not give me related aspects.
     if the information i provided is referring to another service or information instead of the information looking for, return no results is better than wrong information.
     make sure you do not misidentify details. this is a MUST. make sure you did a summary check and ensure the bullet points are 100% correct without misidentifying events or information subject.
-    you must label general information if the information is not directly addressing this specific header. (be careful of wrong country, district, human names, if they match the header)
-    you MUST validate is the country or information in the crawled article's URL: {url} matches the header {header} i want to write. discard the whole piece of article if it is unrelated (taiwan information in hong kong topic article).
+    be careful of wrong country, district, human names, if they match the header
+    you MUST validate is the country or information in the crawled article's URL: {url} matches the header {header} i want to write. discard the whole piece of article if it is unrelated (e.g. taiwan information in hong kong topic article).
     return me in {lang}. no premable and explanation.
     """
 
@@ -472,12 +472,12 @@ def pf_rewriter(article, header, lang, title, url, model):
 
     return full_article
 
-def ai_rewriter(bullet_points, header, lang, model):
+def ai_rewriter(query, bullet_points, header, lang, model):
     full_article = ""
     prompt = f"""
     {bullet_points}
     you are a helpful writing assistant, expertize in writing fluently and in a blogging tone.
-    i want to write paragraphs under the h2 header {header}
+    the main keyword for whole article is: {query}, and now i want to write paragraphs under this specific h2 header {header}.
     by seeing the bullet points, make sure you understand the header is a noun or just a general concept. DO NOT misunderstand a general genre as a specific noun, as everything written will be wrong afterwards.
     DO NOT GIVE INCONSISTANT INFORMATIONS! Comprehend the content and give me a consistent answer if there are two version of answers.
     you must only give me ONE <h2> in this reply.
@@ -1149,9 +1149,9 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
                 if website_text is None:
                     continue
                 title = get_title_from_url(result['url']) or "Failed to crawl title, but you continue process without title."
-                bulletpt = pf_rewriter(website_text, header, lang, title, result['url'], model)
+                bulletpt = pf_rewriter(query, website_text, header, lang, title, result['url'], model)
                 bullet_points = combine_multiline_strings(bullet_points, bulletpt)
-        final = ai_rewriter(bullet_points, header, lang, model)
+        final = ai_rewriter(query, bullet_points, header, lang, model)
 
         final_article += final
         final_article += "\n\n"
