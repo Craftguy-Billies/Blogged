@@ -483,13 +483,13 @@ def ai_rewriter(query, bullet_points, header, lang, model):
     by seeing the bullet points, make sure you understand the header is a noun or just a general concept. DO NOT misunderstand a general genre as a specific noun, as everything written will be wrong afterwards.
     DO NOT GIVE INCONSISTANT INFORMATIONS! Comprehend the content and give me a consistent answer if there are two version of answers.
     you must only give me ONE <h2> in this reply.
-    generate me paragraphs. be detailed. you can elaborate to generate longer paragraphs, but make sure your elaboration is not by guessing or exaggerating.
+    generate me paragraphs. you are not required to use every single information i provided, but make sure they are used fluently and appropriately.
     do not include promotions, and make sure the tone of rewriting is professional. make sure your returned paragraphs are coherent and fluent, instead of point form like paragraphs.
     your rewriting need to be humanized and fluent. prioritize fluency over informative.
     your replies must base on the web search information. do not create information.
     DO NOT INCLUDE INTRODUCTION AND CONCLUSION, OR RELATED ASPECTS.
     return me in a HTML form. text must be labelled with html tags.
-    you can add <h3> and <strong> if needed. but do not overuse.
+    you can add <h3> and <strong> if needed. <table> or <ol>, <ul> can also be used if you must give me a big list of not elaborated items. but do not overuse.
     return me in {lang}. no premable and explanation.
     """
 
