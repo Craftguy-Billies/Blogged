@@ -97,7 +97,7 @@ def banner(title, model, outline = None, previous = None):
     {data}
 
     now i want to download an image for this blog post. give me ONE search queries ONLY, in python list format.
-    you should make the queries more long tail. as long as possible.
+    you should make the queries more long tail and detailed, but just do not exceed 100 characters.
     but make sure your query is to the point, not unrelated to the blog title.
 
     {again}
@@ -121,6 +121,7 @@ def banner(title, model, outline = None, previous = None):
             response += chunk.choices[0].delta.content
 
     response = extract_list_content(response)[0]
+    response = response[:97]
     px = pixabay.core("45631523-f41b44ca77fa2a2753db5e2d2")
     space = px.query(response, orientation = 'horizontal')
 
