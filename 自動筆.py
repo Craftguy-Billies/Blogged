@@ -270,8 +270,7 @@ def topic_definer(website_text, query, model, lang, max_retries=3, delay=2):
                     filtered_headers += chunk.choices[0].delta.content
 
             filtered_headers = extract_list_content(filtered_headers)
-            if filtered_headers:
-                    return filtered_headers
+            return filtered_headers
 
         except Exception as e:
             attempt += 1
