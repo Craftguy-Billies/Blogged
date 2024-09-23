@@ -162,7 +162,7 @@ def titler(outline, query, model, lang, h2count, max_retries=3, delay=2):
 
             i want a title that is clickbait enough, can convey the information I want to discuss about, in moderate length and humanized tone.
             it must be informational intent. words like "盤點", "攻略", "方法" are favored.
-	    if you add numbers like '7大', make sure it matches the content of headers.
+	    if you add numbers like '7大', it MUST MATCH a correct noun, such as 角度, 分析.                  
             return me a single JSON object with single key 'title' without premable and explanations.
 	    make the title no longer than 40 characters. but make sure the title include the complete keyword i want to optimize SEO for: {query}.
             you should SEO optimize the title with the keyword {query} naturally.
@@ -300,6 +300,7 @@ def topic_refiner(topics, query, model, lang, size, max_retries=3, delay=2):
             quality should be prioritized, less headers are better than vague and overly broad headers. no generic or catch-all phrases.
             headers should be in {lang}
 	    make sure the headers consist important keywords from the query {query}, like district names or particular nouns.
+            DO NOT include any numbers in your headers.
             return me a python list of headers only.
             the python list MUST be quoted with double quotes.
             NO premable and explanation needed.
