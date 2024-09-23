@@ -162,7 +162,7 @@ def titler(outline, query, model, lang, h2count, max_retries=3, delay=2):
 
             i want a title that is clickbait enough, can convey the information I want to discuss about, in moderate length and humanized tone.
             it must be informational intent. words like "盤點", "攻略", "方法" are favored.
-	    if you add numbers like '7大', it MUST MATCH a correct noun, such as 角度, 分析.                  
+	    if you add numbers like '7大', it MUST MATCH a general noun, such as 角度, 分析. DO NOT pair numbers with specific nouns that could be inaccurate based on article content.                  
             return me a single JSON object with single key 'title' without premable and explanations.
 	    make the title no longer than 40 characters. but make sure the title include the complete keyword i want to optimize SEO for: {query}.
             you should SEO optimize the title with the keyword {query} naturally.
