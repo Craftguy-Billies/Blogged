@@ -452,6 +452,7 @@ def pf_rewriter(query, article, header, lang, title, url, model):
     first, validate is the country or information in the crawled article's URL: {url} matches the header {header} i want to write. discard the whole piece of article if it is unrelated (e.g. taiwan information in hong kong topic article). you can omit the latter steps if it is unrelated.
     if it is related, by seeing the title and content of article, understand the header is a noun or just a general concept. DO NOT misunderstand a general genre as a specific noun, as everything written will be wrong afterwards.
     generate me point forms for related information ONLY. do not give me related aspects.
+    make sure your points are not just examples. return details and insights from the article.
     if the information i provided is referring to another service or information instead of the information looking for, return no results is better than wrong information.
     make sure you do not misidentify details. this is a MUST. make sure you did a summary check and ensure the bullet points are 100% correct without misidentifying events or information subject.
     be careful of wrong country, district, human names, if they match the header
@@ -488,8 +489,10 @@ def ai_rewriter(query, bullet_points, header, lang, model):
     your rewriting need to be humanized and fluent. prioritize fluency over informative.
     your replies must base on the web search information. do not create information.
     DO NOT INCLUDE INTRODUCTION AND CONCLUSION, OR RELATED ASPECTS.
+    make sure you do not misidentify details. this is a MUST.
+    also return me details for each. DO NOT JUST KEEP GIVING EXAMPLES. I need details.
     return me in a HTML form. text must be labelled with html tags.
-    you can add <h3> and <strong> if needed. <table> or <ol>, <ul> can also be used if you must give me a big list of not elaborated items. but do not overuse.
+    you can add <h3> and <strong> if needed. but do not overuse <h3>.
     return me in {lang}. no premable and explanation.
     """
 
@@ -1153,6 +1156,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
                 title = get_title_from_url(result['url']) or "Failed to crawl title, but you continue process without title."
                 bulletpt = pf_rewriter(query, website_text, header, lang, title, result['url'], model)
                 bullet_points = combine_multiline_strings(bullet_points, bulletpt)
+		bullet_points += f"\nNext Article, title: {title}, url: {result['url']}\n"
         final = ai_rewriter(query, bullet_points, header, lang, model)
 
         final_article += final
@@ -1206,12 +1210,11 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	
 
 def main():
-    queries = ["蓮塘口岸附近有什麼大型商場",
-"深圳商場萬象天地",
+    queries = ["深圳商場萬象天地",
 "深圳港人優惠2024"]
-    categories = [['購物', '國際購物'], ['購物', '國際購物'], ['購物', '國際購物']]
+    categories = [['購物', '國際購物'], ['購物', '國際購物']]
     model = "meta/llama-3.1-405b-instruct"
-    size = 5
+    size = 4
     sample_size = 4
     lang = "traditional chinese, MUST also convert ALL simplified chinese to traditional"
     outline_editor = False
