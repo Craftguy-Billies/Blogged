@@ -1156,7 +1156,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
                 title = get_title_from_url(result['url']) or "Failed to crawl title, but you continue process without title."
                 bulletpt = pf_rewriter(query, website_text, header, lang, title, result['url'], model)
                 bullet_points = combine_multiline_strings(bullet_points, bulletpt)
-		bullet_points += f"\nNext Article, title: {title}, url: {result['url']}\n"
+                bullet_points += f"\nNext Article, title: {title}, url: {result['url']}\n"
         final = ai_rewriter(query, bullet_points, header, lang, model)
 
         final_article += final
