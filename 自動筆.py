@@ -21,7 +21,7 @@ DEBUG = False
 
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
-  api_key = "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"
+  api_key = "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"
 )
 
 def crawl_top_10_results(query, nor=10):
@@ -1210,8 +1210,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	
 
 def main():
-    queries = ["晚上幾點最好不要吃東西",
-"一天不吃東西，只吃一餐會瘦嗎？會營養不良嗎？",
+    queries = ["一天不吃東西，只吃一餐會瘦嗎？會營養不良嗎？",
 "斷食多久開始自噬",
 "斷食多久開始燃燒脂肪",
 "一個禮拜瘦3公斤正常嗎",
@@ -1225,7 +1224,7 @@ def main():
 "一直不吃東西會怎樣",
 "胃痛吃什麼舒緩"
 ]
-    categories = [['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康']]
+    categories = [['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康'], ['美食', '飲食健康']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     sample_size = 4
