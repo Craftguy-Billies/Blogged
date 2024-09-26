@@ -222,4 +222,10 @@
     <ns0:changefreq>weekly</ns0:changefreq>
     <ns0:priority>0.90</ns0:priority>
   </ns0:url>
+<ns0:url>
+    <ns0:loc>https://www.avoir.me/一天不吃東西，只吃一餐會瘦嗎？會營養不良嗎？/</ns0:loc>
+    <ns0:lastmod>2024-09-27T00:44:06+08:00</ns0:lastmod>
+    <ns0:changefreq>weekly</ns0:changefreq>
+    <ns0:priority>0.90</ns0:priority>
+  </ns0:url>
 </ns0:urlset>
