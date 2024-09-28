@@ -21,7 +21,7 @@ DEBUG = False
 
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
-  api_key = "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"
+  api_key = "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"
 )
 
 def crawl_top_10_results(query, nor=10):
@@ -1217,7 +1217,7 @@ def main():
 "失眠按哪一個穴道",
 "幫助睡眠保健食品"
 ]
-    categories = [['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '睡眠'], ['美食', '健康飲食']]
+    categories = [['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '睡眠'], ['美食', '飲食健康']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     sample_size = 4
