@@ -336,4 +336,16 @@
     <ns0:changefreq>weekly</ns0:changefreq>
     <ns0:priority>0.90</ns0:priority>
   </ns0:url>
+<ns0:url>
+    <ns0:loc>https://www.avoir.me/category/健康/睡眠/</ns0:loc>
+    <ns0:lastmod>2024-09-28T17:42:54+08:00</ns0:lastmod>
+    <ns0:changefreq>weekly</ns0:changefreq>
+    <ns0:priority>0.75</ns0:priority>
+  </ns0:url>
+<ns0:url>
+    <ns0:loc>https://www.avoir.me/失眠按哪一個穴道/</ns0:loc>
+    <ns0:lastmod>2024-09-28T17:42:54+08:00</ns0:lastmod>
+    <ns0:changefreq>weekly</ns0:changefreq>
+    <ns0:priority>0.90</ns0:priority>
+  </ns0:url>
 </ns0:urlset>
