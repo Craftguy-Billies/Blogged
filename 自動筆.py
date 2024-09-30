@@ -164,7 +164,7 @@ def titler(outline, query, model, lang, h2count, max_retries=3, delay=2):
             it must be informational intent. words like "盤點", "攻略", "方法" are favored.
 	    if you add numbers like '7大', it MUST MATCH a general noun, such as 角度, 分析. DO NOT pair numbers with specific nouns that could be inaccurate based on article content.                  
             return me a single JSON object with single key 'title' without premable and explanations.
-	    make the title no longer than 40 characters. but make sure the title include the complete keyword i want to optimize SEO for: {query}.
+	    make the title no longer than 25 characters. but make sure the title include the complete keyword i want to optimize SEO for: {query}.
             you should SEO optimize the title with the keyword {query} naturally.
             output in {lang}
             AGAIN: NO premable and explanation needed.
@@ -1210,13 +1210,21 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	
 
 def main():
-    queries = ["運動種類有哪些分類",
-"容易失眠怎麼辦",
-"嚴重失眠怎麼治療",
-"失眠的原因及解決方法",
-"晚晚失眠怎辦"
+    queries = ["太久沒運動適合做什麼運動",
+"女人運動好處",
+"為什麼一定要運動",
+"我們為什麼要運動",
+"運動的目的是什麼",
+"長期不運動會怎樣",
+"人一定要運動嗎",
+"每天要做多少運動",
+"運動對心理健康的好處",
+"運動可以讓心情變好嗎",
+"女生健身多久有效果",
+"為什麼女生不容易長肌肉",
+"容易長肌肉的體質"
 ]
-    categories = [['健康', '運動'], ['健康', '睡眠'], ['健康', '睡眠'], ['健康', '睡眠'], ['健康', '睡眠']]
+    categories = [['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '運動'], ['健康', '運動']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     sample_size = 4
