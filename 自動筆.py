@@ -843,6 +843,8 @@ def initialize_rss(path, cat):
                         </div>
                     </footer>
                   <script src="https://www.avoir.me/related_post.js"></script>
+		  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588758681130963"
+     crossorigin="anonymous"></script>
                   </body>
                   </html>
                   """
@@ -1190,6 +1192,8 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
                           </div>
                       </footer>
                   <script src="https://www.avoir.me/post.js"></script>
+		  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1588758681130963"
+     crossorigin="anonymous"></script>
     """
     final_article += "\n</div>\n</body>\n</html>"
     dir_path = query
