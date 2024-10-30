@@ -493,6 +493,7 @@ def ai_rewriter(query, bullet_points, header, lang, model):
     also return me details for each. DO NOT JUST KEEP GIVING EXAMPLES. I need details.
     return me in a HTML form. text must be labelled with html tags.
     you can add <h3> and <strong> if needed. but do not overuse <h3>.
+    AGAIN: No "總而言之", "總之", "最後", "值得注意的是".
     return me in {lang}. no premable and explanation.
     """
 
