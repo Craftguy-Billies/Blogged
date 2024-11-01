@@ -21,7 +21,7 @@ DEBUG = False
 
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
-  api_key = "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"
+  api_key = "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"
 )
 
 def crawl_top_10_results(query, nor=10):
