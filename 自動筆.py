@@ -490,12 +490,12 @@ def ai_rewriter(query, bullet_points, header, lang, model):
     do not include promotions, and make sure the tone of rewriting is professional. make sure your returned paragraphs are coherent and fluent, instead of point form like paragraphs.
     your rewriting need to be humanized and fluent. prioritize fluency over informative.
     your replies must base on the web search information. do not create information.
-    DO NOT INCLUDE INTRODUCTION AND CONCLUSION, OR RELATED ASPECTS. No "總而言之", "總之", "最後", "值得注意的是".
+    DO NOT INCLUDE INTRODUCTION AND CONCLUSION, OR RELATED ASPECTS. No "總而言之", "總之", "最後", "值得注意的是", "另外", "首先".
     make sure you do not misidentify details. this is a MUST.
     also return me details for each. DO NOT JUST KEEP GIVING EXAMPLES. I need details.
     return me in a HTML form. text must be labelled with html tags.
     you can add <h3> and <strong> if needed. but do not overuse <h3>.
-    AGAIN: No "總而言之", "總之", "最後", "值得注意的是".
+    AGAIN: NEVER USE "總而言之", "總之", "最後", "值得注意的是", "另外", "首先".
     return me in {lang}. no premable and explanation.
     """
 
