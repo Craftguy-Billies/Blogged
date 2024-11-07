@@ -450,13 +450,15 @@ def pf_rewriter(query, article, header, lang, title, url, model):
 
     i want to write paragraphs under the header {header}, and the full article's keyword is {query}
     first, validate is the country or information in the crawled article's URL: {url} matches the header {header} i want to write. discard the whole piece of article if it is unrelated (e.g. taiwan information in hong kong topic article). you can omit the latter steps if it is unrelated.
-    if it is related, by seeing the title and content of article, understand the header is a noun or just a general concept. DO NOT misunderstand a general genre as a specific noun, as everything written will be wrong afterwards.
+    if it is related, by seeing the title and content of article, understand the header is a noun or just a general concept. DO NOT misunderstand a general genre as a specific noun, as everything written will be wrong afterwards. give me VERY DETAIL ELABORATION for each point form. DO NOT GIVE INTRODUCTION
+    ONLY GIVE ME MOST INSIGHTFUL SENTENCES WITH ELABORATION. DO NOT GIVE GENERAL CONCEPTS.
     generate me point forms for related information ONLY. do not give me related aspects.
     make sure your points are not just examples. return details and insights from the article.
     if the information i provided is referring to another service or information instead of the information looking for, return no results is better than wrong information.
     make sure you do not misidentify details. this is a MUST. make sure you did a summary check and ensure the bullet points are 100% correct without misidentifying events or information subject.
     be careful of wrong country, district, human names, if they match the header
     you MUST validate is the country or information in the crawled article's URL: {url} matches the header {header} i want to write. discard the whole piece of article if it is unrelated (e.g. taiwan information in hong kong topic article).
+    EXPLAIN THE WHOLE CONCEPT UNDERSTANDABLY AND DETAILEDLY
     return me in {lang}. no premable and explanation.
     """
 
