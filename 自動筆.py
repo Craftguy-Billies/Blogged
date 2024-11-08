@@ -1218,12 +1218,13 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	
 
 def main():
-    queries = ["健康的生活習慣有哪些",
-	       "如何培養健康的生活習慣",
-	       "如何讓自己身體更健康",
-	       "如何養成良好工作習慣"
+    queries = ["吃蘋果皮膚會變好嗎",
+	       "蘋果真的健康嗎",
+	       "空腹吃蘋果好處",
+	       "蘋果一定要連皮吃嗎",
+	       "睡前吃蘋果好處"
 ]
-    categories = [['健康', '生活'],['健康', '生活'],['健康', '生活'],['健康', '生活']]
+    categories = [['健康', '生活'],['健康', '生活'],['健康', '生活'],['健康', '生活'],['健康', '生活']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     sample_size = 4
