@@ -1218,8 +1218,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
 	
 
 def main():
-    queries = ["吃橙皮的好處是什麼",
-	       "青汁有哪些功效",
+    queries = ["青汁有哪些功效",
 	       "什麼時候買淘寶最便宜",
 	       "淘寶什麼時候折扣最多",
 	       "淘寶哪些東西不能買",
