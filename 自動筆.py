@@ -1238,12 +1238,11 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["淘寶哪些東西不能買",
-	       "淘寶食品禁運",
+    queries = ["淘寶食品禁運",
 	       "淘寶買東西安全嗎",
 	       "淘寶可以買液體嗎"
 ]
-    categories = [['購物', '網上購物'],['購物', '網上購物'],['購物', '網上購物'],['購物', '網上購物']]
+    categories = [['購物', '網上購物'],['購物', '網上購物'],['購物', '網上購物']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     sample_size = 4
