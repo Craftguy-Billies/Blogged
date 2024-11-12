@@ -120,7 +120,7 @@ def banner(title, model, outline = None, previous = None):
         if chunk.choices[0].delta.content is not None:
             response += chunk.choices[0].delta.content
 
-    response = extract_list_content(response)[0]
+    response = extract_list_content(response)[0] if extract_list_content(response) else response
     response = response[:97]
     px = pixabay.core("45631523-f41b44ca77fa2a2753db5e2d2")
     space = px.query(response, orientation = 'horizontal')
@@ -1238,15 +1238,11 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["青汁的功效和副作用",
-	       "什麼人不適合喝青汁",
-	       "大麥若葉功效",
-	       "五青汁副作用",
-	       "五青汁降膽固醇",
-	       "高血壓可以喝青汁嗎",
-	       "青汁可以晚上喝嗎"
+    queries = ["淘寶買東西安全嗎",
+	       "淘寶可以買液體嗎"
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['購物', '網上購物'],['購物', '網上購物']]
+
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     sample_size = 4
