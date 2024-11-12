@@ -1238,10 +1238,15 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["淘寶買東西安全嗎",
-	       "淘寶可以買液體嗎"
+    queries = ["青汁的功效和副作用",
+	       "什麼人不適合喝青汁",
+	       "大麥若葉功效",
+	       "五青汁副作用",
+	       "五青汁降膽固醇",
+	       "高血壓可以喝青汁嗎",
+	       "青汁可以晚上喝嗎"
 ]
-    categories = [['購物', '網上購物'],['購物', '網上購物']]
+    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
     model = "meta/llama-3.1-405b-instruct"
     size = 4
     sample_size = 4
