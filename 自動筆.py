@@ -1238,11 +1238,11 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["大麥若葉功效",
-	       "五青汁副作用",
-	       "五青汁降膽固醇",
-	       "高血壓可以喝青汁嗎",
-	       "青汁可以晚上喝嗎"
+    queries = ["五青汁可以每天喝吗",
+	       "蔬果汁可以放隔夜嗎",
+	       "果汁過期可以喝嗎",
+	       "苦瓜汁可以每天喝吗",
+	       "蔬果汁要濾渣嗎"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
