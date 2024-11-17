@@ -1238,11 +1238,11 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["果凍過期可以吃嗎",
-	       "蒟蒻過期可以吃嗎",
-	       "奶茶過期可以喝嗎",
-	       "膠原蛋白過期可以喝嗎",
-	       "寶礦力過期可以喝嗎"
+    queries = ["鮮奶過期怎麼辦",
+	       "魚油過期能吃嗎",
+	       "起司片冷凍可以放多久",
+	       "起司片可以冷凍保存嗎",
+	       "食物有冰箱味怎麼辦"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
