@@ -1238,8 +1238,8 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["青汁可以加牛奶嗎",
-	       "青汁什麼時候喝",
+    queries = ["西瓜和牛奶可以一起吃嗎",
+	       "生酮菇類可以吃嗎",
 	       "生酮飲食可以吃豆腐嗎",
 	       "生酮菇類可以吃嗎",
 	       "生酮可以吃豆皮嗎"
