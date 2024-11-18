@@ -65,3 +65,7 @@ jobs:
             results.txt
             compress.py
           continue-on-error: true
+          
+      - name: Ping PubSubHubbub Hub
+        run: |
+          curl -d "hub.mode=publish&hub.url=https://www.avoir.me/rss.xml" https://pubsubhubbub.appspot.com/
