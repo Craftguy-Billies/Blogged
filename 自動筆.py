@@ -21,7 +21,7 @@ DEBUG = False
 
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
-  api_key = "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"
+  api_key = "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"
 )
 
 def crawl_top_10_results(query, nor=10):
@@ -1238,13 +1238,9 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["西瓜和牛奶可以一起吃嗎",
-	       "生酮菇類可以吃嗎",
-	       "生酮飲食可以吃豆腐嗎",
-	       "生酮菇類可以吃嗎",
-	       "生酮可以吃豆皮嗎"
+    queries = ["生酮可以吃豆皮嗎"
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['健康','生活']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
