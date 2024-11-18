@@ -1,10 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Avoir</title>
     <link>https://avoir.me</link>
     <description>Avoir - Blog Posts</description>
     <lastBuildDate>Mon, 18 Nov 2024 23:06:50 +0800</lastBuildDate>
+
+    <!-- PubSubHubbub hub declaration -->
+    <atom:link rel="hub" href="https://pubsubhubbub.appspot.com/" />
+    <!-- Self-link to the RSS feed -->
+    <atom:link rel="self" href="https://www.aimes.me/rss.xml" type="application/rss+xml" />
     
   <item>
   <title>香港美食推介深水埗：3大必吃攻略！深水埗日式餐廳、甜品天堂、街頭小食掃街</title>
