@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss xmlns:ns0="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>Avoir</title>
     <link>https://avoir.me</link>
     <description>Avoir - Blog Posts</description>
-    <lastBuildDate>Mon, 18 Nov 2024 23:06:50 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 Nov 2024 11:57:36 +0800</lastBuildDate>
 
-    <!-- PubSubHubbub hub declaration -->
-    <atom:link rel="hub" href="https://pubsubhubbub.appspot.com/" />
-    <!-- Self-link to the RSS feed -->
-    <atom:link rel="self" href="https://www.avoir.me/rss.xml" type="application/rss+xml" />
+    
+    <ns0:link rel="hub" href="https://pubsubhubbub.appspot.com/" />
+    
+    <ns0:link rel="self" href="https://www.avoir.me/rss.xml" type="application/rss+xml" />
     
   <item>
   <title>香港美食推介深水埗：3大必吃攻略！深水埗日式餐廳、甜品天堂、街頭小食掃街</title>
@@ -774,5 +774,11 @@
   <description>您知道自己的體質屬於哪一類型嗎？中胚型體質是一種常見的體質類型，但您是否了解其特徵、優缺點以及如何透過飲食和運動來改善健康？本文將從四大角度深入分析中胚型體質的特徵、優缺點、飲食建議與禁忌、運動強度與目標設定，讓您更了解自己的體質，掌握健康的秘訣！</description>
   <pubDate>Mon, 18 Nov 2024 23:06:50 +0800</pubDate>
   <enclosure url="https://www.avoir.me/images/physical characteristics of endomorph body type advantages and disadvantages.jpg" type="image/jpeg" />
+</item><item>
+  <title>大麥若葉月經來可以喝嗎？盤點4大角度讓你喝得安心</title>
+  <link>https://avoir.me/%E5%A4%A7%E9%BA%A5%E8%8B%A5%E8%91%89%E6%9C%88%E7%B6%93%E4%BE%86%E5%8F%AF%E4%BB%A5%E5%96%9D%E5%97%8E/index.html</link>
+  <description>月經來了，大麥若葉還能喝嗎？許多女性朋友都有這個疑問。其實，大麥若葉對月經來的影響是一個複雜的問題，需要從多個角度來分析。在這篇文章中，我們將從大麥若葉對月經來的影響、大麥若葉的禁忌與副作用、如何正確飲用大麥若葉，以及大麥若葉對新陳代謝的幫助等四個角度來探討，讓你對大麥若葉有更全面的了解，喝得安心！</description>
+  <pubDate>Tue, 19 Nov 2024 11:57:36 +0800</pubDate>
+  <enclosure url="https://www.avoir.me/images/can i drink barley tea during menstruation benefits.jpg" type="image/jpeg" />
 </item></channel>
 </rss>
