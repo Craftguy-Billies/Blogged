@@ -1238,12 +1238,12 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["明日葉什麼時候喝",
-	       "喂母乳不能吃什麼",
-	       "餵母乳不能吃的水果",
-	       "大麥若葉怎麼泡",
-	       "大麥若葉乳酸菌功效",
-	       "大麥若葉粉末功效"
+    queries = ["餵母乳不能吃什麼菜",
+	       "如何讓母奶更營養",
+	       "什麼情況不能餵母乳",
+	       "哺乳吃什麼對寶寶好",
+	       "哺乳媽媽不能吃的食物",
+	       "哺乳吃什麼對寶寶好"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
