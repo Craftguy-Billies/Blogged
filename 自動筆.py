@@ -162,7 +162,7 @@ def titler(outline, query, model, lang, h2count, max_retries=3, delay=2):
             here is all the <h2> headers i am going to cover in my blog article:
             {outline}
 
-            i want a title that is clickbait enough, can convey the information I want to discuss about, in moderate length and humanized tone.
+            i want a title that is clickbait enough, can convey the information I want to discuss about, in concise length and humanized tone.
             it must be informational intent. words like "盤點", "攻略", "方法" are favored.
 	    if you add numbers like '7大', it MUST MATCH a general noun, such as 角度, 分析. DO NOT pair numbers with specific nouns that could be inaccurate based on article content.                  
             return me a single JSON object with single key 'title' without premable and explanations.
@@ -1238,13 +1238,13 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["大麥若葉月經來可以喝嗎",
-	       "大麥若葉青汁副作用",
-	       "大麥若葉青汁怎麼喝",
-	       "大麥若葉costco功效",
-	       "大麥若葉怎麼泡",
-	       "大麥若葉乳酸菌功效",
-	       "大麥若葉粉末功效"
+    queries = ["大麥若葉可以空腹喝嗎",
+	       "高血壓可以喝青汁嗎",
+	       "明日葉什麼人不能吃",
+	       "明日葉有什麼功效",
+	       "明日葉什麼時候喝",
+	       "喂母乳不能吃什麼",
+	       "餵母乳不能吃的水果"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
