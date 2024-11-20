@@ -1238,14 +1238,15 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["明日葉什麼時候喝",
-	       "喂母乳不能吃什麼",
-	       "餵母乳不能吃的水果",
-	       "大麥若葉怎麼泡",
-	       "大麥若葉乳酸菌功效",
-	       "大麥若葉粉末功效"
+    queries = ["dior哪個國家買便宜",
+	       "celine哪裡買最便宜",
+	       "chanel哪裡買最便宜",
+	       "香奈兒哪裡買最便宜",
+	       "餵母奶不能吃什麼會退奶",
+	       "母乳餵養的媽媽不能吃什麼",
+	       "媽媽吃什麼會影響母奶嗎"
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品'],['健康','生活'],['健康','生活'],['健康','生活']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
