@@ -1238,11 +1238,11 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["檸檬香茅精油禁忌",
-	       "檸檬香茅精油驅蟲",
-	       "檸檬香茅精油哪裡買",
-	       "檸檬香茅精油搭配",
-	       "檸檬香茅精油推薦"
+    queries = ["香茅油對人體有害嗎",
+	       "香茅油可以噴在皮膚上嗎",
+	       "香茅油可以接觸皮膚嗎",
+	       "香茅油如何使用",
+	       "香茅油怎麼稀釋"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
