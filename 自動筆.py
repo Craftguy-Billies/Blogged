@@ -125,6 +125,12 @@ def banner(title, model, outline = None, previous = None):
     px = pixabay.core("45631523-f41b44ca77fa2a2753db5e2d2")
     space = px.query(response, orientation = 'horizontal')
 
+    if not space:
+        # If no images are found, use the fallback query "hong kong food"
+        print("No images found. Downloading a random image with the query 'hong kong food'.")
+        response = "hong kong food"
+        space = px.query(response, orientation='horizontal')
+	    
     with open('id.txt', 'r') as file:
         pic_ids = [line.strip() for line in file.readlines()]
 
