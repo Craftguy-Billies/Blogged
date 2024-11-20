@@ -1238,11 +1238,11 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["餵母乳不能吃的水果",
-	       "大麥若葉怎麼泡",
-	       "大麥若葉乳酸菌功效",
-	       "大麥若葉粉末功效",
-	       "青蘋果香茅功效"
+    queries = ["檸檬香茅精油禁忌",
+	       "檸檬香茅精油驅蟲",
+	       "檸檬香茅精油哪裡買",
+	       "檸檬香茅精油搭配",
+	       "檸檬香茅精油推薦"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
