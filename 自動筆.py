@@ -129,6 +129,7 @@ def banner(title, model, outline = None, previous = None):
         # If no images are found, use the fallback query "hong kong food"
         print("No images found. Downloading a random image with the query 'hong kong food'.")
         response = "hong kong food"
+        px = pixabay.core("45631523-f41b44ca77fa2a2753db5e2d2")
         space = px.query(response, orientation='horizontal')
 	    
     with open('id.txt', 'r') as file:
@@ -1244,12 +1245,13 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["用檸檬香茅精油對付蟑螂",
-	       "貓咪可以聞香茅嗎",
+    queries = ["貓咪可以聞香茅嗎",
 	       "香茅可以殺菌嗎",
-	       "蟑螂怕什麼味道的精油"
+	       "蟑螂怕什麼味道的精油",
+	       "大麥若葉粉末功效",
+	       "青蘋果香茅功效"
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
