@@ -69,3 +69,33 @@ jobs:
       - name: Ping PubSubHubbub Hub
         run: |
           curl -d "hub.mode=publish&hub.url=https://www.avoir.me/rss.xml" https://pubsubhubbub.appspot.com/
+
+      - name: Submit RSS Feed to Bing IndexNow API
+        env:
+          INDEXNOW_API_KEY: ${{ secrets.INDEXNOW_API_KEY }}
+        run: |
+          # Define the host and key location
+          HOST="www.avoir.me"
+          KEY_LOCATION="https://www.avoir.me/979cfc23fe1d43928332d551171798a6.txt"
+          
+          # Define the URL of the RSS feed to submit
+          RSS_FEED_URL="https://www.avoir.me/rss.xml"
+
+          # Bing IndexNow API Endpoint
+          INDEXNOW_ENDPOINT="https://api.indexnow.org/IndexNow"
+
+          # Create the payload JSON
+          PAYLOAD=$(cat <<EOF
+          {
+              "host": "$HOST",
+              "key": "$INDEXNOW_API_KEY",
+              "keyLocation": "$KEY_LOCATION",
+              "urlList": ["$RSS_FEED_URL"]
+          }
+          EOF
+          )
+
+          # Submit the POST request
+          curl -X POST -H "Content-Type: application/json; charset=utf-8" \
+            -d "$PAYLOAD" \
+            "$INDEXNOW_ENDPOINT"
