@@ -1245,11 +1245,12 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["黑色小飛蟲是什麼",
-	       "果蠅怕什麼精油",
-	       "蚊子怕什麼精油的味道",
+    queries = ["prada哪一國買最便宜",
+	       "大麥若葉可以減肥嗎",
+	       "青汁可以幫助排便嗎",
+	       "大麥若葉是青汁嗎"
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
