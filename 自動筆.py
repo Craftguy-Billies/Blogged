@@ -1245,14 +1245,12 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["香茅油加水",
-	       "什麼蟲怕香茅油",
-	       "香茅油可以驅蚊嗎",
-	       "小黑蚊怕香茅油嗎",
-	       "小黑蚊最怕什麼味道",
-	       "如何消滅盆栽小黑蚊"
+    queries = ["如何消滅小黑蟲",
+	       "黑色小飛蟲是什麼",
+	       "果蠅怕什麼精油",
+	       "蚊子怕什麼精油的味道",
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
