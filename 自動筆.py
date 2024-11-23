@@ -1245,12 +1245,15 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["寶格麗哪個國家買最便宜",
-	       "Miu Miu 哪國買最便宜",
-	       "Gucci 哪一國買最便宜",
-	       "Miu Miu是誰的副牌"
+    queries = ["168斷食期間飲食可以喝牛奶嗎",
+	       "斷食期間可以吃什麼",
+	       "斷食後第一餐拉肚子",
+	       "斷食後第一餐怎麼吃",
+	       "斷食後第一餐可以喝牛奶嗎",
+	       "斷食期間可以吃維他命嗎",
+	       "斷食期間可以吃益生菌嗎"
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
