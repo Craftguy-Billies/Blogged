@@ -1257,8 +1257,17 @@ def main():
     sample_size = 4
     lang = "traditional chinese, MUST also convert ALL simplified chinese to traditional"
     outline_editor = False
-    for query, category in zip(queries, categories):
+    for count, (query, category) in enumerate(zip(queries, categories), start=1):
         autoblogger(query, model, size, lang, category, sample_size, outline_editor)
+    
+        # Clear and blocky output
+        print("\n\n")
+        print("##########################################")
+        print("#                                        #")
+        print(f"#              LOOP {count:<3}                #")
+        print("#                                        #")
+        print("##########################################")
+        print("\n\n")
 
 if __name__ == "__main__":
     if not DEBUG:
