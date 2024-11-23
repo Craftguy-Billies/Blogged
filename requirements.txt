@@ -6,3 +6,4 @@ groq
 pixabay
 pillow
 pytz
+feedparser
