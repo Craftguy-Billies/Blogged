@@ -1245,10 +1245,10 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["椰子油好處壞處",
-	       "什麼人不能吃椰子油",
-	       "青汁可以幫助排便嗎",
-	       "大麥若葉是青汁嗎"
+    queries = ["寶格麗哪個國家買最便宜",
+	       "Miu Miu 哪國買最便宜",
+	       "Gucci 哪一國買最便宜",
+	       "Miu Miu是誰的副牌"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
