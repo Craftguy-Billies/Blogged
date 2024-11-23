@@ -1245,8 +1245,8 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["prada哪一國買最便宜",
-	       "大麥若葉可以減肥嗎",
+    queries = ["椰子油好處壞處",
+	       "什麼人不能吃椰子油",
 	       "青汁可以幫助排便嗎",
 	       "大麥若葉是青汁嗎"
 ]
