@@ -1242,14 +1242,12 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["前調中調後調意思",
-	       "香水為什麼會有前中後調",
-	       "香水前中後味是什麼",
-	       "香水怎麼噴才不會太濃",
-	       "香水怎麼噴才持久",
-	       "香水怎麼噴"
+    queries = ["吃明日葉有什麼好處",
+	       "明日葉功效和禁忌",
+	       "明日葉粉怎麼吃",
+	       "明日葉有咖啡因嗎"
 ]
-    categories = [['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品']]
+    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
