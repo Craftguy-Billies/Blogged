@@ -1242,13 +1242,11 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["如何挑選香水",
-	       "持久香水推薦女",
-	       "如何找到自己喜歡的香水",
-	       "香水味道有哪些",
-	       "香水分類有哪些"
+    queries = ["香水調性有哪些",
+	       "香水前中後調是什麼",
+	       "香水前中後調時間"
 ]
-    categories = [['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品']]
+    categories = [['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
