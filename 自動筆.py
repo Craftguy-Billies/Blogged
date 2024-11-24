@@ -980,101 +980,37 @@ def get_current_hk_time():
     current_time = datetime.now(tz_hk)
     return current_time.isoformat()
 
-LOCK_FILE = ".repo.lock"  # Lock file to prevent multiple processes from operating on the repository
-
-
-def acquire_lock():
-    """Acquire a lock to ensure only one process operates on the repository at a time."""
-    while os.path.exists(LOCK_FILE):
-        print(f"Lock file exists. Waiting for release...")
-        time.sleep(1)  # Wait for the lock to be released
-    # Create the lock file
-    with open(LOCK_FILE, "w") as lock:
-        lock.write("locked")
-
-
-def release_lock():
-    """Release the lock after completing operations."""
-    if os.path.exists(LOCK_FILE):
-        os.remove(LOCK_FILE)
-
-
-def run_git_command(cmd, allow_fail=False):
-    """
-    Helper function to run a git command and ensure robustness.
-    If `allow_fail` is True, the function will not raise an error on failure.
-    """
-    try:
-        result = subprocess.run(cmd, check=True, capture_output=True, text=True)
-        print(f"Command succeeded: {' '.join(cmd)}")
-        print(result.stdout)
-        return result.stdout
-    except subprocess.CalledProcessError as e:
-        print(f"Command failed: {' '.join(cmd)}")
-        print(e.stderr)
-        if not allow_fail:
-            # Retry the command after a brief wait
-            time.sleep(2)
-            return run_git_command(cmd, allow_fail)
-        return None
-
-
 def commit_changes():
-    """
-    Handles committing local changes, pulling remote changes, and pushing local changes.
-    Ensures the program never terminates, handling all scenarios gracefully.
-    """
-    acquire_lock()  # Lock the repository
     try:
-        # Step 1: Configure Git to avoid rebasing on pull
-        run_git_command(["git", "config", "pull.rebase", "false"])
-
-        # Step 2: Fetch latest changes from the remote repository
-        run_git_command(["git", "fetch", "origin"])
-
-        # Step 3: Stage all local changes
-        run_git_command(["git", "add", "--all"])
-
-        # Step 4: Commit local changes with a message
-        commit_message = "讀萬卷書不如寫萬篇文"
-        try:
-            run_git_command(["git", "commit", "-m", commit_message], allow_fail=True)
-        except Exception:
-            print("No changes to commit.")
-
-        # Step 5: Pull and merge remote changes
-        # Resolve conflicts by preserving both local and remote changes
-        try:
-            run_git_command(["git", "pull", "--strategy=recursive", "--no-edit"], allow_fail=True)
-        except Exception as e:
-            print(f"Conflicts detected during pull: {e}")
-            # Attempt to resolve conflicts automatically
-            run_git_command(["git", "mergetool"], allow_fail=True)
-            run_git_command(["git", "commit", "--no-edit"], allow_fail=True)
-
-        # Step 6: Push local changes to the remote repository
-        try:
-            run_git_command(["git", "push"])
-        except Exception as e:
-            print(f"Push failed: {e}")
-            print("Retrying push...")
-            # Retry after syncing with remote
-            run_git_command(["git", "pull", "--rebase"], allow_fail=True)
-            run_git_command(["git", "push"], allow_fail=True)
-
-    finally:
-        release_lock()  # Always release the lock, even if an error occurs
+        # Step 1: Set Git config to always merge changes (avoids rebase conflicts)
+        subprocess.run(["git", "config", "pull.rebase", "false"], check=True)
+        # Step 2: Fetch the latest changes from GitHub
+        subprocess.run(["git", "fetch", "origin"], check=True)
+        
+        # Step 3: Add all local changes
+        subprocess.run(["git", "add", "--all"], check=True)
+        
+        # Step 4: Commit local changes
+        subprocess.run(["git", "commit", "-m", "讀萬卷書不如寫萬篇文"], check=True)
+        
+        # Step 5: Pull the latest changes from GitHub and merge
+        subprocess.run(["git", "pull", "--strategy=recursive", "--strategy-option=theirs"], check=True)
+	    
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred during git operation: {e}")
+        # Continue even if pull fails due to conflicts
+    try:
+        # Step 6: Push the changes, force if needed
+        subprocess.run(["git", "push", "--force"], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred during git push: {e}")
 
 
 def pull_repo():
-    """
-    Pulls the latest changes from the repository, ensuring no termination on errors.
-    """
-    acquire_lock()  # Lock the repository
     try:
-        run_git_command(["git", "pull", "--rebase"], allow_fail=True)
-    finally:
-        release_lock()  # Always release the lock after pulling
+        subprocess.run(["git", "pull", "--rebase"], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error pulling the repository: {e}")
 
 
 def autoblogger(query, model, size, lang, category, sample_size, outline_editor):
