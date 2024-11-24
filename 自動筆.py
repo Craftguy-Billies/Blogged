@@ -980,6 +980,25 @@ def get_current_hk_time():
     current_time = datetime.now(tz_hk)
     return current_time.isoformat()
 
+LOCK_FILE = ".repo.lock"  # Lock file to prevent multiple processes from operating on the repository
+
+
+def acquire_lock():
+    """Acquire a lock to ensure only one process operates on the repository at a time."""
+    while os.path.exists(LOCK_FILE):
+        print(f"Lock file exists. Waiting for release...")
+        time.sleep(1)  # Wait for the lock to be released
+    # Create the lock file
+    with open(LOCK_FILE, "w") as lock:
+        lock.write("locked")
+
+
+def release_lock():
+    """Release the lock after completing operations."""
+    if os.path.exists(LOCK_FILE):
+        os.remove(LOCK_FILE)
+
+
 def run_git_command(cmd, allow_fail=False):
     """
     Helper function to run a git command and ensure robustness.
@@ -994,9 +1013,9 @@ def run_git_command(cmd, allow_fail=False):
         print(f"Command failed: {' '.join(cmd)}")
         print(e.stderr)
         if not allow_fail:
-            # If failure is not allowed, retry the command after a brief wait
+            # Retry the command after a brief wait
             time.sleep(2)
-            run_git_command(cmd, allow_fail)
+            return run_git_command(cmd, allow_fail)
         return None
 
 
@@ -1005,6 +1024,7 @@ def commit_changes():
     Handles committing local changes, pulling remote changes, and pushing local changes.
     Ensures the program never terminates, handling all scenarios gracefully.
     """
+    acquire_lock()  # Lock the repository
     try:
         # Step 1: Configure Git to avoid rebasing on pull
         run_git_command(["git", "config", "pull.rebase", "false"])
@@ -1023,15 +1043,11 @@ def commit_changes():
             print("No changes to commit.")
 
         # Step 5: Pull and merge remote changes
-        # Automatically resolve conflicts by favoring local changes (or remote changes if desired)
+        # Resolve conflicts by preserving both local and remote changes
         try:
-            run_git_command(
-                ["git", "pull", "--strategy=recursive", "--strategy-option=theirs"],
-                allow_fail=True,
-            )
-        except Exception:
-            print("Merge conflicts detected. Resolving conflicts...")
-
+            run_git_command(["git", "pull", "--strategy=recursive", "--no-edit"], allow_fail=True)
+        except Exception as e:
+            print(f"Conflicts detected during pull: {e}")
             # Attempt to resolve conflicts automatically
             run_git_command(["git", "mergetool"], allow_fail=True)
             run_git_command(["git", "commit", "--no-edit"], allow_fail=True)
@@ -1039,24 +1055,26 @@ def commit_changes():
         # Step 6: Push local changes to the remote repository
         try:
             run_git_command(["git", "push"])
-        except Exception:
-            print("Push failed. Retrying with `--force`...")
-            run_git_command(["git", "push", "--force"], allow_fail=True)
+        except Exception as e:
+            print(f"Push failed: {e}")
+            print("Retrying push...")
+            # Retry after syncing with remote
+            run_git_command(["git", "pull", "--rebase"], allow_fail=True)
+            run_git_command(["git", "push"], allow_fail=True)
 
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-        print("Continuing execution to ensure no termination.")
+    finally:
+        release_lock()  # Always release the lock, even if an error occurs
 
 
 def pull_repo():
     """
     Pulls the latest changes from the repository, ensuring no termination on errors.
     """
+    acquire_lock()  # Lock the repository
     try:
         run_git_command(["git", "pull", "--rebase"], allow_fail=True)
-    except Exception as e:
-        print(f"Error pulling the repository: {e}")
-        print("Continuing execution to ensure no termination.")
+    finally:
+        release_lock()  # Always release the lock after pulling
 
 
 def autoblogger(query, model, size, lang, category, sample_size, outline_editor):
