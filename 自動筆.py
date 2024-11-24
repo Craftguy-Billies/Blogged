@@ -1272,15 +1272,13 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["斷食三天可以吃什麼",
-	       "體重突然下降看哪一科",
-	       "72小時斷食多久一次",
+    queries = ["72小時斷食多久一次",
 	       "168斷食可以每天做嗎",
 	       "168斷食時間要固定嗎",
 	       "168斷食適合長期嗎",
 	       "168斷食一個月沒瘦"
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
