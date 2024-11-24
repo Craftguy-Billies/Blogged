@@ -1272,12 +1272,12 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["jo malone是女香嗎",
-	       "如何挑選香水",
-	       "持久香水推薦女",
-	       "如何找到自己喜歡的香水",
-	       "香水味道有哪些",
-	       "香水分類有哪些"
+    queries = ["淡香水、淡香精一樣嗎",
+	       "香水的香調有哪些",
+	       "香水香調表是什麼",
+	       "香水調性有哪些",
+	       "香水前中後調是什麼",
+	       "香水前中後調時間"
 ]
     categories = [['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品']]
 
