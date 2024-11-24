@@ -1242,12 +1242,13 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["168斷食可以每天做嗎",
-	       "168斷食時間要固定嗎",
-	       "168斷食適合長期嗎",
-	       "168斷食一個月沒瘦"
+    queries = ["如何挑選香水",
+	       "持久香水推薦女",
+	       "如何找到自己喜歡的香水",
+	       "香水味道有哪些",
+	       "香水分類有哪些"
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品'],['購物','時尚精品']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
