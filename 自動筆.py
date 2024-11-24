@@ -980,40 +980,83 @@ def get_current_hk_time():
     current_time = datetime.now(tz_hk)
     return current_time.isoformat()
 
+def run_git_command(cmd, allow_fail=False):
+    """
+    Helper function to run a git command and ensure robustness.
+    If `allow_fail` is True, the function will not raise an error on failure.
+    """
+    try:
+        result = subprocess.run(cmd, check=True, capture_output=True, text=True)
+        print(f"Command succeeded: {' '.join(cmd)}")
+        print(result.stdout)
+        return result.stdout
+    except subprocess.CalledProcessError as e:
+        print(f"Command failed: {' '.join(cmd)}")
+        print(e.stderr)
+        if not allow_fail:
+            # If failure is not allowed, retry the command after a brief wait
+            time.sleep(2)
+            run_git_command(cmd, allow_fail)
+        return None
+
+
 def commit_changes():
+    """
+    Handles committing local changes, pulling remote changes, and pushing local changes.
+    Ensures the program never terminates, handling all scenarios gracefully.
+    """
     try:
-        # Step 1: Set Git config to always merge changes (avoids rebase conflicts)
-        subprocess.run(["git", "config", "pull.rebase", "false"], check=True)
+        # Step 1: Configure Git to avoid rebasing on pull
+        run_git_command(["git", "config", "pull.rebase", "false"])
 
-        # Step 2: Fetch the latest changes from GitHub
-        subprocess.run(["git", "fetch", "origin"], check=True)
-        
-        # Step 3: Add all local changes
-        subprocess.run(["git", "add", "--all"], check=True)
-        
-        # Step 4: Commit local changes
-        subprocess.run(["git", "commit", "-m", "讀萬卷書不如寫萬篇文"], check=True)
-        
-        # Step 5: Pull the latest changes from GitHub and merge
-        subprocess.run(["git", "pull", "--strategy=recursive", "--strategy-option=theirs"], check=True)
+        # Step 2: Fetch latest changes from the remote repository
+        run_git_command(["git", "fetch", "origin"])
 
-    except subprocess.CalledProcessError as e:
-        print(f"Error occurred during git operation: {e}")
-        # Continue even if pull fails due to conflicts
+        # Step 3: Stage all local changes
+        run_git_command(["git", "add", "--all"])
 
-    try:
-        # Step 6: Push the changes, force if needed
-        subprocess.run(["git", "push", "--force"], check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Error occurred during git push: {e}")
+        # Step 4: Commit local changes with a message
+        commit_message = "讀萬卷書不如寫萬篇文"
+        try:
+            run_git_command(["git", "commit", "-m", commit_message], allow_fail=True)
+        except Exception:
+            print("No changes to commit.")
+
+        # Step 5: Pull and merge remote changes
+        # Automatically resolve conflicts by favoring local changes (or remote changes if desired)
+        try:
+            run_git_command(
+                ["git", "pull", "--strategy=recursive", "--strategy-option=theirs"],
+                allow_fail=True,
+            )
+        except Exception:
+            print("Merge conflicts detected. Resolving conflicts...")
+
+            # Attempt to resolve conflicts automatically
+            run_git_command(["git", "mergetool"], allow_fail=True)
+            run_git_command(["git", "commit", "--no-edit"], allow_fail=True)
+
+        # Step 6: Push local changes to the remote repository
+        try:
+            run_git_command(["git", "push"])
+        except Exception:
+            print("Push failed. Retrying with `--force`...")
+            run_git_command(["git", "push", "--force"], allow_fail=True)
+
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        print("Continuing execution to ensure no termination.")
 
 
 def pull_repo():
+    """
+    Pulls the latest changes from the repository, ensuring no termination on errors.
+    """
     try:
-        # Pull the latest changes from the repository, including sitemap.xml
-        subprocess.run(["git", "pull", "--rebase"], check=True)
-    except subprocess.CalledProcessError as e:
+        run_git_command(["git", "pull", "--rebase"], allow_fail=True)
+    except Exception as e:
         print(f"Error pulling the repository: {e}")
+        print("Continuing execution to ensure no termination.")
 
 
 def autoblogger(query, model, size, lang, category, sample_size, outline_editor):
