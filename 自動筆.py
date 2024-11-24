@@ -1288,11 +1288,11 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["斷食後第一餐拉肚子",
-	       "斷食後第一餐怎麼吃",
-	       "斷食後第一餐可以喝牛奶嗎",
-	       "斷食期間可以吃維他命嗎",
-	       "斷食期間可以吃益生菌嗎"
+    queries = ["明日葉缺點",
+	       "吃明日葉有什麼好處",
+	       "明日葉功效和禁忌",
+	       "明日葉粉怎麼吃",
+	       "明日葉有咖啡因嗎"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
