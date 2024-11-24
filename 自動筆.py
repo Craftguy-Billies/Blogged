@@ -1008,39 +1008,12 @@ def commit_changes():
         print(f"Error occurred during git push: {e}")
 
 
-def configure_sparse_checkout():
-    """
-    Configure sparse-checkout to exclude the 'images/' folder.
-    """
-    try:
-        # Enable sparse-checkout for the repository
-        subprocess.run(["git", "config", "core.sparseCheckout", "true"], check=True)
-
-        # Define the sparse-checkout patterns
-        with open(".git/info/sparse-checkout", "w") as f:
-            f.write("/*\n")  # Include all files
-            f.write("!images/\n")  # Exclude the 'images/' folder
-
-        print("Sparse-checkout configured to exclude 'images/' folder.")
-    except Exception as e:
-        print(f"Error configuring sparse-checkout: {e}")
-
-
 def pull_repo():
-    """
-    Pull the latest changes from the repository, excluding the 'images/' folder.
-    """
     try:
-        # Configure sparse-checkout if not already done
-        configure_sparse_checkout()
-
-        # Pull the latest changes
-        print("Pulling the latest changes (excluding 'images/' folder)...")
+        # Pull the latest changes from the repository, including sitemap.xml
         subprocess.run(["git", "pull", "--rebase"], check=True)
-
     except subprocess.CalledProcessError as e:
         print(f"Error pulling the repository: {e}")
-        # Continue execution even if pull fails
 
 
 def autoblogger(query, model, size, lang, category, sample_size, outline_editor):
