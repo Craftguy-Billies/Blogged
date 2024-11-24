@@ -21,7 +21,7 @@ DEBUG = False
 
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
-  api_key = "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"
+  api_key = "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"
 )
 
 def crawl_top_10_results(query, nor=10):
@@ -1288,12 +1288,14 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["吃明日葉有什麼好處",
+    queries = ["明日葉茶可以每天喝嗎",
+	       "明日葉什麼時候喝",
+	       "吃明日葉有什麼好處",
 	       "明日葉功效和禁忌",
 	       "明日葉粉怎麼吃",
 	       "明日葉有咖啡因嗎"
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
