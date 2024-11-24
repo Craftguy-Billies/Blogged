@@ -1242,10 +1242,10 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["明日葉茶可以每天喝嗎",
-	       "明日葉什麼時候喝"
-	       "香水可以噴頭髮嗎",
-	       "女生如何讓自己香香的"
+    queries = ["168斷食可以喝無糖豆漿嗎",
+	       "168斷食可以喝豆漿嗎",
+	       "168斷食可以喝咖啡嗎",
+	       "168斷食可以喝拿鐵嗎"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
