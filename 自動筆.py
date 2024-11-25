@@ -21,7 +21,7 @@ DEBUG = False
 
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
-  api_key = "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"
+  api_key = "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"
 )
 
 def crawl_top_10_results(query, nor=10):
@@ -1242,11 +1242,11 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["斷食48小時自噬",
-	       "飢餓感燃燒脂肪",
-	       "餓多久開始消耗脂肪",
-	       "脂肪會變成肌肉嗎",
-	       "斷食48小時好處"
+    queries = ["發奶食物有哪些",
+	       "怎麼快速發奶",
+	       "喝豆漿會發奶嗎",
+	       "吃什麼可以增加奶量",
+	       "什麼食物會塞奶"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
