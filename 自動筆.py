@@ -1242,13 +1242,14 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["發奶食物有哪些",
-	       "怎麼快速發奶",
-	       "喝豆漿會發奶嗎",
-	       "吃什麼可以增加奶量",
-	       "什麼食物會塞奶"
+    queries = ["塞奶怎麼辦",
+	       "吃麵包會塞奶嗎",
+	       "巧克力會塞奶嗎",
+	       "櫻桃會退奶嗎",
+	       "塞奶如何排空",
+	       "退奶硬塊多久吸收"
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
