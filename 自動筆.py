@@ -1242,10 +1242,10 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["吃明日葉有什麼好處",
-	       "明日葉功效和禁忌",
-	       "明日葉粉怎麼吃",
-	       "明日葉有咖啡因嗎"
+    queries = ["生酮可以喝零卡可樂嗎",
+	       "青汁什麼時候喝效果較好",
+	       "大麥若葉青汁該怎麼喝",
+	       "青汁怎麼喝"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
