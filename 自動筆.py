@@ -1242,12 +1242,13 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["生酮可以喝零卡可樂嗎",
-	       "青汁什麼時候喝效果較好",
-	       "大麥若葉青汁該怎麼喝",
-	       "青汁怎麼喝"
+    queries = ["斷食48小時自噬",
+	       "飢餓感燃燒脂肪",
+	       "餓多久開始消耗脂肪",
+	       "脂肪會變成肌肉嗎",
+	       "斷食48小時好處"
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
