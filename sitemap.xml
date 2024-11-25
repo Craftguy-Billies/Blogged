@@ -1554,4 +1554,10 @@
     <ns0:changefreq>weekly</ns0:changefreq>
     <ns0:priority>0.90</ns0:priority>
   </ns0:url>
+<ns0:url>
+    <ns0:loc>https://www.avoir.me/飢餓感燃燒脂肪/</ns0:loc>
+    <ns0:lastmod>2024-11-25T18:08:53+08:00</ns0:lastmod>
+    <ns0:changefreq>weekly</ns0:changefreq>
+    <ns0:priority>0.90</ns0:priority>
+  </ns0:url>
 </ns0:urlset>
