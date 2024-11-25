@@ -21,6 +21,7 @@ def submit_urls_to_indexnow(rss_url, api_key, host):
     response = requests.post(api_url, headers=headers, data=json.dumps(url_list))
 
     print(response.status_code)
+    print(response)
     print(response.json())
 
 if __name__ == "__main__":
