@@ -1242,12 +1242,12 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["哪些精油是小黑蚊剋星",
-	       "螞蟻怕什麼精油",
-	       "香茅油可以驅螞蟻嗎",
-	       "家裡有螞蟻原因",
-	       "為什麼螞蟻會突然出現",
-	       "檀香可以驅蚊嗎"
+    queries = ["青汁怎麼喝",
+	       "蘋果汁有什麼好處",
+	       "起司片常溫可以放多久",
+	       "乳酪片可以冷凍嗎",
+	       "起司可以冷凍嗎",
+	       "起司出水還能吃嗎"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
