@@ -1020,7 +1020,7 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     final_article = "<!DOCTYPE html>"
     h2count = len(outline)
     title = titler(outline, query, model, lang, h2count)
-    file_url = f"https://avoir.me/{query}/index.html"
+    file_url = f"https://www.avoir.me/{query}/index.html"
     ban = banner(title, model)
     image = banner(title, model, outline, ban)
     metadata = metadataer(outline, query, lang, model)
@@ -1242,12 +1242,12 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["塞奶怎麼辦",
-	       "吃麵包會塞奶嗎",
-	       "巧克力會塞奶嗎",
-	       "櫻桃會退奶嗎",
-	       "塞奶如何排空",
-	       "退奶硬塊多久吸收"
+    queries = ["小黑蚊如何消滅",
+	       "小黑蚊怕什麼味道",
+	       "香茅油可以防小黑蚊嗎",
+	       "小黑蚊怕什麼樹",
+	       "茶樹精油可以泡澡嗎",
+	       "艾草能驅蚊嗎"
 ]
     categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
 
