@@ -21,7 +21,7 @@ DEBUG = False
 
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
-  api_key = "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"
+  api_key = "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"
 )
 
 def crawl_top_10_results(query, nor=10):
@@ -1242,14 +1242,9 @@ def autoblogger(query, model, size, lang, category, sample_size, outline_editor)
     append_to_sitemap(loc, priority)
 
 def main():
-    queries = ["青汁怎麼喝",
-	       "蘋果汁有什麼好處",
-	       "起司片常溫可以放多久",
-	       "乳酪片可以冷凍嗎",
-	       "起司可以冷凍嗎",
-	       "起司出水還能吃嗎"
+    queries = ["什麼手搖飲最好喝"
 ]
-    categories = [['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活'],['健康','生活']]
+    categories = [['美食','飲食健康']]
 
     model = "meta/llama-3.1-405b-instruct"
     size = 4
